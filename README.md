@@ -23,7 +23,7 @@ giving a user-friendly interface, making things as simple as possible.
   - [Components](#components)
   - [API Routes](#api-routes)
 - [Packages](#packages)
-- [Contributing](#how-to-contribute)
+- [Contributing](#contributing)
 - [Author](#author)
 
 ## Screenshots
@@ -37,19 +37,19 @@ giving a user-friendly interface, making things as simple as possible.
 [(Back to top)](#table-of-contents)
 
 - ### Pages
-  - [] Soon...
+  - [] :bird: Soon..
 
 - ### Components
-  - [] Soon...
+  - [] :bird: Soon..
 
 - ### API Routes
-  - [] Soon...
+  - [] :bird: Soon..
 
 ## Packages
 
 [(Back to top)](#table-of-contents)
 
-- :sleep: Soon...
+- :bird: Soon...
 
 ## Contributing
 
