@@ -1,5 +1,5 @@
 <div align="center">
-<img width="200" src="images/logo.png" alt="Changix"/>
+<img width="200" src="images/logo.svg" alt="Changix"/>
 
 # Changix
 
@@ -24,6 +24,7 @@ giving a user-friendly interface, making things as simple as possible.
   - [API Routes](#api-routes)
 - [Packages](#packages)
 - [Contributing](#contributing)
+- [Useful links](#useful-links)
 - [Author](#author)
 
 ## Screenshots
@@ -76,6 +77,13 @@ giving a user-friendly interface, making things as simple as possible.
 
     >> After your pull request's merge has been done, you can delete your branch
 ```
+
+## Useful links
+
+[(Back to top)](#table-of-contents)
+
+- [File converter](https://cloudconvert.com)
+- [Logo maker](https://howtostartanllc.com/logo-maker/)
 
 ## Author
 
