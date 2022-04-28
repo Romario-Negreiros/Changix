@@ -11,7 +11,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     <>
       <Head>
         <title>Changix</title>
-        <link rel="shortcut icon" href="images/logo.svg" />
+        <link rel="shortcut icon" href="icons/favicon.ico" />
       </Head>
       {children}
     </>
