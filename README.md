@@ -36,20 +36,20 @@ giving a user-friendly interface, making things as simple as possible.
 
 [(Back to top)](#table-of-contents)
 
-- Pages
-  [] Soon...
+- ### Pages
+  - [] Soon...
 
-- Components
-  [] Soon...
+- ### Components
+  - [] Soon...
 
-- API Routes
-  [] Soon...
+- ### API Routes
+  - [] Soon...
 
 ## Packages
 
 [(Back to top)](#table-of-contents)
 
-- Soon...
+- :sleep: Soon...
 
 ## Contributing
 
@@ -71,10 +71,8 @@ giving a user-friendly interface, making things as simple as possible.
     git push origin feature
 
     >> Once you push your changes, click the compare && pull request button in your github
-    ![Compare and PR button](images/compare_and_pr_button.png)
 
     >> Click the create pull request button
-    ![PR Button](images/pr_button.png)
 
     >> After your pull request's merge has been done, you can delete your branch
 ```
@@ -83,5 +81,6 @@ giving a user-friendly interface, making things as simple as possible.
 
 [(Back to top)](#table-of-contents)
 
+- [LinkedIn](https://www.linkedin.com/in/romario-negreiros-8591b6214)
 - [Website](https://romario-negreiros.github.io/Romario-frontend/)
 - [Frontend Mentor](https://www.frontendmentor.io/profile/Romario-Negreiros)
