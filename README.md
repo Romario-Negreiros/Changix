@@ -6,7 +6,7 @@
 ![NextJS](https://img.shields.io/badge/nextjs-v12.1.5-blue.svg)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
-:star: Star me on GitHub — it motivates me a lot!
+:star: Star me on GitHub!
 </div>
 
 ## Overview
