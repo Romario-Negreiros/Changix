@@ -1,5 +1,5 @@
 <div align="center">
-<img width="200" src="images/logo.svg" alt="Changix"/>
+<img width="200" src="public/images/logo.svg" alt="Changix"/>
 
 # Changix
 
