@@ -3,9 +3,13 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import handleMobileMenu from '../../utils/handlers/handleMobileMenu'
+
 import styles from '../../styles/Header.module.css'
 
 const Header: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+
   return (
     <header className={styles.container}>
       <section className={styles.logo}>
@@ -14,7 +18,26 @@ const Header: React.FC = () => {
         </div>
       </section>
       <nav className={styles.navigation}>
-        <ul className={styles.navigation_items}>
+        <div
+          className={styles.burguer}
+          onClick={() => handleMobileMenu(setIsMenuOpen)}
+        >
+          <span
+            className={`${styles.first} ${isMenuOpen && styles.close_left}`}
+          ></span>
+          <span
+            className={`${styles.second} ${isMenuOpen && styles.close_right}`}
+          ></span>
+          <span
+            className={`${styles.third} ${isMenuOpen && styles.fade}`}
+          ></span>
+        </div>
+
+        <ul
+          className={`${styles.navigation_items} ${
+            isMenuOpen && styles.navigation_items_active
+          }`}
+        >
           <li>
             <Link href="/home">
               <a>Home</a>
