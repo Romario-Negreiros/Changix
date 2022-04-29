@@ -17,12 +17,6 @@
   background-color: #fff;
 }
 
-.navigation {
-  @media screen and (min-width: 45rem) {
-    margin-right: 2rem;
-  }
-}
-
 .navigation_items {
   display: flex;
   justify-content: space-around;
@@ -37,9 +31,6 @@
   transform: translateY(-70rem);
   transition: transform 0.4s ease-in-out;
   background-color: var(--colors-secondary);
-  @media screen and (min-width: 45rem) {
-    flex-direction: row;
-  }
 }
 
 .navigation_items_active {
@@ -67,9 +58,6 @@
   right: 2rem;
   z-index: 2;
   cursor: pointer;
-  @media screen and (min-width: 45rem) {
-    display: none;
-  }
 }
 
 .burguer span {
@@ -78,9 +66,6 @@
   height: .2rem;
   background-color: #fff;
   transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-  @media screen and (min-width: 45rem) {
-    display: none;
-  }
 }
 
 .close_left {
@@ -93,4 +78,20 @@
 
 .fade {
   opacity: 0;
+}
+  
+@media screen and (min-width: 450px) {
+  .navigation_items {
+    flex-direction: row;
+    position: unset;
+    justify-content: unset;
+    width: unset;
+    height: unset;
+    transform: unset;
+    background-color: unset;
+  }
+
+  .burguer {
+    display: none;
+  }
 }
