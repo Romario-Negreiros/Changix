@@ -1,15 +1,19 @@
 import React from 'react'
 
-// import Link from 'next/link'
+import Link from 'next/link'
+
+import Lottie from 'lottie-react'
 
 import styles from '../styles/Landing.module.css'
+
+import LandingAnimation from '../../public/animations/landing.json'
 
 import type { NextPage } from 'next'
 
 const Landing: NextPage = () => {
   return (
     <main className={styles.container}>
-      {/* <article className={styles.texts_container}>
+      <article className={styles.texts_container}>
         <section>
           <h1>Get rid of the old and find out the new</h1>
           <p>
@@ -18,8 +22,8 @@ const Landing: NextPage = () => {
           </p>
         </section>
         <section>
-          <Link href="/sign_in">
-            <a>Sign in now</a>
+          <Link href="/sign_up">
+            <a>Sign up now</a>
           </Link>
           <Link href="/home">
             <a>Explore</a>
@@ -27,8 +31,10 @@ const Landing: NextPage = () => {
         </section>
       </article>
       <article className={styles.decorations_container}>
-        <div>Beatiful image soon...</div>
-      </article> */}
+        <section>
+          <Lottie animationData={LandingAnimation} loop />
+        </section>
+      </article>
     </main>
   )
 }
