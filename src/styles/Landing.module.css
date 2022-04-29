@@ -1,14 +1,17 @@
 .container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   height: calc(100vh - 60px);
 }
 
 .texts_container {
-  flex-basis: 50%;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  padding: 10rem 6rem;
+  flex-direction: column;
+  height: 100%;
+  max-width: 550px;
+  padding: 6rem 1.5rem 2rem;
 }
 
 .texts_container section {
@@ -19,22 +22,99 @@
 }
 
 .texts_container h1 {
-  font-size: 5rem;
-  letter-spacing: 0.2rem;
+  font-size: 3.4rem;
   color: var(--colors-secondary);
 }
 
 .texts_container p {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 300;
-  line-height: 4rem;
+  line-height: 3rem;
   color: var(--colors-primary);
 }
 
+.texts_container section:nth-child(2) {
+  justify-content: space-between;
+}
+
+.texts_container a {
+  padding: .5rem 1.4rem;
+  font-size: 1.8rem;
+  color: #fff;
+  background-color: var(--colors-secondary);
+}
+
 .decorations_container {
-  flex-basis: 50%;
-  display: grid;
-  place-items: center;
-  color: #000;
-  font-size: 11rem;
+  display: none;
+}
+
+@media screen and (min-width: 450px) {
+  .texts_container {
+    justify-content: unset;
+    gap: 10rem;
+  }
+
+  .texts_container h1 {
+    font-size: 5rem;
+  }
+  
+  .texts_container p {
+    font-size: 2.5rem;
+  }
+
+  .texts_container a {
+    padding: 1rem 2rem;
+    font-size: 2rem;
+  }
+
+  .texts_container section:nth-child(2) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: unset;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .container {
+    flex-direction: row;
+    align-items: unset;
+  }
+
+  .texts_container {
+    flex-basis: 50%;
+    justify-content: space-between;
+    gap: 0;
+    padding: 4rem;
+  }
+  
+  .texts_container section:nth-child(2) {
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .texts_container h1 {
+    font-size: 5rem;
+  }
+
+  .texts_container a:hover {
+    opacity: 0.5;
+  }
+
+  .decorations_container {
+    flex-basis: 50%;
+    display: grid;
+    place-items: center;
+  }
+
+  .decorations_container section {
+    width: 50%;
+    height: 50%;
+  }
+}
+
+@media screen and (min-width: 1250px) {
+  .texts_container {
+    max-width: unset;
+    padding: 6rem 10rem;
+  }
 }
