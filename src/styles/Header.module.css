@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: var(--colors-secondary);
+}
+
+.logo {
+  padding: 1rem 2rem;
+}
+
+.logo div {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: #fff; 
+}
+
+.navigation {
+  margin-right: 2rem;
+}
+
+.navigation_items {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.navigation_items a {
+  display: block;
+  padding: 1rem 2rem;
+  border-bottom: 2px solid transparent;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.navigation_items a:hover {
+  border-color: var(--border);
+}
