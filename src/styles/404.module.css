@@ -1,0 +1,74 @@
+.container {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - 60px);
+  padding: .5rem;
+}
+
+.container section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 600px;
+  gap: 3rem;
+}
+
+.container h1 {
+  font-size: 2.6rem;
+  letter-spacing: 0.2rem;
+  color: var(--colors-secondary);
+}
+
+.container div {
+  display: grid;
+  place-items: center;
+  width: 80%;
+}
+
+.container p {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 300;
+  color: var(--colors-primary);
+}
+
+.container button {
+  cursor: pointer;
+  padding: .9rem 1.5rem;
+  font-size: 2rem;
+  color: #fff;
+  background-color: var(--colors-secondary);
+}
+
+.container button:hover {
+  opacity: 0.5;
+}
+
+@media screen and (min-width: 450px) {
+  .container {
+    padding: 2rem;
+  }
+
+  .container h1 {
+    font-size: 4rem;
+  }
+}
+
+@media screen and (min-width: 950px) {
+  .container section {
+    gap: 2rem;
+  }
+  
+  .container h1 {
+    font-size: 5rem;
+  }
+
+  .container p {
+    font-size: 2.5rem;
+  }
+
+  .container button {
+    padding: 1.5rem 2.rem;
+    font-size: 2.5rem;
+  }
+}
