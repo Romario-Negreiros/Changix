@@ -31,26 +31,29 @@ giving a user-friendly interface, making things as simple as possible.
 
 [(Back to top)](#table-of-contents)
 
-:bird: Nothing to see here yet...
+- ### Landing page
+![LandingPage](public/images/landing_page.png)
 
 ## Progress
 
 [(Back to top)](#table-of-contents)
 
 - ### Pages
-  - [] :bird: Soon..
-
-- ### Components
-  - [] :bird: Soon..
+  - [x] Landing
+  - [ ] Home
+  - [ ] Sign up
+  - [ ] Sign in
+  - [ ] Profile
+  - [ ] Item
 
 - ### API Routes
-  - [] :bird: Soon..
+  - [ ] :bird: Soon..
 
 ## Packages
 
 [(Back to top)](#table-of-contents)
 
-- :bird: Soon...
+- [Lottie-React](https://github.com/Gamote/lottie-react)
 
 ## Contributing
 
