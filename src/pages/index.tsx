@@ -30,11 +30,11 @@ const Landing: NextPage = () => {
           </Link>
         </section>
       </article>
-      <article className={styles.decorations_container}>
-        <section>
+      <section className={styles.decorations_container}>
+        <div>
           <Lottie animationData={LandingAnimation} loop />
-        </section>
-      </article>
+        </div>
+      </section>
     </main>
   )
 }
