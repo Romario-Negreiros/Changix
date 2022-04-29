@@ -1,3 +1,40 @@
 .container {
-  
+  display: flex;
+  height: calc(100vh - 60px);
+}
+
+.texts_container {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10rem 6rem;
+}
+
+.texts_container section {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  gap: 2rem;
+}
+
+.texts_container h1 {
+  font-size: 5rem;
+  letter-spacing: 0.2rem;
+  color: var(--colors-secondary);
+}
+
+.texts_container p {
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 4rem;
+  color: var(--colors-primary);
+}
+
+.decorations_container {
+  flex-basis: 50%;
+  display: grid;
+  place-items: center;
+  color: #000;
+  font-size: 11rem;
 }

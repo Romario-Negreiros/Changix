@@ -13,6 +13,10 @@ body {
   background-color: var(--bg-primary);
 }
 
+.body-on-menu-active {
+  overflow: hidden;
+}
+
 a {
   color: inherit;
   text-decoration: none;
