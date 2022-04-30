@@ -3,9 +3,9 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import handleMobileMenu from '../../../utils/handlers/handleMobileMenu'
+import handleMobileMenu from '@utils/handlers/handleMobileMenu'
 
-import styles from './Header.module.css'
+import styles from '@styles/Header.module.css'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)

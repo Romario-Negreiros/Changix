@@ -4,9 +4,9 @@ import Lottie from 'lottie-react'
 
 import { useRouter } from 'next/router'
 
-import styles from '../styles/404.module.css'
+import styles from '@styles/404.module.css'
 
-import _404Animation from '../../public/animations/404.json'
+import _404Animation from '@public/animations/404.json'
 
 import type { NextPage } from 'next'
 

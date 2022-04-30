@@ -1,6 +1,6 @@
 import React from 'react'
 
-import styles from './GetEmail.module.css'
+import styles from '@styles/GetEmail.module.css'
 
 const GetEmail: React.FC = () => {
   return (

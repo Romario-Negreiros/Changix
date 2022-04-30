@@ -1,1 +1,2 @@
-export { default as GetEmail } from './GetEmail/GetEmail'
+export { default as GetEmail } from './GetEmail'
+export { default as VerifyEmailMessage } from './VerifyEmailMessage'
