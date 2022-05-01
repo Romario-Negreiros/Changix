@@ -45,6 +45,7 @@ giving a user-friendly interface, making things as simple as possible.
   - [ ] Sign in
   - [ ] Profile
   - [ ] Item
+  - [ ] Announce Item
 
 - ### API Routes
   - [ ] :bird: Soon..
