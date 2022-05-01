@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { GetEmail } from '../components'
+import { VerifyEmailMessage } from '../components'
 
 import type { NextPage } from 'next'
 
@@ -14,7 +14,8 @@ const containerStyles = {
 const SignUp: NextPage = () => {
   return (
     <main style={containerStyles}>
-      <GetEmail />
+      {/* GetEmail = 1 */}
+      <VerifyEmailMessage /> {/* VerfiyEmailMessage = 2 */}
     </main>
   )
 }
