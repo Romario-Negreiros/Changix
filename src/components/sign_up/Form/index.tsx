@@ -1,12 +1,17 @@
 import React from 'react'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import styles from '@styles/Form.module.css'
+
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
 const Form: React.FC = () => {
   return (
     <form className={styles.form}>
       <section className={styles.file_input_container}>
         <label>
+          <FontAwesomeIcon icon={faCamera} color="#8661c1" height={25} width={25} />
           <input type="file" accept=".jpg,.jpeg,.png,.svg" />
         </label>
       </section>
@@ -34,7 +39,7 @@ const Form: React.FC = () => {
         <label htmlFor="phone_number">Phone number</label>
         <input id="phone_number" />
       </section>
-      <button>Submit</button>
+      <button type="submit">Submit</button>
     </form>
   )
 }
