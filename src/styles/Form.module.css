@@ -1,0 +1,77 @@
+.form {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 650px;
+  height: 100%;
+  padding: 1rem;
+  font-size: 1.5rem;
+  box-shadow: 5px 5px 12px rgba(0, 0, 0, .5);
+  background-color: var(--bg-secondary);
+}
+
+.file_input_container {
+  font-size: 1.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.file_input_container input {
+  display: none;
+}
+
+.file_input_container label {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  cursor: pointer;
+}
+
+.input_container {
+  width: 100%;
+  font-size: 1.5rem;
+  max-width: 300px;
+}
+
+.input_container label {
+  display: block;
+  margin-bottom: .5rem;
+  color: var(--colors-secondary);
+}
+
+.input_container input {
+  font-size: 1.5rem;
+  padding: 1.9rem .2rem .1rem;
+  width: 100%;
+  border-bottom: 1px solid var(--colors-secondary);
+  background-color: var(--bg-primary);
+}
+
+.form input:hover, .form button:hover, .file_input_container label:hover {
+  opacity: 0.5;
+}
+
+.form input:focus {
+  opacity: 1;
+}
+
+.form button {
+  font-size: 1.5rem;
+  width: 97%;
+  padding: 1rem 0;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--colors-secondary);
+}
+
+@media screen and (min-width: 1024px) {
+  .input_container, .input_container input, .file_input_container, .form button {
+    font-size: 2rem;
+  }
+}
