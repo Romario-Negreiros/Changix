@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { VerifyEmailMessage } from '../components'
+import { Form } from '../components'
 
 import type { NextPage } from 'next'
 
@@ -15,7 +15,8 @@ const SignUp: NextPage = () => {
   return (
     <main style={containerStyles}>
       {/* GetEmail = 1 */}
-      <VerifyEmailMessage /> {/* VerfiyEmailMessage = 2 */}
+      {/* VerfiyEmailMessage = 2 */}
+      <Form />
     </main>
   )
 }
