@@ -1,0 +1,13 @@
+.bubbles {
+  display: none;
+}
+
+@media screen and (min-width: 800px) {
+  .bubbles {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 560px;
+    z-index: -1;
+  }
+}
