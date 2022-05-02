@@ -30,3 +30,10 @@ input, button {
   outline: 0;
   border: 0 none;
 }
+
+.sign_pages_container {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - 60px);
+  padding: 3rem 2rem;
+}
