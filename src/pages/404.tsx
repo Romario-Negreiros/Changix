@@ -4,7 +4,7 @@ import Lottie from 'lottie-react'
 
 import { useRouter } from 'next/router'
 
-import styles from '@styles/404.module.css'
+import styles from '@styles/ErrorPages.module.css'
 
 import _404Animation from '@public/animations/404.json'
 
@@ -20,7 +20,10 @@ const _404: NextPage = () => {
         <div>
           <Lottie animationData={_404Animation} loop />
         </div>
-        <p>You might have misspelled something in the url, or attempted to visit a page which was deleted.</p>
+        <p>
+          You might have misspelled something in the url, or attempted to visit
+          a page which was deleted.
+        </p>
         <button onClick={() => router.back()}>Go back</button>
       </section>
     </main>
