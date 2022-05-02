@@ -4,16 +4,9 @@ import { Form } from '../components'
 
 import type { NextPage } from 'next'
 
-const containerStyles = {
-  display: 'grid',
-  placeItems: 'center',
-  height: 'calc(100vh - 60px)',
-  padding: '3rem 2rem'
-}
-
 const SignUp: NextPage = () => {
   return (
-    <main style={containerStyles}>
+    <main className="sign_pages_container">
       {/* GetEmail = 1 */}
       {/* VerfiyEmailMessage = 2 */}
       <Form />
