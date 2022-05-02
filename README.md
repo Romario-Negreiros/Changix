@@ -54,7 +54,8 @@ giving a user-friendly interface, making things as simple as possible.
 
 [(Back to top)](#table-of-contents)
 
-- [Lottie-React](https://github.com/Gamote/lottie-react)
+- [Lottie React](https://github.com/Gamote/lottie-react)
+- [Font Awesome Icons](https://fontawesome.com/docs/web/use-with/react/)
 
 ## Contributing
 
