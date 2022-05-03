@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { DatalistInput, Card } from '../components'
+import { Card } from '../components'
 
 import styles from '@styles/Home.module.css'
 
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
   return (
     <main className={styles.container}>
       <section className={styles.input_container}>
-        <DatalistInput />
+        <input placeholder="Search for item name" />
         <select>
           <option value="" disabled selected>
             Select a category
@@ -21,8 +21,10 @@ const Home: NextPage = () => {
         <button>Clear</button>
       </section>
       <article className={styles.results_container}>
-        <h1>Showing results for: auhsuahsuahsuash</h1> <br />
-        <h1>Using filter filter</h1>
+        <h1>
+          Showing results for: auhsuahsuahsuash <br />
+          Using filter filter
+        </h1>
         <ul>
           {new Array(50).fill(1).map((value, index) => (
             <Card key={value * index} />
