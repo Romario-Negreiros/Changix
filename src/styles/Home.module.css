@@ -6,7 +6,7 @@
   margin-top: 1rem;
 }
 
-.input_container {
+.container section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,49 +15,44 @@
   width: 100%;
 }
 
-.input_container input,
-.input_container select {
+.container section label {
+  display: block;
+  margin-bottom: .6rem;
+  font-size: 1.6rem;
+  color: var(--colors-secondary);
+}
+
+.search_container, .filter_container {
+  width: 100%;
+}
+
+.search_container input,
+.filter_container select {
+  width: 100%;
   font-size: 1.5rem;
   font-weight: 300;
-  width: 100%;
   padding: 1rem 0.4rem;
   border-radius: 5px;
   border: 1px solid var(--colors-secondary);
 }
 
-.input_container input::placeholder {
-  color: #000;
-}
-
-.input_container select {
+.filter_container select {
   padding: 0.9rem 0;
   outline: 0;
   cursor: pointer;
 }
 
-.input_container option {
+.filter_container option {
   font-size: 1.5rem;
   font-weight: 300;
 }
 
-.input_container input:hover,
-.input_container button:hover {
+.search_container input:hover {
   opacity: 0.6;
 }
 
-.input_container input:focus {
+.search_container input:focus {
   opacity: 1;
-}
-
-.input_container button {
-  width: 100%;
-  max-width: 530px;
-  padding: 1.15rem;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1.5rem;
-  border-radius: 5px;
-  background-color: var(--colors-secondary);
 }
 
 .results_container ul {
@@ -77,18 +72,12 @@
 }
 
 @media screen and (min-width: 550px) {
-  .input_container input {
+  .search_container {
     max-width: 400px;
   }
 
-  .input_container select {
+  .filter_container {
     max-width: 220px;
-  }
-}
-
-@media screen and (min-width: 620px) {
-  .input_container button {
-    width: fit-content;
   }
 }
 
