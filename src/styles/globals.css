@@ -37,3 +37,24 @@ input, button {
   height: calc(100vh - 60px);
   padding: 3rem 2rem;
 }
+
+/* Remove browsers default arrow in input with datalist */
+[list]::-webkit-calendar-picker-indicator {
+  display: none !important;
+}
+
+::-webkit-scrollbar {
+  width: 1.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #8661c169;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--colors-primary)
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #371e3080;
+}
