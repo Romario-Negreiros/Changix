@@ -57,6 +57,7 @@ giving a user-friendly interface, making things as simple as possible.
 - [Lottie React](https://github.com/Gamote/lottie-react)
 - [Font Awesome Icons](https://fontawesome.com/docs/web/use-with/react/)
 - [Sharp](https://sharp.pixelplumbing.com)
+- [React Datalist Input](https://github.com/andrelandgraf/react-datalist-input)
 
 ## Contributing
 
