@@ -15,6 +15,7 @@
   width: 100%;
 }
 
+.input_container input,
 .input_container select {
   font-size: 1.5rem;
   font-weight: 300;
@@ -22,6 +23,10 @@
   padding: 1rem 0.4rem;
   border-radius: 5px;
   border: 1px solid var(--colors-secondary);
+}
+
+.input_container input::placeholder {
+  color: #000;
 }
 
 .input_container select {
@@ -35,8 +40,13 @@
   font-weight: 300;
 }
 
+.input_container input:hover,
 .input_container button:hover {
   opacity: 0.6;
+}
+
+.input_container input:focus {
+  opacity: 1;
 }
 
 .input_container button {
@@ -67,6 +77,10 @@
 }
 
 @media screen and (min-width: 550px) {
+  .input_container input {
+    max-width: 400px;
+  }
+
   .input_container select {
     max-width: 220px;
   }
