@@ -6,6 +6,8 @@ import styles from '@styles/Home.module.css'
 
 import type { NextPage } from 'next'
 
+const selectOptions = ['Any', 'Sports', 'Musical Instruments']
+
 const Home: NextPage = () => {
   return (
     <main className={styles.container}>
@@ -17,11 +19,9 @@ const Home: NextPage = () => {
         <div className={styles.filter_container}>
           <label htmlFor="filter">Filter by category</label>
           <select id="filter">
-            <option value="any" selected>
-              Any
-            </option>
-            <option value="sports">Sports</option>
-            <option value="musical_instrument">Musical Instrument</option>
+            {selectOptions.map((option, index) => (
+              <option key={index} value={option}>{option}</option>
+            ))}
           </select>
         </div>
       </section>
