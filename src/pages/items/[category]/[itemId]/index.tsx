@@ -22,7 +22,7 @@ const Item: NextPage = () => {
       <article>
         <section className={styles.images_container}>
           {/* see naturalWidth and naturalHeight thing */}
-          <Carousel>
+          <Carousel showThumbs={false}>
             <div>
               <Image src="/images/landing_page.png" width="400px" height="300px" alt="i hate this component" />
             </div>
