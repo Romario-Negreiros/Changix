@@ -19,7 +19,7 @@ const SignIn: NextPage = () => {
   const changePwdVisibility = () => setIsPwdVisible(!isPwdVisible)
 
   return (
-    <main className="sign_pages_container">
+    <main className="container">
       <div className={styles2.bubbles} style={{ left: '0px' }}>
         <Lottie animationData={Bubbles} loop />
       </div>
