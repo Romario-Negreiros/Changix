@@ -25,7 +25,7 @@ const Card: React.FC = () => {
           src="/images/453.jpg"
           width="400px"
           height="250px"
-          alt="landing"
+          alt="book"
         />
       </section>
       <Link href="/items/category/:id">
