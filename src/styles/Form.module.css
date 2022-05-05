@@ -39,8 +39,13 @@
   max-width: 300px;
 }
 
-.input_container label {
+.full_width {
+  max-width: unset;
+}
+
+.input_container label, .label_fallback {
   display: block;
+  width: 100%;
   margin-bottom: 0.5rem;
   color: var(--colors-secondary);
 }
@@ -50,6 +55,15 @@
   width: 100%;
   border-bottom: 0.1rem solid var(--colors-secondary);
   background-color: var(--bg-primary);
+}
+
+.checkbox_wrapper {
+  display: inline-block;
+  position: initial;
+  width: fit-content !important;
+  margin: 2rem 2rem 0 0;
+  padding: .5rem;
+  border: .1rem solid var(--colors-secondary);
 }
 
 .input_container div input {
@@ -66,7 +80,8 @@
   color: var(--colors-secondary);
 }
 
-.input_container input {
+.input_container input,
+.input_container textarea {
   font-size: 1.5rem;
   font-weight: 300;
   padding: 1.9rem 0.2rem 0.1rem;
@@ -75,14 +90,37 @@
   background-color: var(--bg-primary);
 }
 
-.form input:not([readOnly]):hover,
-.form button:hover,
-.form a:hover {
-  opacity: 0.5;
+.input_container input[type=checkbox] {
+  width: fit-content;
+  cursor: pointer;
 }
 
-.form input:focus {
-  opacity: 1;
+.input_container input[type=checkbox] ~ label {
+  display: inline-block;
+  width: fit-content;
+  font-size: 1.6rem;
+  text-indent: 1rem;
+}
+
+.input_container textarea {
+  padding: 0.2rem;
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none;
+  border: 0.1rem solid var(--colors-secondary);
+}
+
+.form input:not([readOnly]):hover,
+.form textarea:hover,
+.form button:hover,
+.form a:hover {
+  opacity: 0.7;
 }
 
 .form button,
@@ -99,6 +137,7 @@
 @media screen and (min-width: 1024px) {
   .input_container,
   .input_container input,
+  .input_container textarea,
   .file_input_container,
   .form button,
   .form a {
