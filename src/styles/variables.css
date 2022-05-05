@@ -9,4 +9,6 @@
   --border: #ffb8d1;
   --colors-primary: #371e30;
   --colors-secondary: #8661c1;
+  --box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
+
 }
