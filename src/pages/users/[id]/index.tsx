@@ -7,13 +7,6 @@ import formStyles from '@styles/Form.module.css'
 
 import type { NextPage } from 'next'
 
-const containerStyles = {
-  display: 'grid',
-  placeItems: 'center',
-  padding: '2rem',
-  minHeight: 'calc(100vh - 60px)'
-}
-
 const User: NextPage = () => {
   const [isEditing, setIsEditing] = React.useState(false)
 
@@ -22,7 +15,7 @@ const User: NextPage = () => {
   }
 
   return (
-    <main style={containerStyles}>
+    <main className="container">
       <form className={formStyles.form}>
         <section className={formStyles.file_input_container}>
           <label>
@@ -69,8 +62,8 @@ const User: NextPage = () => {
           </button>
         )}
         {isEditing && <button type="submit">Save</button>}
-        <Link href="/users/:id/password">
-          <a>Update password</a>
+        <Link href="/users/:id/change_password">
+          <a>Change password</a>
         </Link>
       </form>
     </main>
