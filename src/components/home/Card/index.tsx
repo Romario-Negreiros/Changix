@@ -22,9 +22,9 @@ const Card: React.FC = () => {
       </section>
       <section className={styles.item_image_container}>
         <Image
-          src="/images/landing_page.png"
+          src="/images/453.jpg"
           width="400px"
-          height="200px"
+          height="250px"
           alt="landing"
         />
       </section>
