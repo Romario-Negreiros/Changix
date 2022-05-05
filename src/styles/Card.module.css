@@ -5,7 +5,7 @@
   max-width: 400px;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: var(--box-shadow);
   background-color: var(--bg-secondary);
   color: var(--colors-primary);
 }
