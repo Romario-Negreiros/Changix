@@ -1,7 +1,7 @@
 const handleMobileMenu = (
   setIsMenuOpen: (callback: (oldMenuState: boolean) => boolean) => void
 ) => {
-  if (window.innerWidth <= 700) {
+  if (window.innerWidth <= 550) {
     setIsMenuOpen((oldMenuState: boolean) => !oldMenuState)
   }
 }
