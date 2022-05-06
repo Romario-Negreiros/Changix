@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { ClientOnlyPortal, ChangePassword } from '../../../components'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,13 +11,19 @@ import type { NextPage } from 'next'
 
 const User: NextPage = () => {
   const [isEditing, setIsEditing] = React.useState(false)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
-  const setFormState = () => {
-    setIsEditing(!isEditing)
-  }
+  const setModalState = () => setIsModalOpen(!isModalOpen)
+
+  const setFormState = () => setIsEditing(!isEditing)
 
   return (
     <main className="container">
+      {isModalOpen && (
+        <ClientOnlyPortal selector="#modal">
+          <ChangePassword setModalState={setModalState} />
+        </ClientOnlyPortal>
+      )}
       <form className={formStyles.form}>
         <section className={formStyles.file_input_container}>
           <label style={{ cursor: isEditing ? 'pointer' : 'default' }}>
@@ -75,9 +83,7 @@ const User: NextPage = () => {
           </button>
         )}
         {isEditing && <button type="submit">Save</button>}
-        <Link href="/users/:id/change_password">
-          <a>Change password</a>
-        </Link>
+        <button type="button" onClick={setModalState}>Change password</button>
       </form>
     </main>
   )
