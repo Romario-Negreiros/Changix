@@ -144,6 +144,12 @@
   background-color: var(--colors-secondary);
 }
 
+.form h1 {
+  font-size: 2rem;
+  text-align: center;
+  color: var(--colors-secondary);
+}
+
 @media screen and (min-width: 1024px) {
   .input_container,
   .input_container input,
@@ -152,5 +158,9 @@
   .form button,
   .form a {
     font-size: 2rem;
+  }
+  
+  .form h1 {
+    font-size: 2.4rem;
   }
 }
