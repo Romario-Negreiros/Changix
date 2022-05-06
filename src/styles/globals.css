@@ -22,6 +22,10 @@ a {
   text-decoration: none;
 }
 
+a, button {
+  border-radius: 10px;
+}
+
 ul {
   list-style: none;
 }

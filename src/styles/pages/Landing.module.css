@@ -39,7 +39,7 @@
 
 .texts_container a {
   padding: .5rem 1.4rem;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: #fff;
   background-color: var(--colors-secondary);
 }
@@ -64,7 +64,7 @@
 
   .texts_container a {
     padding: 1rem 2rem;
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .texts_container section:nth-child(2) {
