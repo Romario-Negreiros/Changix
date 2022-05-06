@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=optional');
 
 :root {
-  --font-family: 'Roboto', sans serif;
+  --font-family: 'Roboto', helvetica;
   --font-weight-light: 300;
   --font-weight-medium: 500; 
   --bg-primary: #eeefe8;
@@ -10,5 +10,4 @@
   --colors-primary: #371e30;
   --colors-secondary: #8661c1;
   --box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
-
 }
