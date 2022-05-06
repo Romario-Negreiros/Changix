@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         </h1>
         <ul>
           {new Array(50).fill(1).map((value, index) => (
-            <Card key={value * index} />
+            <Card key={value * index} linkHref="/items/:category/:itemId"/>
           ))}
         </ul>
       </article>
