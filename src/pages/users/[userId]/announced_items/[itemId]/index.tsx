@@ -1,12 +1,23 @@
 import React from 'react'
 
-import formStyles from '@styles/Form.module.css'
+import { ClientOnlyPortal, ImagesUpdater } from '../../../../../components'
+
+import formStyles from '@styles/components/Form.module.css'
 
 import type { NextPage } from 'next'
 
 const ManageItem: NextPage = () => {
+  const [isModalOpen, setIsModalOpen] = React.useState(true)
+
+  const setModalState = () => setIsModalOpen(!isModalOpen)
+
   return (
     <main className="container">
+      {isModalOpen && (
+        <ClientOnlyPortal selector="#modal">
+          <ImagesUpdater setModalState={setModalState}/>
+        </ClientOnlyPortal>
+      )}
       <form className={formStyles.form}>
         <section
           className={`${formStyles.input_container} ${formStyles.full_width}`}
@@ -50,7 +61,9 @@ const ManageItem: NextPage = () => {
           </div>
         </section>
         <button type="submit">Save changes</button>
-        <button type="button">Update images</button>
+        <button type="button" onClick={setModalState}>
+          Update images
+        </button>
       </form>
     </main>
   )
