@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import formStyles from '@styles/Form.module.css'
+import formStyles from '@styles/components/Form.module.css'
 
 import type { NextPage } from 'next'
 
@@ -49,7 +49,20 @@ const User: NextPage = () => {
           <input readOnly={!isEditing} id="phone_number" />
         </section>
         <section className={formStyles.input_container}>
-          <label htmlFor="announced_items">Announced items</label>
+          <label htmlFor="announced_items">
+            <Link href="/users/58/announced_items">
+              <a
+                style={{
+                  padding: 0,
+                  backgroundColor: 'unset',
+                  color: 'var(--colors-secondary)',
+                  textDecoration: 'underline var(--colors-secondary)'
+                }}
+              >
+                Announced items
+              </a>
+            </Link>
+          </label>
           <input readOnly={!isEditing} defaultValue={4} id="announced_items" />
         </section>
         <section className={formStyles.input_container}>
