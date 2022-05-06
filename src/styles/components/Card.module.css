@@ -26,6 +26,7 @@
 
 .user_container {
   display: flex;
+  justify-content: flex-start !important;
   align-items: center;
   gap: 1rem;
   width: 100%;
