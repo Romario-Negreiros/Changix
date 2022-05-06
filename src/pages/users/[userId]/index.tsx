@@ -1,6 +1,10 @@
 import React from 'react'
 
-import { ClientOnlyPortal, ChangePassword } from '../../../components'
+import {
+  ClientOnlyPortal,
+  ChangePassword,
+  DeleteAccount
+} from '../../../components'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,11 +13,17 @@ import formStyles from '@styles/components/Form.module.css'
 
 import type { NextPage } from 'next'
 
+type Modals = 'change_pwd' | 'delete_acc'
+
 const User: NextPage = () => {
   const [isEditing, setIsEditing] = React.useState(false)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [modalOpened, setModalOpened] = React.useState<Modals | null>(null)
 
-  const setModalState = () => setIsModalOpen(!isModalOpen)
+  const setModalState = () => {
+    if (isModalOpen) setModalOpened(null)
+    setIsModalOpen(!isModalOpen)
+  }
 
   const setFormState = () => setIsEditing(!isEditing)
 
@@ -21,7 +31,12 @@ const User: NextPage = () => {
     <main className="container">
       {isModalOpen && (
         <ClientOnlyPortal selector="#modal">
-          <ChangePassword setModalState={setModalState} />
+          {modalOpened === 'change_pwd' && (
+            <ChangePassword setModalState={setModalState} />
+          )}
+          {modalOpened === 'delete_acc' && (
+            <DeleteAccount setModalState={setModalState} />
+          )}
         </ClientOnlyPortal>
       )}
       <form className={formStyles.form}>
@@ -83,7 +98,24 @@ const User: NextPage = () => {
           </button>
         )}
         {isEditing && <button type="submit">Save</button>}
-        <button type="button" onClick={setModalState}>Change password</button>
+        <button
+          type="button"
+          onClick={() => {
+            setModalState()
+            setModalOpened('change_pwd')
+          }}
+        >
+          Change password
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setModalState()
+            setModalOpened('delete_acc')
+          }}
+        >
+          Delete password
+        </button>
       </form>
     </main>
   )
