@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import Lottie from 'lottie-react'
 
-import styles from '@styles/Landing.module.css'
+import styles from '@styles/pages/Landing.module.css'
 
 import LandingAnimation from '@public/animations/landing.json'
 

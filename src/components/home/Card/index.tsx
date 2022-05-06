@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import styles from '@styles/Card.module.css'
+import styles from '@styles/components/Card.module.css'
 
 const Card: React.FC = () => {
   return (

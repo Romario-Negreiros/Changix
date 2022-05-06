@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh; /* scroll */
+  padding: 2rem;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.image_options_container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.image_options_container button {
+  max-width: 200px;
+}

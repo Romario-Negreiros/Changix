@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import handleMobileMenu from '@utils/handlers/handleMobileMenu'
 
-import styles from '@styles/Header.module.css'
+import styles from '@styles/components/Header.module.css'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
@@ -41,6 +41,11 @@ const Header: React.FC = () => {
           <li>
             <Link href="/home">
               <a>Home</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/announce">
+              <a>Announce</a>
             </Link>
           </li>
           <li>

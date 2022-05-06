@@ -2,7 +2,7 @@ import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import styles from '@styles/Form.module.css'
+import styles from '@styles/components/Form.module.css'
 
 import { faCamera, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 

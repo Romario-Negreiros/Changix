@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import styles from '@styles/Item.module.css'
+import styles from '@styles/pages/Item.module.css'
 
 import type { NextPage } from 'next'
 

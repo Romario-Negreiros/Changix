@@ -2,7 +2,7 @@ import React from 'react'
 
 import Lottie, { LottieRefCurrentProps } from 'lottie-react'
 
-import styles from '@styles/VerifyEmailMessage.module.css'
+import styles from '@styles/components/VerifyEmailMessage.module.css'
 
 import Waiting from '@public/animations/waiting.json'
 import Success from '@public/animations/success-tick.json'

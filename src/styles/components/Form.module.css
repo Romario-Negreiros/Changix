@@ -11,6 +11,7 @@
   font-size: 1.5rem;
   box-shadow: var(--box-shadow);
   background-color: var(--bg-secondary);
+  position: relative;
 }
 
 .file_input_container {
@@ -31,6 +32,15 @@
   background-color: var(--bg-primary);
   cursor: pointer;
   margin: auto;
+}
+
+.item_image_label {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 300px;
+  max-height: 200px;
+  min-height: 200px;
+  border-radius: 0 !important;
 }
 
 .input_container {

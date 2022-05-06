@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Lottie from 'lottie-react'
 
-import styles from '@styles/Form.module.css'
-import styles2 from '@styles/SignIn.module.css'
+import styles from '@styles/pages/SignIn.module.css'
+import formStyles from '@styles/components/Form.module.css'
 
 import Bubbles from '@public/animations/bubbles.json'
 
@@ -20,20 +20,20 @@ const SignIn: NextPage = () => {
 
   return (
     <main className="container">
-      <div className={styles2.bubbles} style={{ left: '0px' }}>
+      <div className={styles.bubbles} style={{ left: '0px' }}>
         <Lottie animationData={Bubbles} loop />
       </div>
-      <form className={styles.form} style={{ maxWidth: '500px' }}>
-        <section className={styles.input_container}>
+      <form className={formStyles.form} style={{ maxWidth: '500px' }}>
+        <section className={formStyles.input_container}>
           <label htmlFor="email">Email</label>
           <input id="email" />
         </section>
-        <section className={styles.input_container}>
+        <section className={formStyles.input_container}>
           <label htmlFor="pwd">Password</label>
           <div>
             <FontAwesomeIcon
               onClick={changePwdVisibility}
-              className={styles.icon}
+              className={formStyles.icon}
               icon={isPwdVisible ? faEyeSlash : faEye}
             />
             <input type={isPwdVisible ? 'text' : 'password'} id="pwd" />
@@ -43,7 +43,7 @@ const SignIn: NextPage = () => {
           Sign in
         </button>
       </form>
-      <div className={styles2.bubbles} style={{ right: '0px' }}>
+      <div className={styles.bubbles} style={{ right: '0px' }}>
         <Lottie animationData={Bubbles} loop />
       </div>
     </main>

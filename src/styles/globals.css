@@ -58,3 +58,11 @@ input, button {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #371e3080;
 }
+
+.close_modal {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 50;
+  cursor: pointer;
+}
