@@ -18,7 +18,7 @@ const User: NextPage = () => {
     <main className="container">
       <form className={formStyles.form}>
         <section className={formStyles.file_input_container}>
-          <label>
+          <label style={{ cursor: isEditing ? 'pointer' : 'default' }}>
             <Image
               src="/icons/logo.svg"
               width={50}
