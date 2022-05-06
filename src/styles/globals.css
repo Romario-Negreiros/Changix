@@ -4,7 +4,7 @@
   box-sizing: border-box;
   font-family: var(--font-family);
 }
-  
+
 html {
   font-size: 10px;
 }
@@ -22,7 +22,8 @@ a {
   text-decoration: none;
 }
 
-a, button {
+a,
+button {
   border-radius: 10px;
 }
 
@@ -30,7 +31,8 @@ ul {
   list-style: none;
 }
 
-input, button {
+input,
+button {
   outline: 0;
   border: 0 none;
 }
@@ -40,6 +42,19 @@ input, button {
   place-items: center;
   height: calc(100vh - 60px);
   padding: 3rem 2rem;
+}
+
+.modal_container {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 2rem;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 /* Remove browsers default arrow in input with datalist */
@@ -56,7 +71,7 @@ input, button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--colors-primary)
+  background-color: var(--colors-primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
