@@ -17,7 +17,7 @@ const AnnouncedItems: NextPage = () => {
   return (
     <main style={containerStyles}>
       {new Array(50).fill(1).map((value, index) => (
-        <Card key={value * index} />
+        <Card key={value * index} linkHref={`/users/5/announced_items/${index}`}/>
       ))}
     </main>
   )
