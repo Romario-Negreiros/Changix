@@ -7,7 +7,7 @@ import formStyles from '@styles/components/Form.module.css'
 import type { NextPage } from 'next'
 
 const ManageItem: NextPage = () => {
-  const [isModalOpen, setIsModalOpen] = React.useState(true)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const setModalState = () => setIsModalOpen(!isModalOpen)
 
