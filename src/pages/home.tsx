@@ -2,7 +2,11 @@ import React from 'react'
 
 import { Card } from '../components'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import styles from '@styles/pages/Home.module.css'
+
+import { faClose } from '@fortawesome/free-solid-svg-icons'
 
 import type { NextPage } from 'next'
 
@@ -14,13 +18,20 @@ const Home: NextPage = () => {
       <section>
         <div className={styles.search_container}>
           <label htmlFor="search">Search for item name</label>
-          <input id="search"/>
+          <div className={styles.input_wrapper}>
+            <input id="search" />
+            <div className={styles.clear_input}>
+              <FontAwesomeIcon icon={faClose} color="#8661c1" size="2x" />
+            </div>
+          </div>
         </div>
         <div className={styles.filter_container}>
           <label htmlFor="filter">Filter by category</label>
           <select id="filter">
             {selectOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+              <option key={index} value={option}>
+                {option}
+              </option>
             ))}
           </select>
         </div>
@@ -32,7 +43,7 @@ const Home: NextPage = () => {
         </h1>
         <ul>
           {new Array(50).fill(1).map((value, index) => (
-            <Card key={value * index} linkHref="/items/:category/:itemId"/>
+            <Card key={value * index} linkHref="/items/:category/:itemId" />
           ))}
         </ul>
       </article>
