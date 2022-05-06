@@ -81,7 +81,7 @@
   opacity: 0;
 }
   
-@media screen and (min-width: 450px) {
+@media screen and (min-width: 550px) {
   .navigation_items {
     flex-direction: row;
     position: unset;
