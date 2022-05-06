@@ -21,7 +21,7 @@ const Home: NextPage = () => {
           <div className={styles.input_wrapper}>
             <input id="search" />
             <div className={styles.clear_input}>
-              <FontAwesomeIcon icon={faClose} color="#8661c1" size="2x" />
+              <FontAwesomeIcon icon={faClose} color="#8661c1" width={25} height={25} />
             </div>
           </div>
         </div>
