@@ -64,9 +64,9 @@ input, button {
 }
 
 .close_modal {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
+  position: fixed;
+  top: 6rem;
+  left: 1.6rem;
   z-index: 50;
   cursor: pointer;
 }
