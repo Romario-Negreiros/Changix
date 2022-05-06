@@ -1,5 +1,7 @@
 import React from 'react'
 
+import Link from 'next/link'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Lottie from 'lottie-react'
@@ -39,9 +41,22 @@ const SignIn: NextPage = () => {
             <input type={isPwdVisible ? 'text' : 'password'} id="pwd" />
           </div>
         </section>
-        <button type="submit" style={{ maxWidth: '300px' }}>
-          Sign in
-        </button>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column',
+            gap: '1rem',
+            width: '100%'
+          }}
+        >
+          <button type="submit" style={{ maxWidth: '300px' }}>
+            Sign in
+          </button>
+          <Link href="/forgot_password">
+            <a style={{ maxWidth: '300px' }}>Forgot your password?</a>
+          </Link>
+        </div>
       </form>
       <div className={styles.bubbles} style={{ right: '0px' }}>
         <Lottie animationData={Bubbles} loop />
