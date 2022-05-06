@@ -8,13 +8,13 @@ import formStyles from '@styles/components/Form.module.css'
 import { faCamera, faClose } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
-interface Props {
-  setModalState: () => void
-}
+import type { SharedProps } from '../shared.types'
+
+interface Props extends SharedProps {}
 
 const ImagesUpdater: React.FC<Props> = ({ setModalState }) => {
   return (
-    <main className={styles.container}>
+    <main className="modal_container">
       <form className={formStyles.form}>
         <h1>
           Click on the image to change the current one, or on the camera to add
