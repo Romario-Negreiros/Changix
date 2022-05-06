@@ -5,7 +5,11 @@ import Link from 'next/link'
 
 import styles from '@styles/components/Card.module.css'
 
-const Card: React.FC = () => {
+interface Props {
+  linkHref: string
+}
+
+const Card: React.FC<Props> = ({ linkHref }) => {
   return (
     <li className={styles.result}>
       <section className={styles.user_container}>
@@ -28,7 +32,7 @@ const Card: React.FC = () => {
           alt="book"
         />
       </section>
-      <Link href="/items/category/:id">
+      <Link href={linkHref}>
         <a>Visit</a>
       </Link>
     </li>
