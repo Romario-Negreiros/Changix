@@ -26,14 +26,34 @@
   width: 100%;
 }
 
-.search_container input,
+.clear_input {
+  position: absolute;
+  bottom: .4rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.input_wrapper,
 .filter_container select {
   width: 100%;
   font-size: 1.5rem;
   font-weight: 300;
-  padding: 1rem 0.4rem;
   border-radius: 5px;
   border: 1px solid var(--colors-secondary);
+}
+
+.input_wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+}
+
+.search_container input {
+  width: 80%;
+  padding: 1rem 0.4rem;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .filter_container select {
