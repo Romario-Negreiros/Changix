@@ -21,7 +21,6 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "space-before-function-paren": ["error", "never"],
     "react/prop-types": [0]
   },
   "overrides": [
