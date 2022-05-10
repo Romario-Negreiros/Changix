@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { handlePwdVisibility } from '@utils/handlers'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import formStyles from '@styles/components/Form.module.css'
@@ -7,25 +9,12 @@ import formStyles from '@styles/components/Form.module.css'
 import { faEye, faEyeSlash, faClose } from '@fortawesome/free-solid-svg-icons'
 
 import type { SharedProps } from '@app/types/modals'
-
-type TVisiblePwd = ('current_pwd' | 'new_pwd' | 'confirm_new_pwd')[]
+import type { VisiblePwds } from '@app/types/global'
 
 interface Props extends SharedProps {}
 
 const ChangePassword: React.FC<Props> = ({ setModalState }) => {
-  const [visiblePwd, setVisiblePwd] = React.useState<TVisiblePwd>([])
-
-  const handlePwdVisibility = (
-    key: 'current_pwd' | 'new_pwd' | 'confirm_new_pwd'
-  ) => {
-    if (visiblePwd.includes(key)) {
-      setVisiblePwd(oldVisiblePwds =>
-        oldVisiblePwds.filter(visiblePwd => visiblePwd !== key)
-      )
-    } else {
-      setVisiblePwd([...visiblePwd, key])
-    }
-  }
+  const [visiblePwds, setVisiblePwds] = React.useState<VisiblePwds[]>([])
 
   return (
     <main className="modal_container">
@@ -37,12 +26,14 @@ const ChangePassword: React.FC<Props> = ({ setModalState }) => {
           <label htmlFor="pwd">New Password</label>
           <div>
             <FontAwesomeIcon
-              onClick={() => handlePwdVisibility('new_pwd')}
+              onClick={() =>
+                handlePwdVisibility('new_pwd', visiblePwds, setVisiblePwds)
+              }
               className={formStyles.icon}
-              icon={visiblePwd.includes('new_pwd') ? faEyeSlash : faEye}
+              icon={visiblePwds.includes('new_pwd') ? faEyeSlash : faEye}
             />
             <input
-              type={visiblePwd.includes('new_pwd') ? 'text' : 'password'}
+              type={visiblePwds.includes('new_pwd') ? 'text' : 'password'}
               id="pwd"
             />
           </div>
@@ -51,13 +42,21 @@ const ChangePassword: React.FC<Props> = ({ setModalState }) => {
           <label htmlFor="confirm_new_pwd">Confirm New Password</label>
           <div>
             <FontAwesomeIcon
-              onClick={() => handlePwdVisibility('confirm_new_pwd')}
+              onClick={() =>
+                handlePwdVisibility(
+                  'confirm_new_pwd',
+                  visiblePwds,
+                  setVisiblePwds
+                )
+              }
               className={formStyles.icon}
-              icon={visiblePwd.includes('confirm_new_pwd') ? faEyeSlash : faEye}
+              icon={
+                visiblePwds.includes('confirm_new_pwd') ? faEyeSlash : faEye
+              }
             />
             <input
               type={
-                visiblePwd.includes('confirm_new_pwd') ? 'text' : 'password'
+                visiblePwds.includes('confirm_new_pwd') ? 'text' : 'password'
               }
               id="confirm_new_pwd"
             />
@@ -67,12 +66,14 @@ const ChangePassword: React.FC<Props> = ({ setModalState }) => {
           <label htmlFor="current_pwd">Current Password</label>
           <div>
             <FontAwesomeIcon
-              onClick={() => handlePwdVisibility('current_pwd')}
+              onClick={() =>
+                handlePwdVisibility('current_pwd', visiblePwds, setVisiblePwds)
+              }
               className={formStyles.icon}
-              icon={visiblePwd.includes('current_pwd') ? faEyeSlash : faEye}
+              icon={visiblePwds.includes('current_pwd') ? faEyeSlash : faEye}
             />
             <input
-              type={visiblePwd.includes('current_pwd') ? 'text' : 'password'}
+              type={visiblePwds.includes('current_pwd') ? 'text' : 'password'}
               id="current_pwd"
             />
           </div>
