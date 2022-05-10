@@ -6,7 +6,7 @@ import formStyles from '@styles/components/Form.module.css'
 
 import { faEye, faEyeSlash, faClose } from '@fortawesome/free-solid-svg-icons'
 
-import type { SharedProps } from '../shared.types'
+import type { SharedProps } from '@app/types/modals'
 
 type TVisiblePwd = ('current_pwd' | 'new_pwd' | 'confirm_new_pwd')[]
 

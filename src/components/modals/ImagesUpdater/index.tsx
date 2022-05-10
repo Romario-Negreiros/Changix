@@ -8,7 +8,7 @@ import formStyles from '@styles/components/Form.module.css'
 import { faCamera, faClose } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
-import type { SharedProps } from '../shared.types'
+import type { SharedProps } from '@app/types/modals'
 
 interface Props extends SharedProps {}
 
