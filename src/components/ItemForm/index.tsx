@@ -4,7 +4,7 @@ import { ClientOnlyPortal, ImagesUpdater } from '..'
 
 import formStyles from '@styles/components/Form.module.css'
 
-import type { SubmitBtn, FormFields } from './types'
+import type { SubmitBtn, FormFields } from '@app/types/item'
 
 interface Props {
   submitBtn: SubmitBtn
