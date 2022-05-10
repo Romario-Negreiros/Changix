@@ -4,7 +4,7 @@ import Lottie from 'lottie-react'
 
 import { useRouter } from 'next/router'
 
-import styles from '@styles/components/Error.module.css'
+import styles from '@styles/pages/Error.module.css'
 
 import _500Animation from '@public/animations/500.json'
 
