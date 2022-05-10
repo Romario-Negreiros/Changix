@@ -1,7 +1,8 @@
+import { CountryCode } from 'libphonenumber-js/types'
+
 export interface Country {
   name: string;
-  alpha2Code: string; // cca2
-  callingCode: string; // ccn3
+  alpha2Code: CountryCode;
 }
 
 export interface FormFields {
