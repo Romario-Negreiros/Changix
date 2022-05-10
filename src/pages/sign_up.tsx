@@ -10,10 +10,6 @@ interface FetchedCountry {
     common: string
   }
   cca2: string
-  idd: {
-    root: string
-    suffixes: string[]
-  }
 }
 
 export const getStaticProps: GetStaticProps = async () => {
@@ -23,8 +19,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const countries = data.map((country: FetchedCountry) => {
     return {
       name: country.name.common,
-      alpha2Code: country.cca2,
-      callingCode: country.idd.root + country.idd.suffixes?.join()
+      alpha2Code: country.cca2
     }
   })
 
@@ -40,7 +35,6 @@ interface Props {
 }
 
 const SignUp: NextPage<Props> = ({ countries }) => {
-  console.log(countries)
   return (
     <main className="container">
       <Form countries={countries} />
