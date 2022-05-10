@@ -154,7 +154,7 @@
   color: var(--colors-secondary);
 }
 
-.form .error {
+.error {
   font-size: 1.4rem;
   font-weight: 300;
   color: red;
