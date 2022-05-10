@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { handlePwdVisibility } from '@utils/handlers'
 
 import PhoneInput from 'react-phone-number-input/input'
 
@@ -13,15 +14,25 @@ import formStyles from '@styles/components/Form.module.css'
 import { faCamera, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { FormFields, Country } from '@app/types/auth'
-
-type TVisiblePwd = ('pwd' | 'confirm_pwd')[]
+import type { VisiblePwds } from '@app/types/global'
 
 interface Props {
   countries: Country[]
 }
 
+const pwdValidationRules = {
+  minLength: {
+    value: 6,
+    message: 'At least 6 characters'
+  },
+  pattern: {
+    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%¨&*])[A-Za-z\d!@#$%¨&*]{6,}$/,
+    message: 'At least one special character and one number'
+  }
+}
+
 const Form: React.FC<Props> = ({ countries }) => {
-  const [visiblePwd, setVisiblePwd] = React.useState<TVisiblePwd>([])
+  const [visiblePwds, setVisiblePwds] = React.useState<VisiblePwds[]>([])
   const [imgPreview, setImgPreview] = React.useState('')
   const [country, setCountry] = React.useState<Country | undefined>()
   const {
@@ -53,17 +64,7 @@ const Form: React.FC<Props> = ({ countries }) => {
     })()
   }, [setValue])
 
-  const handlePwdVisibility = (key: 'pwd' | 'confirm_pwd') => {
-    if (visiblePwd.includes(key)) {
-      setVisiblePwd(oldVisiblePwds =>
-        oldVisiblePwds.filter(visiblePwd => visiblePwd !== key)
-      )
-    } else {
-      setVisiblePwd([...visiblePwd, key])
-    }
-  }
-
-  const onSubmit: SubmitHandler<FormFields> = data => {
+  const onSubmit: SubmitHandler<FormFields> = async data => {
     console.log(data)
   }
 
@@ -154,24 +155,18 @@ const Form: React.FC<Props> = ({ countries }) => {
         <label htmlFor="pwd">Password</label>
         <div>
           <FontAwesomeIcon
-            onClick={() => handlePwdVisibility('pwd')}
+            onClick={() =>
+              handlePwdVisibility('pwd', visiblePwds, setVisiblePwds)
+            }
             className={formStyles.icon}
-            icon={visiblePwd.includes('pwd') ? faEyeSlash : faEye}
+            icon={visiblePwds.includes('pwd') ? faEyeSlash : faEye}
           />
           <input
-            type={visiblePwd.includes('pwd') ? 'text' : 'password'}
+            type={visiblePwds.includes('pwd') ? 'text' : 'password'}
             id="pwd"
             {...register('pwd', {
               required: 'Password is required',
-              minLength: {
-                value: 6,
-                message: 'At least 6 characters'
-              },
-              pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%¨&*])[A-Za-z\d!@#$%¨&*]{6,}$/,
-                message: 'At least one special character and one number'
-              }
+              ...pwdValidationRules
             })}
           />
         </div>
@@ -181,24 +176,18 @@ const Form: React.FC<Props> = ({ countries }) => {
         <label htmlFor="confirmd_pwd">Confirm Password</label>
         <div>
           <FontAwesomeIcon
-            onClick={() => handlePwdVisibility('confirm_pwd')}
+            onClick={() =>
+              handlePwdVisibility('confirm_pwd', visiblePwds, setVisiblePwds)
+            }
             className={formStyles.icon}
-            icon={visiblePwd.includes('confirm_pwd') ? faEyeSlash : faEye}
+            icon={visiblePwds.includes('confirm_pwd') ? faEyeSlash : faEye}
           />
           <input
-            type={visiblePwd.includes('confirm_pwd') ? 'text' : 'password'}
+            type={visiblePwds.includes('confirm_pwd') ? 'text' : 'password'}
             id="confirm_pwd"
             {...register('confirmPwd', {
               required: 'You must repeat your password',
-              minLength: {
-                value: 6,
-                message: 'At least 6 characters'
-              },
-              pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%¨&*])[A-Za-z\d!@#$%¨&*]{6,}$/,
-                message: 'At least one special character and one number'
-              }
+              ...pwdValidationRules
             })}
           />
         </div>
