@@ -1,12 +1,14 @@
 import React from 'react'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+
+import PhoneInput from 'react-phone-number-input/input'
 
 import Image from 'next/image'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import styles from '@styles/components/Form.module.css'
+import formStyles from '@styles/components/Form.module.css'
 
 import { faCamera, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
@@ -21,11 +23,35 @@ interface Props {
 const Form: React.FC<Props> = ({ countries }) => {
   const [visiblePwd, setVisiblePwd] = React.useState<TVisiblePwd>([])
   const [imgPreview, setImgPreview] = React.useState('')
+  const [country, setCountry] = React.useState<Country | undefined>()
   const {
     register,
     handleSubmit,
+    setValue,
+    control,
     formState: { errors }
   } = useForm<FormFields>()
+
+  const fetchUserCountryCode = async (): Promise<Country | undefined> => {
+    const response = await fetch(
+      `https://api.ipregistry.co/?key=${process.env.NEXT_PUBLIC_IPREGISTRY_API_KEY}`
+    )
+    const data = await response.json()
+    return {
+      name: data.location?.country.name,
+      alpha2Code: data.location?.country.code
+    }
+  }
+
+  React.useEffect(() => {
+    ;(async () => {
+      const country = await fetchUserCountryCode()
+      if (country) {
+        setCountry(country)
+        setValue('country', country.name)
+      }
+    })()
+  }, [setValue])
 
   const handlePwdVisibility = (key: 'pwd' | 'confirm_pwd') => {
     if (visiblePwd.includes(key)) {
@@ -39,6 +65,21 @@ const Form: React.FC<Props> = ({ countries }) => {
 
   const onSubmit: SubmitHandler<FormFields> = data => {
     console.log(data)
+  }
+
+  const handleCountrySelection = (event: React.FormEvent<HTMLInputElement>) => {
+    if (event.currentTarget) {
+      const { value } = event.currentTarget
+      const selectedCountry = countries.find(country =>
+        country.name.toLowerCase().includes(value.toLowerCase())
+      )
+      if (selectedCountry) {
+        if (selectedCountry.name !== value) {
+          setValue('country', selectedCountry.name)
+        }
+        setCountry(selectedCountry)
+      }
+    }
   }
 
   const handleFileSelection = (event: React.FormEvent<HTMLInputElement>) => {
@@ -57,8 +98,8 @@ const Form: React.FC<Props> = ({ countries }) => {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <section className={styles.file_input_container}>
+    <form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
+      <section className={formStyles.file_input_container}>
         <label>
           {imgPreview
             ? (
@@ -85,7 +126,7 @@ const Form: React.FC<Props> = ({ countries }) => {
           />
         </label>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="email">Email</label>
         <input
           id="email"
@@ -97,9 +138,9 @@ const Form: React.FC<Props> = ({ countries }) => {
             }
           })}
         />
-        <p className="error">{errors.email?.message}</p>
+        <p className={formStyles.error}>{errors.email?.message}</p>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="name">Name</label>
         <input
           id="name"
@@ -107,14 +148,14 @@ const Form: React.FC<Props> = ({ countries }) => {
             required: 'Name is required'
           })}
         />
-        <p className="error">{errors.name?.message}</p>
+        <p className={formStyles.error}>{errors.name?.message}</p>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="pwd">Password</label>
         <div>
           <FontAwesomeIcon
             onClick={() => handlePwdVisibility('pwd')}
-            className={styles.icon}
+            className={formStyles.icon}
             icon={visiblePwd.includes('pwd') ? faEyeSlash : faEye}
           />
           <input
@@ -134,14 +175,14 @@ const Form: React.FC<Props> = ({ countries }) => {
             })}
           />
         </div>
-        <p className="error">{errors.pwd?.message}</p>
+        <p className={formStyles.error}>{errors.pwd?.message}</p>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="confirmd_pwd">Confirm Password</label>
         <div>
           <FontAwesomeIcon
             onClick={() => handlePwdVisibility('confirm_pwd')}
-            className={styles.icon}
+            className={formStyles.icon}
             icon={visiblePwd.includes('confirm_pwd') ? faEyeSlash : faEye}
           />
           <input
@@ -161,9 +202,9 @@ const Form: React.FC<Props> = ({ countries }) => {
             })}
           />
         </div>
-        <p className="error">{errors.confirmPwd?.message}</p>
+        <p className={formStyles.error}>{errors.confirmPwd?.message}</p>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="country">Country</label>
         <input
           id="country"
@@ -171,23 +212,33 @@ const Form: React.FC<Props> = ({ countries }) => {
           {...register('country', {
             required: 'Country is required'
           })}
+          onBlur={handleCountrySelection}
         />
         <datalist id="countries">
           {countries.map(country => (
             <option key={country.name} value={country.name} />
           ))}
         </datalist>
-        <p className="error">{errors.country?.message}</p>
+        <p className={formStyles.error}>{errors.country?.message}</p>
       </section>
-      <section className={styles.input_container}>
+      <section className={formStyles.input_container}>
         <label htmlFor="phone_number">Phone number</label>
-        <input
-          id="phone_number"
-          {...register('phoneNumber', {
+        <Controller
+          name="phoneNumber"
+          control={control}
+          rules={{
             required: 'Phone number is required'
-          })}
+          }}
+          render={({ field: { onChange, value } }) => (
+            <PhoneInput
+              id="phone_input"
+              country={country?.alpha2Code}
+              onChange={onChange}
+              value={value}
+            />
+          )}
         />
-        <p className="error">{errors.phoneNumber?.message}</p>
+        <p className={formStyles.error}>{errors.phoneNumber?.message}</p>
       </section>
       <button type="submit">Submit</button>
     </form>
