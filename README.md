@@ -58,6 +58,7 @@ giving a user-friendly interface, making things as simple as possible.
 - [Font Awesome Icons](https://fontawesome.com/docs/web/use-with/react/)
 - [Sharp](https://sharp.pixelplumbing.com)
 - [React Responsive Carousel](https://www.npmjs.com/package/react-responsive-carousel)
+- [React Hook Form](https://react-hook-form.com)
 
 ## Contributing
 
@@ -91,6 +92,8 @@ giving a user-friendly interface, making things as simple as possible.
 
 - [File converter](https://cloudconvert.com)
 - [Logo maker](https://howtostartanllc.com/logo-maker/)
+- [Regex cheat sheet](https://cheatography.com/davechild/cheat-sheets/regular-expressions/)
+- [Image previewer](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL)
 
 ## Author
 
