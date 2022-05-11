@@ -1,10 +1,8 @@
 import React from 'react'
 
-import Lottie from 'lottie-react'
+import { Error } from '../components'
 
 import { useRouter } from 'next/router'
-
-import styles from '@styles/pages/Error.module.css'
 
 import _404Animation from '@public/animations/404.json'
 
@@ -13,20 +11,21 @@ import type { NextPage } from 'next'
 const _404: NextPage = () => {
   const router = useRouter()
 
+  const btn = {
+    handleClick: () => {
+      router.back()
+    },
+    text: 'Go back'
+  }
+
   return (
-    <main className={styles.container}>
-      <section>
-        <h1>Page not found... 🔍</h1>
-        <div>
-          <Lottie animationData={_404Animation} loop />
-        </div>
-        <p>
-          You might have misspelled something in the url, or attempted to visit
-          a page which was deleted.
-        </p>
-        <button onClick={() => router.back()}>Go back</button>
-      </section>
-    </main>
+    <Error
+      title="Page not found... 🔍"
+      error="You might have misspelled something in the url, or attempted to visit
+  a page which was deleted."
+      animation={_404Animation}
+      btn={btn}
+    />
   )
 }
 
