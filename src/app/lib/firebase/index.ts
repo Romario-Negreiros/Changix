@@ -4,7 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updatePassword,
-  deleteUser
+  deleteUser,
+  sendEmailVerification,
+  sendPasswordResetEmail
 } from 'firebase/auth'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,7 +28,9 @@ const firebase = {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updatePassword,
-    deleteUser
+    deleteUser,
+    sendEmailVerification,
+    sendPasswordResetEmail
   }
 }
 
