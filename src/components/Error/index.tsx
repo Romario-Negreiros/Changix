@@ -14,6 +14,7 @@ interface Props {
     text: string
   }
   animation?: any
+  container?: Boolean
 }
 
 const Error: React.FC<Props> = ({ title, error, btn, animation }) => {
@@ -21,7 +22,7 @@ const Error: React.FC<Props> = ({ title, error, btn, animation }) => {
     <main className={styles.container}>
       <section>
         <h1>{title}</h1>
-        <div style={animation ? { width: '55%' } : undefined}>
+        <div style={!animation ? { width: '55%' } : undefined}>
           <Lottie animationData={animation ?? errorAnimation} loop />
         </div>
         <p>{error}</p>
