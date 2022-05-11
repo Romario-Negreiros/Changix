@@ -24,7 +24,7 @@ const app = initializeApp(firebaseConfig)
 
 const firebase = {
   auth: {
-    ...getAuth(app),
+    instance: getAuth(app),
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updatePassword,
