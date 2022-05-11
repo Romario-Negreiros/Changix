@@ -15,5 +15,5 @@ export interface FormFields {
   phoneNumber: string;
 }
 
-export interface User extends Omit<FormFields, 'confirmPwd'> {
+export interface UserProfile extends Omit<FormFields, 'email' | 'pwd' | 'confirmPwd'> {
 }
