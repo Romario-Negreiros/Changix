@@ -1,4 +1,7 @@
+import React from 'react'
+
 import { CountryCode } from 'libphonenumber-js/types'
+import { User } from 'firebase/auth'
 
 export interface Country {
   name: string;
@@ -16,4 +19,11 @@ export interface FormFields {
 }
 
 export interface UserProfile extends Omit<FormFields, 'email' | 'pwd' | 'confirmPwd'> {
+}
+
+export interface AuthContext {
+  user: User | null
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
+  createUserWithEmailAndPassword: (email: string, pwd: string) => Promise<User>
+  sendEmailVerification: (user: User | null) => Promise<void>
 }
