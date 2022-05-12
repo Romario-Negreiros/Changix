@@ -1,14 +1,13 @@
 .container {
-  position: relative;
+  display: grid;
+  place-items: center;
   text-align: center;
   width: 100%;
   max-width: 450px;
   height: 100%;
 }
 
-.container p {
-  position: absolute;
-  top: 50px;
+.container p, .container a {
   font-size: 2rem;
   font-weight: 300;
   color: var(--colors-primary);
@@ -17,11 +16,23 @@
 .container div {
   display: grid;
   place-items: center;
-  height: 100%;
+  height: fit-content;
+}
+
+.container a {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: var(--colors-secondary);
+}
+
+.container a:hover {
+  opacity: 0.7;
 }
 
 @media screen and (min-width: 950px) {
-  .container p {
+  .container p, .container a {
     font-size: 2.4rem;
   }
 }
