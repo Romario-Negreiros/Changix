@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useAuth } from '@utils/hooks'
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -9,6 +11,7 @@ import styles from '@styles/components/Header.module.css'
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const { user, signOut } = useAuth()
 
   return (
     <header className={styles.container}>
@@ -48,21 +51,34 @@ const Header: React.FC = () => {
               <a>Announce</a>
             </Link>
           </li>
-          <li>
-            <Link href="/sign_in">
-              <a>Sign in</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/sign_up">
-              <a>Sign up</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="/users/:id">
-              <a>Profile</a>
-            </Link>
-          </li>
+          {!user && (
+            <>
+              <li>
+                <Link href="/sign_in">
+                  <a>Sign in</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/sign_up">
+                  <a>Sign up</a>
+                </Link>
+              </li>
+            </>
+          )}
+          {user && (
+            <>
+              <li>
+                <Link href="/users/:id">
+                  <a>Profile</a>
+                </Link>
+              </li>
+              <li onClick={signOut}>
+                <Link href="/sign_in">
+                  <a>Sign out</a>
+                </Link>
+              </li>
+            </>
+          )}
         </ul>
       </nav>
     </header>
