@@ -47,6 +47,11 @@ giving a user-friendly interface, making things as simple as possible.
   - [ ] Item
   - [ ] Announce Item
 
+- ### Services
+  - [x] Authentication
+  - [ ] Storage media
+  - [ ] Storage content (about users and announced items)
+
 - ### API Routes
   - [ ] :bird: Soon..
 
