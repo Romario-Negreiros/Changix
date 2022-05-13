@@ -44,16 +44,10 @@ const SignIn: NextPage = () => {
     handleSubmit,
     formState: { errors }
   } = useForm<SignInFormFields>()
-  const { user, signInWithEmailAndPassword } = useAuth()
+  const { signInWithEmailAndPassword } = useAuth()
   const { push } = useRouter()
 
   const changePwdVisibility = () => setIsPwdVisible(!isPwdVisible)
-
-  React.useEffect(() => {
-    if (user && !user.emailVerified) {
-      push('/sign_up')
-    }
-  })
 
   const onSubmit: SubmitHandler<SignInFormFields> = async ({ email, pwd }) => {
     try {
