@@ -8,7 +8,7 @@ export interface Country {
   alpha2Code: CountryCode
 }
 
-export interface FormFields {
+export interface SignUpFormFields {
   picture: FileList
   email: string
   name: string
@@ -18,8 +18,15 @@ export interface FormFields {
   phoneNumber: string
 }
 
+export interface SignInFormFields extends Pick<SignUpFormFields, 'email' | 'pwd'> {}
+
+export interface ResetPasswordFormFields {
+  newPwd: string
+  confirmNewPwd: string
+}
+
 export interface UserProfile
-  extends Omit<FormFields, 'email' | 'pwd' | 'confirmPwd'> {}
+  extends Omit<SignUpFormFields, 'email' | 'pwd' | 'confirmPwd'> {}
 
 export interface AuthContext {
   user: User | null
@@ -29,4 +36,6 @@ export interface AuthContext {
   signOut: () => Promise<void>
   signInWithEmailAndPassword: (email: string, pwd: string) => Promise<void>
   verifyEmailAddress: (oobCode: string) => Promise<void>
+  sendPasswordResetEmail: (email: string) => Promise<void>
+  confirmPasswordReset: (oobCode: string, newPwd: string) => Promise<void>
 }
