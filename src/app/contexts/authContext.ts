@@ -10,7 +10,10 @@ const initialValue = {
     const user = {}
     return user as User
   },
-  sendEmailVerification: async () => {}
+  sendEmailVerification: async () => {},
+  signOut: async () => {},
+  signInWithEmailAndPassword: async () => {},
+  verifyEmailAddress: async () => {}
 }
 
 const authContext = React.createContext<AuthContext>(initialValue)
