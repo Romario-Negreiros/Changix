@@ -39,6 +39,18 @@ const useProvideAuth = (): Response => {
     await firebase.auth.applyActionCode(firebase.auth.instance, oobCode)
   }
 
+  const sendPasswordResetEmail = async (email: string) => {
+    await firebase.auth.sendPasswordResetEmail(firebase.auth.instance, email)
+  }
+
+  const confirmPasswordReset = async (oobCode: string, newPwd: string) => {
+    await firebase.auth.confirmPasswordReset(
+      firebase.auth.instance,
+      oobCode,
+      newPwd
+    )
+  }
+
   return {
     user,
     setUser,
@@ -46,7 +58,9 @@ const useProvideAuth = (): Response => {
     sendEmailVerification,
     signOut,
     signInWithEmailAndPassword,
-    verifyEmailAddress
+    verifyEmailAddress,
+    sendPasswordResetEmail,
+    confirmPasswordReset
   }
 }
 
