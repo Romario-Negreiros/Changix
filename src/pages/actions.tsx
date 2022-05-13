@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { VerifyEmail } from '../components'
+import { VerifyEmail, ResetPassword, Error } from '../components'
 
 import { useRouter } from 'next/router'
 
@@ -14,9 +14,9 @@ const Actions: NextPage = () => {
       case 'verifyEmail':
         return <VerifyEmail oobCode={oobCode as string} />
       case 'resetPassword':
-        return <main></main>
+        return <ResetPassword oobCode={oobCode as string} />
       default:
-        return <main></main>
+        return <Error title="Oooops" error="Invalid link" />
     }
   }
 
