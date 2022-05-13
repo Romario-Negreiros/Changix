@@ -9,7 +9,11 @@ const useProvideAuth = (): Response => {
   const [user, setUser] = React.useState<User | null>(null)
 
   const createUserWithEmailAndPassword = async (email: string, pwd: string) => {
-    const { user } = await firebase.auth.createUserWithEmailAndPassword(firebase.auth.instance, email, pwd)
+    const { user } = await firebase.auth.createUserWithEmailAndPassword(
+      firebase.auth.instance,
+      email,
+      pwd
+    )
     return user
   }
 
@@ -19,11 +23,30 @@ const useProvideAuth = (): Response => {
     } else throw new Error('homer')
   }
 
+  const signOut = async () => {
+    await firebase.auth.instance.signOut()
+  }
+
+  const signInWithEmailAndPassword = async (email: string, pwd: string) => {
+    await firebase.auth.signInWithEmailAndPassword(
+      firebase.auth.instance,
+      email,
+      pwd
+    )
+  }
+
+  const verifyEmailAddress = async (oobCode: string) => {
+    await firebase.auth.applyActionCode(firebase.auth.instance, oobCode)
+  }
+
   return {
     user,
     setUser,
     createUserWithEmailAndPassword,
-    sendEmailVerification
+    sendEmailVerification,
+    signOut,
+    signInWithEmailAndPassword,
+    verifyEmailAddress
   }
 }
 
