@@ -6,8 +6,9 @@ import {
   updatePassword,
   deleteUser,
   sendEmailVerification,
+  applyActionCode,
   sendPasswordResetEmail,
-  applyActionCode
+  confirmPasswordReset
 } from 'firebase/auth'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -31,8 +32,9 @@ const firebase = {
     updatePassword,
     deleteUser,
     sendEmailVerification,
+    applyActionCode,
     sendPasswordResetEmail,
-    applyActionCode
+    confirmPasswordReset
   }
 }
 
