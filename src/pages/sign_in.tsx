@@ -20,9 +20,7 @@ import Bubbles from '@public/animations/bubbles.json'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { NextPage } from 'next'
-import type { FormFields } from '@app/types/auth'
-
-interface SignInFormFields extends Pick<FormFields, 'email' | 'pwd'> {}
+import type { SignInFormFields } from '@app/types/auth'
 
 const pwdValidationRules = {
   minLength: {
