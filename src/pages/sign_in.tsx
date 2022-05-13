@@ -1,5 +1,11 @@
 import React from 'react'
 
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useAuth } from '@utils/hooks'
+import { useRouter } from 'next/router'
+
+import { Error as ErrorComponent, Loader } from 'src/components'
+
 import Link from 'next/link'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,21 +20,86 @@ import Bubbles from '@public/animations/bubbles.json'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { NextPage } from 'next'
+import type { FormFields } from '@app/types/auth'
+
+interface SignInFormFields extends Pick<FormFields, 'email' | 'pwd'> {}
+
+const pwdValidationRules = {
+  minLength: {
+    value: 6,
+    message: 'At least 6 characters'
+  },
+  pattern: {
+    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%¨&*])[A-Za-z\d!@#$%¨&*]{6,}$/,
+    message: 'At least one special character and one number'
+  }
+}
 
 const SignIn: NextPage = () => {
   const [isPwdVisible, setIsPwdVisible] = React.useState(false)
+  const [error, setError] = React.useState('')
+  const [isLoaded, setIsLoaded] = React.useState(true)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<SignInFormFields>()
+  const { user, signInWithEmailAndPassword } = useAuth()
+  const { push } = useRouter()
 
   const changePwdVisibility = () => setIsPwdVisible(!isPwdVisible)
 
+  React.useEffect(() => {
+    if (user && !user.emailVerified) {
+      push('/sign_up')
+    }
+  })
+
+  const onSubmit: SubmitHandler<SignInFormFields> = async ({ email, pwd }) => {
+    try {
+      setIsLoaded(false)
+      await signInWithEmailAndPassword(email, pwd)
+      push('/home')
+    } catch (err) {
+      if (err instanceof Error) setError(err.message)
+      setIsLoaded(true)
+    }
+  }
+
+  if (error) {
+    return (
+      <ErrorComponent
+        title="Oooops"
+        error={error}
+        btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
+      />
+    )
+  } else if (!isLoaded) {
+    return <Loader />
+  }
   return (
     <main className="container">
       <div className={styles.bubbles} style={{ left: '0px' }}>
         <Lottie animationData={Bubbles} loop />
       </div>
-      <form className={formStyles.form} style={{ maxWidth: '500px' }}>
+      <form
+        className={formStyles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ maxWidth: '500px' }}
+      >
         <section className={formStyles.input_container}>
           <label htmlFor="email">Email</label>
-          <input id="email" />
+          <input
+            {...register('email', {
+              required: 'Email is required',
+              pattern: {
+                value: /^.+[@]{1}[aA-zZ]+[.]{1}.+$/,
+                message: 'Invalid email format. example@mail.com'
+              }
+            })}
+            id="email"
+          />
+          <p className={formStyles.error}>{errors.email?.message}</p>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="pwd">Password</label>
@@ -38,8 +109,16 @@ const SignIn: NextPage = () => {
               className={formStyles.icon}
               icon={isPwdVisible ? faEyeSlash : faEye}
             />
-            <input type={isPwdVisible ? 'text' : 'password'} id="pwd" />
+            <input
+              {...register('pwd', {
+                required: 'Password is required',
+                ...pwdValidationRules
+              })}
+              type={isPwdVisible ? 'text' : 'password'}
+              id="pwd"
+            />
           </div>
+          <p className={formStyles.error}>{errors.pwd?.message}</p>
         </section>
         <div
           style={{
