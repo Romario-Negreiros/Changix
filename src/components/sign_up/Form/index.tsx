@@ -16,7 +16,7 @@ import formStyles from '@styles/components/Form.module.css'
 
 import { faCamera, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-import type { FormFields, Country } from '@app/types/auth'
+import type { SignUpFormFields, Country } from '@app/types/auth'
 import type { VisiblePwds } from '@app/types/global'
 
 interface Props {
@@ -47,7 +47,7 @@ const Form: React.FC<Props> = ({ countries }) => {
     setValue,
     control,
     formState: { errors }
-  } = useForm<FormFields>()
+  } = useForm<SignUpFormFields>()
 
   const fetchUserCountryCode = async (): Promise<Country | undefined> => {
     const response = await fetch(
@@ -70,7 +70,7 @@ const Form: React.FC<Props> = ({ countries }) => {
     })()
   }, [setValue])
 
-  const onSubmit: SubmitHandler<FormFields> = async data => {
+  const onSubmit: SubmitHandler<SignUpFormFields> = async data => {
     try {
       if (data.confirmPwd === data.pwd) {
         setIsLoaded(false)
