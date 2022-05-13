@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { handlePwdVisibility } from '@utils/handlers'
+import { handlePwdVisibility, handleFileSelection } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader } from '../../'
@@ -101,21 +101,6 @@ const Form: React.FC<Props> = ({ countries }) => {
     }
   }
 
-  const handleFileSelection = (event: React.FormEvent<HTMLInputElement>) => {
-    if (event.currentTarget) {
-      const input = event.currentTarget
-      const reader = new FileReader()
-
-      reader.addEventListener('load', () => {
-        setImgPreview(reader.result as string)
-      })
-
-      if (input.files) {
-        reader.readAsDataURL(input.files[0])
-      }
-    }
-  }
-
   if (error) {
     return (
       <ErrorComponent
@@ -153,7 +138,7 @@ const Form: React.FC<Props> = ({ countries }) => {
               type="file"
               accept=".jpg,.jpeg,.png,.svg"
               {...register('picture')}
-              onChange={handleFileSelection}
+              onChange={(e) => handleFileSelection(e, setImgPreview)}
             />
           </label>
         </section>
