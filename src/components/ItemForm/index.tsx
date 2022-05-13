@@ -4,12 +4,12 @@ import { ClientOnlyPortal, ImagesUpdater } from '..'
 
 import formStyles from '@styles/components/Form.module.css'
 
-import type { SubmitBtn, FormFields } from '@app/types/item'
+import type { SubmitBtn, ItemFormFields } from '@app/types/item'
 
 interface Props {
   submitBtn: SubmitBtn
   modalBtnTxt: string
-  defaultValues?: FormFields;
+  defaultValues?: ItemFormFields;
 
 }
 
