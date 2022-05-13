@@ -1,6 +1,9 @@
 import React from 'react'
 
-import { Form } from '../components'
+import { useAuth } from '@utils/hooks'
+import { useRouter } from 'next/router'
+
+import { Form, VerifyEmailMessage } from '../components'
 
 import type { NextPage, GetStaticProps } from 'next'
 import type { Country } from '@app/types/auth'
@@ -35,11 +38,25 @@ interface Props {
 }
 
 const SignUp: NextPage<Props> = ({ countries }) => {
+  const { user } = useAuth()
+  const { push } = useRouter()
+
+  React.useEffect(() => {
+    if (user && user.emailVerified) {
+      push('/home')
+    }
+  })
+
   return (
-    <main className="container">
-      <Form countries={countries} />
-      {/* VerfiyEmailMessage = 2 */}
-    </main>
+    <>
+      {user && !user.emailVerified
+        ? (
+        <VerifyEmailMessage />
+          )
+        : (
+        <Form countries={countries} />
+          )}
+    </>
   )
 }
 
