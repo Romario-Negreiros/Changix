@@ -3,7 +3,7 @@ export type SubmitBtn = {
   txt: string
 }
 
-export type FormFields = {
+export type ItemFormFields = {
   name: string;
   description: string;
   // category: string[] checkbox ??
