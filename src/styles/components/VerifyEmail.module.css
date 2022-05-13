@@ -1,0 +1,15 @@
+.wrapper {
+  text-align: center;
+}
+
+.wrapper h1 {
+  font-size: 2rem;
+  color: var(--colors-secondary);
+  margin-bottom: 3rem;
+}
+
+.wrapper p {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--colors-secondary);
+}
