@@ -9,12 +9,11 @@ import styles from '@styles/components/Error.module.css'
 interface Props {
   title: string
   error: string
-  btn: {
+  btn?: {
     handleClick: () => void
     text: string
   }
   animation?: any
-  container?: Boolean
 }
 
 const Error: React.FC<Props> = ({ title, error, btn, animation }) => {
@@ -26,7 +25,7 @@ const Error: React.FC<Props> = ({ title, error, btn, animation }) => {
           <Lottie animationData={animation ?? errorAnimation} loop />
         </div>
         <p>{error}</p>
-        <button onClick={btn.handleClick}>{btn.text}</button>
+        {btn && <button onClick={btn.handleClick}>{btn.text}</button>}
       </section>
     </main>
   )
