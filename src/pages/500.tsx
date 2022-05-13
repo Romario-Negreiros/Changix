@@ -7,11 +7,11 @@ import { useRouter } from 'next/router'
 import type { NextPage } from 'next'
 
 const _500: NextPage = () => {
-  const router = useRouter()
+  const { back } = useRouter()
 
   const btn = {
     handleClick: () => {
-      router.back()
+      back()
     },
     text: 'Go back'
   }

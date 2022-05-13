@@ -9,11 +9,11 @@ import _404Animation from '@public/animations/404.json'
 import type { NextPage } from 'next'
 
 const _404: NextPage = () => {
-  const router = useRouter()
+  const { back } = useRouter()
 
   const btn = {
     handleClick: () => {
-      router.back()
+      back()
     },
     text: 'Go back'
   }
