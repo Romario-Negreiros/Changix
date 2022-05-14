@@ -41,8 +41,9 @@ giving a user-friendly interface, making things as simple as possible.
 - ### Pages
   - [x] Landing
   - [ ] Home
-  - [ ] Sign up
-  - [ ] Sign in
+  - [x] Sign up
+  - [x] Sign in
+  - [x] Forgot password
   - [ ] Profile
   - [ ] Item
   - [ ] Announce Item
