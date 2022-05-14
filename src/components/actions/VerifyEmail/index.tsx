@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useRouter } from 'next/router'
+import { handleAuthError } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader, Success } from '../../'
@@ -23,7 +24,7 @@ const VerifyEmail: React.FC<Props> = ({ oobCode }) => {
           await verifyEmailAddress(oobCode)
           setHasVerified(true)
         } catch (err) {
-          if (err instanceof Error) setError(err.message)
+          handleAuthError(err, 'Verify email', setError)
         }
       })()
     }

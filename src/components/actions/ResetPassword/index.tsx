@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { handlePwdVisibility } from '@utils/handlers'
+import { handleAuthError, handlePwdVisibility } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -52,10 +52,10 @@ const ResetPassword: React.FC<Props> = ({ oobCode }) => {
         await confirmPasswordReset(oobCode, newPwd)
         setSuccess(true)
       } else {
-        throw new Error('stupid')
+        throw new Error('New password and confirm new password fields must be equal!')
       }
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleAuthError(err, 'Reset password', setError)
     } finally {
       setIsLoaded(true)
     }

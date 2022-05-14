@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { handlePwdVisibility, handleFileSelection } from '@utils/handlers'
+import { handlePwdVisibility, handleFileSelection, handleAuthError } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader } from '../../'
@@ -77,10 +77,10 @@ const Form: React.FC<Props> = ({ countries }) => {
         const user = await createUserWithEmailAndPassword(data.email, data.pwd)
         await sendEmailVerification(user)
       } else {
-        throw new Error('Confirm pwd and aoskasoaks')
+        throw new Error('Confirm password and password fields must be equal!')
       }
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleAuthError(err, 'Sign up', setError)
     } finally {
       setIsLoaded(true)
     }
