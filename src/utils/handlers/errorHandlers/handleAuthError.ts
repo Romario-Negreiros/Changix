@@ -21,6 +21,15 @@ const handleAuthError = (error: unknown, action: string, setError: (error: strin
         case AuthErrorCodes.EMAIL_EXISTS:
           setError('This email already exists, try another one!')
           break
+        case AuthErrorCodes.TOO_MANY_ATTEMPTS_TRY_LATER:
+          setError('Too many attempts, try again later!')
+          break
+        case AuthErrorCodes.USER_DELETED:
+          setError('This user has been deleted!')
+          break
+        case AuthErrorCodes.CREDENTIAL_TOO_OLD_LOGIN_AGAIN:
+          setError('Your need to sign in again to complete this operation!')
+          break
         default:
           setError(defaultUserErrorMessage)
       }
