@@ -1,9 +1,14 @@
 import React from 'react'
 
+import { useRouter } from 'next/router'
+import { useAuth } from '@utils/hooks'
+
 import {
   ClientOnlyPortal,
   ChangePassword,
-  DeleteAccount
+  DeleteAccount,
+  Error,
+  Buttons
 } from '../../../components'
 
 import Image from 'next/image'
@@ -11,14 +16,39 @@ import Link from 'next/link'
 
 import formStyles from '@styles/components/Form.module.css'
 
-import type { NextPage } from 'next'
+import type { GetServerSideProps, NextPage } from 'next'
+import { User as IUser } from 'firebase/auth'
 
 type Modals = 'change_pwd' | 'delete_acc'
 
-const User: NextPage = () => {
+export const getServerSideProps: GetServerSideProps = async context => {
+  const id = context.params?.userId
+
+  return {
+    props: {
+      user: {
+        id
+      }
+    }
+  }
+}
+
+interface Props {
+  user: {
+    id: string
+  } | null
+}
+
+const User: NextPage<Props> = ({ user }) => {
   const [isEditing, setIsEditing] = React.useState(false)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [modalOpened, setModalOpened] = React.useState<Modals | null>(null)
+  const { back } = useRouter()
+  const {
+    user: currentUser,
+    updatePassword,
+    reauthenticateWithCredential
+  } = useAuth()
 
   const setModalState = () => {
     if (isModalOpen) setModalOpened(null)
@@ -27,12 +57,26 @@ const User: NextPage = () => {
 
   const setFormState = () => setIsEditing(!isEditing)
 
+  if (!user) {
+    return (
+      <Error
+        title="Oooops"
+        error="User not found!"
+        btn={{ handleClick: () => back(), text: 'Go back' }}
+      />
+    )
+  }
   return (
     <main className="container">
       {isModalOpen && (
         <ClientOnlyPortal selector="#modal">
           {modalOpened === 'change_pwd' && (
-            <ChangePassword setModalState={setModalState} />
+            <ChangePassword
+              setModalState={setModalState}
+              user={currentUser as IUser}
+              updatePassword={updatePassword}
+              reauthenticateWithCredential={reauthenticateWithCredential}
+            />
           )}
           {modalOpened === 'delete_acc' && (
             <DeleteAccount setModalState={setModalState} />
@@ -92,30 +136,14 @@ const User: NextPage = () => {
           <label htmlFor="exchanged_items">Exchanged items</label>
           <input readOnly={!isEditing} defaultValue={19} id="exchanged_items" />
         </section>
-        {!isEditing && (
-          <button type="button" onClick={setFormState}>
-            Update informations
-          </button>
+        {currentUser?.uid !== user.id && (
+          <Buttons
+            isEditing={isEditing}
+            setFormState={setFormState}
+            setModalState={setModalState}
+            setModalOpened={setModalOpened}
+          />
         )}
-        {isEditing && <button type="submit">Save</button>}
-        <button
-          type="button"
-          onClick={() => {
-            setModalState()
-            setModalOpened('change_pwd')
-          }}
-        >
-          Change password
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setModalState()
-            setModalOpened('delete_acc')
-          }}
-        >
-          Delete password
-        </button>
       </form>
     </main>
   )
