@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { handlePwdVisibility, handleFileSelection, handleAuthError } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 
-import { Error as ErrorComponent, Loader } from '../../'
+import { Error as ErrorComponent, Loader } from '..'
 
 import PhoneInput from 'react-phone-number-input/input'
 
@@ -34,7 +34,7 @@ const pwdValidationRules = {
   }
 }
 
-const Form: React.FC<Props> = ({ countries }) => {
+const SignUpForm: React.FC<Props> = ({ countries }) => {
   const [visiblePwds, setVisiblePwds] = React.useState<VisiblePwds[]>([])
   const [imgPreview, setImgPreview] = React.useState('')
   const [country, setCountry] = React.useState<Country | undefined>()
@@ -250,4 +250,4 @@ const Form: React.FC<Props> = ({ countries }) => {
   )
 }
 
-export default Form
+export default SignUpForm

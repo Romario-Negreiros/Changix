@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { handleAuthError } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 
-import { Error as ErrorComponent, Loader, Success } from '../../'
+import { Error as ErrorComponent, Loader, Success } from '..'
 
 interface Props {
   oobCode: string

@@ -4,7 +4,7 @@ import { handleAuthError, handlePwdVisibility } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { Error as ErrorComponent, Loader, Success } from '../../'
+import { Error as ErrorComponent, Loader, Success } from '..'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 

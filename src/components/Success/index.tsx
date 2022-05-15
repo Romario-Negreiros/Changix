@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useRouter } from 'next/router'
 
-import styles from 'Success.module.css'
+import styles from '@styles/components/Success.module.css'
 
 interface Props {
   title: string
