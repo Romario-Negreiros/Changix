@@ -3,7 +3,7 @@ import React from 'react'
 import { useAuth } from '@utils/hooks'
 import { useRouter } from 'next/router'
 
-import { Form, VerifyEmailMessage } from '../components'
+import { SignUpForm, VerifyEmailMessage } from '../components'
 
 import type { NextPage, GetStaticProps } from 'next'
 import type { Country } from '@app/types/auth'
@@ -54,7 +54,7 @@ const SignUp: NextPage<Props> = ({ countries }) => {
         <VerifyEmailMessage />
           )
         : (
-        <Form countries={countries} />
+        <SignUpForm countries={countries} />
           )}
     </>
   )
