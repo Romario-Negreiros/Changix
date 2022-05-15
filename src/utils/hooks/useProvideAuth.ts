@@ -2,7 +2,7 @@ import React from 'react'
 
 import firebase from '@app/lib/firebase'
 
-import { User } from 'firebase/auth'
+import { AuthCredential, User } from 'firebase/auth'
 import type { AuthContext as Response } from '@app/types/auth'
 
 const useProvideAuth = (): Response => {
@@ -17,10 +17,8 @@ const useProvideAuth = (): Response => {
     return user
   }
 
-  const sendEmailVerification = async (user: User | null) => {
-    if (user) {
-      await firebase.auth.sendEmailVerification(user)
-    } else throw new Error('homer')
+  const sendEmailVerification = async (user: User) => {
+    await firebase.auth.sendEmailVerification(user)
   }
 
   const signOut = async () => {
@@ -51,6 +49,14 @@ const useProvideAuth = (): Response => {
     )
   }
 
+  const updatePassword = async (user: User, newPwd: string) => {
+    await firebase.auth.updatePassword(user, newPwd)
+  }
+
+  const reauthenticateWithCredential = async (user: User) => {
+    await firebase.auth.reauthenticateWithCredential(user, new AuthCredential())
+  }
+
   return {
     user,
     setUser,
@@ -60,7 +66,9 @@ const useProvideAuth = (): Response => {
     signInWithEmailAndPassword,
     verifyEmailAddress,
     sendPasswordResetEmail,
-    confirmPasswordReset
+    confirmPasswordReset,
+    updatePassword,
+    reauthenticateWithCredential
   }
 }
 
