@@ -32,10 +32,12 @@ export interface AuthContext {
   user: User | null
   setUser: React.Dispatch<React.SetStateAction<User | null>>
   createUserWithEmailAndPassword: (email: string, pwd: string) => Promise<User>
-  sendEmailVerification: (user: User | null) => Promise<void>
+  sendEmailVerification: (user: User) => Promise<void>
   signOut: () => Promise<void>
   signInWithEmailAndPassword: (email: string, pwd: string) => Promise<void>
   verifyEmailAddress: (oobCode: string) => Promise<void>
   sendPasswordResetEmail: (email: string) => Promise<void>
   confirmPasswordReset: (oobCode: string, newPwd: string) => Promise<void>
+  updatePassword: (user: User, newPwd: string) => Promise<void>
+  reauthenticateWithCredential: (user: User) => Promise<void>
 }
