@@ -92,7 +92,7 @@ const ChangePassword: React.FC<Props> = ({
   } else if (success) {
     return (
         <Success
-          title="Password succesfully changed"
+          title="Password succesfully changed!"
           message="You can close the modal"
           isModal
           closeModal={<CloseModal setModalState={setModalState} />}
