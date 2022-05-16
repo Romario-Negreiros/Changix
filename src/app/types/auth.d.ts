@@ -40,4 +40,5 @@ export interface AuthContext {
   confirmPasswordReset: (oobCode: string, newPwd: string) => Promise<void>
   updatePassword: (user: User, newPwd: string) => Promise<void>
   reauthenticateWithCredential: (user: User, pwd: string) => Promise<void>
+  deleteUser: (user: User) => Promise<void>
 }
