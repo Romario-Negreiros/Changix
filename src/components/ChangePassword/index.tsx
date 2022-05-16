@@ -3,13 +3,13 @@ import React from 'react'
 import { handleAuthError, handlePwdVisibility } from '@utils/handlers'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { Error as ErrorComponent, Loader, Success } from '../'
+import { Error as ErrorComponent, Loader, Success, CloseModal } from '../'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import formStyles from '@styles/components/Form.module.css'
 
-import { faEye, faEyeSlash, faClose } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { SharedProps } from '@app/types/modals'
 import type { VisiblePwds } from '@app/types/global'
@@ -91,16 +91,12 @@ const ChangePassword: React.FC<Props> = ({
     )
   } else if (success) {
     return (
-      <main className="modal_container">
-        <div className="close_modal" onClick={setModalState}>
-          <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
-        </div>
         <Success
           title="Password succesfully changed"
           message="You can close the modal"
           isModal
+          closeModal={<CloseModal setModalState={setModalState} />}
         />
-      </main>
     )
   }
   return (
@@ -110,9 +106,7 @@ const ChangePassword: React.FC<Props> = ({
         onSubmit={handleSubmit(onSubmit)}
         style={{ maxWidth: '500px' }}
       >
-        <div className="close_modal" onClick={setModalState}>
-          <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
-        </div>
+       <CloseModal setModalState={setModalState} />
         <section className={formStyles.input_container}>
           <label htmlFor="new_pwd">New Password</label>
           <div>

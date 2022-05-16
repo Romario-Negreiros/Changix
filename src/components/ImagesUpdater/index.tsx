@@ -1,11 +1,13 @@
 import React from 'react'
 
+import { CloseModal } from '..'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import styles from '@styles/modals/ImagesUpdater.module.css'
 import formStyles from '@styles/components/Form.module.css'
 
-import { faCamera, faClose } from '@fortawesome/free-solid-svg-icons'
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import Image from 'next/image'
 
 import type { SharedProps } from '@app/types/modals'
@@ -20,9 +22,7 @@ const ImagesUpdater: React.FC<Props> = ({ setModalState }) => {
           Click on the image to change the current one, or on the camera to add
           a new one.
         </h1>
-        <div className="close_modal" onClick={setModalState}>
-          <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
-        </div>
+        <CloseModal setModalState={setModalState} />
         {new Array(6).fill(1).map((value, index) => (
           <section
             key={value * index}

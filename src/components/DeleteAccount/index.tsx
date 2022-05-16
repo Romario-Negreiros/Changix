@@ -1,10 +1,12 @@
 import React from 'react'
 
+import { CloseModal } from '../'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import formStyles from '@styles/components/Form.module.css'
 
-import { faEye, faEyeSlash, faClose } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { SharedProps } from '@app/types/modals'
 
@@ -18,9 +20,7 @@ const DeleteAccount: React.FC<Props> = ({ setModalState }) => {
   return (
     <main className="modal_container">
       <form className={formStyles.form}>
-        <div className="close_modal" onClick={setModalState}>
-          <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
-        </div>
+        <CloseModal setModalState={setModalState} />
         <section className={formStyles.input_container}>
           <label htmlFor="pwd">Password</label>
           <div>
