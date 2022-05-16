@@ -3,7 +3,7 @@ import React from 'react'
 import { handleAuthError, handlePwdVisibility } from '@utils/handlers'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import { Error as ErrorComponent, Loader } from '../'
+import { Error as ErrorComponent, Loader, Success } from '../'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -16,7 +16,9 @@ import type { VisiblePwds } from '@app/types/global'
 import type { AuthContext } from '@app/types/auth'
 import { User } from 'firebase/auth'
 
-interface Props extends SharedProps, Pick<AuthContext, 'updatePassword' | 'reauthenticateWithCredential'> {
+interface Props
+  extends SharedProps,
+    Pick<AuthContext, 'updatePassword' | 'reauthenticateWithCredential'> {
   user: User
 }
 
@@ -36,20 +38,36 @@ const pwdValidationRules = {
   }
 }
 
-const ChangePassword: React.FC<Props> = ({ setModalState, user, updatePassword, reauthenticateWithCredential }) => {
+const ChangePassword: React.FC<Props> = ({
+  setModalState,
+  user,
+  updatePassword,
+  reauthenticateWithCredential
+}) => {
   const [error, setError] = React.useState('')
+  const [success, setSuccess] = React.useState(false)
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [visiblePwds, setVisiblePwds] = React.useState<VisiblePwds[]>([])
-  const { register, handleSubmit, formState: { errors } } = useForm<FormFields>()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormFields>()
 
-  const onSubmit: SubmitHandler<FormFields> = async ({ newPwd, confirmNewPwd }) => {
+  const onSubmit: SubmitHandler<FormFields> = async ({
+    newPwd,
+    confirmNewPwd
+  }) => {
     try {
       if (newPwd === confirmNewPwd) {
         setIsLoaded(false)
-        await reauthenticateWithCredential(user)
+        // await reauthenticateWithCredential(user)
         await updatePassword(user, newPwd)
+        setSuccess(true)
       } else {
-        throw new Error('New password and confirm new password fields must be equal!')
+        throw new Error(
+          'New password and confirm new password fields must be equal!'
+        )
       }
     } catch (err) {
       handleAuthError(err, 'Update password', setError)
@@ -59,13 +77,32 @@ const ChangePassword: React.FC<Props> = ({ setModalState, user, updatePassword, 
   }
 
   if (!isLoaded) {
-    return <Loader />
+    return <Loader isModal />
   } else if (error) {
-    return <ErrorComponent title="Oooops" error={error} btn={{ handleClick: () => setError(''), text: 'Dismiss' }} />
+    return (
+      <ErrorComponent
+        title="Oooops"
+        error={error}
+        btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
+        isModal
+      />
+    )
+  } else if (success) {
+    return (
+      <Success
+        title="Password succesfully changed"
+        message="You can close the modal"
+        isModal
+      />
+    )
   }
   return (
     <main className="modal_container">
-      <form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className={formStyles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        style={{ maxWidth: '500px' }}
+      >
         <div className="close_modal" onClick={setModalState}>
           <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
         </div>
