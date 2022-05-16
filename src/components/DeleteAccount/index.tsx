@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
+import { handleAuthError } from '@utils/handlers'
 
-import { CloseModal } from '../'
+import { CloseModal, Error, Loader, Success } from '../'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -12,10 +13,6 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { SharedProps } from '@app/types/modals'
 import { User } from 'firebase/auth'
-import { handleAuthError } from '@utils/handlers'
-import Loader from '../Loader'
-import Error from '../Error'
-import Success from '../Success'
 
 interface Props extends SharedProps {
   user: User
