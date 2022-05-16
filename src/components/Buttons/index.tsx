@@ -39,7 +39,7 @@ const Buttons: React.FC<Props> = ({
           setModalOpened('delete_acc')
         }}
       >
-        Delete password
+        Delete account
       </button>
     </>
   )
