@@ -59,7 +59,9 @@ const SignIn: NextPage = () => {
     }
   }
 
-  if (error) {
+  if (!isLoaded) {
+    return <Loader />
+  } else if (error) {
     return (
       <ErrorComponent
         title="Oooops"
@@ -67,8 +69,6 @@ const SignIn: NextPage = () => {
         btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
       />
     )
-  } else if (!isLoaded) {
-    return <Loader />
   }
   return (
     <main className="container">
