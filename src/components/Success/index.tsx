@@ -28,11 +28,12 @@ const Success: React.FC<Props> = ({ title, message, redirect, isModal }) => {
   }, [redirectTimer, push, redirect])
 
   return (
-    <main className={isModal ? 'modal_container' : 'container'}>
+    <main className="container">
       <div className={`${styles.wrapper} ${isModal && styles.wrapperInModal}`}>
         <h1>{title}</h1>
         <p>
-          {message || `Redirecting you to ${redirect?.page} page in ${redirectTimer} seconds`}
+          {message ||
+            `Redirecting you to ${redirect?.page} page in ${redirectTimer} seconds`}
         </p>
       </div>
     </main>
