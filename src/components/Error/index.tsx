@@ -14,12 +14,13 @@ interface Props {
     text: string
   }
   animation?: any
+  isModal?: boolean
 }
 
-const Error: React.FC<Props> = ({ title, error, btn, animation }) => {
+const Error: React.FC<Props> = ({ title, error, btn, animation, isModal }) => {
   return (
-    <main className={styles.container}>
-      <section>
+    <main className={`${styles.container} ${isModal && 'modal_container'}`}>
+      <section className={isModal ? styles.sectionInModal : ''}>
         <h1>{title}</h1>
         <div style={!animation ? { width: '55%' } : undefined}>
           <Lottie animationData={animation ?? errorAnimation} loop />
