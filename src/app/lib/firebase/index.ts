@@ -9,7 +9,8 @@ import {
   applyActionCode,
   sendPasswordResetEmail,
   confirmPasswordReset,
-  reauthenticateWithCredential
+  reauthenticateWithCredential,
+  EmailAuthProvider
 } from 'firebase/auth'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -36,7 +37,8 @@ const firebase = {
     applyActionCode,
     sendPasswordResetEmail,
     confirmPasswordReset,
-    reauthenticateWithCredential
+    reauthenticateWithCredential,
+    EmailAuthProvider
   }
 }
 
