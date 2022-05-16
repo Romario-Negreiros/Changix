@@ -17,7 +17,8 @@ const initialValue = {
   sendPasswordResetEmail: async () => {},
   confirmPasswordReset: async () => {},
   updatePassword: async () => {},
-  reauthenticateWithCredential: async () => {}
+  reauthenticateWithCredential: async () => {},
+  deleteUser: async () => {}
 }
 
 const authContext = React.createContext<AuthContext>(initialValue)
