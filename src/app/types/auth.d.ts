@@ -39,5 +39,5 @@ export interface AuthContext {
   sendPasswordResetEmail: (email: string) => Promise<void>
   confirmPasswordReset: (oobCode: string, newPwd: string) => Promise<void>
   updatePassword: (user: User, newPwd: string) => Promise<void>
-  reauthenticateWithCredential: (user: User) => Promise<void>
+  reauthenticateWithCredential: (user: User, pwd: string) => Promise<void>
 }
