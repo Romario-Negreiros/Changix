@@ -58,6 +58,10 @@ const useProvideAuth = (): Response => {
     await firebase.auth.reauthenticateWithCredential(user, credential)
   }
 
+  const deleteUser = async (user: User) => {
+    await firebase.auth.deleteUser(user)
+  }
+
   return {
     user,
     setUser,
@@ -69,7 +73,8 @@ const useProvideAuth = (): Response => {
     sendPasswordResetEmail,
     confirmPasswordReset,
     updatePassword,
-    reauthenticateWithCredential
+    reauthenticateWithCredential,
+    deleteUser
   }
 }
 
