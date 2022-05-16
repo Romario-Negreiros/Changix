@@ -47,7 +47,8 @@ const User: NextPage<Props> = ({ user }) => {
   const {
     user: currentUser,
     updatePassword,
-    reauthenticateWithCredential
+    reauthenticateWithCredential,
+    deleteUser
   } = useAuth()
 
   const setModalState = () => {
@@ -79,7 +80,12 @@ const User: NextPage<Props> = ({ user }) => {
             />
           )}
           {modalOpened === 'delete_acc' && (
-            <DeleteAccount setModalState={setModalState} />
+            <DeleteAccount
+              setModalState={setModalState}
+              user={currentUser as IUser}
+              deleteUser={deleteUser}
+              reauthenticateWithCredential={reauthenticateWithCredential}
+            />
           )}
         </ClientOnlyPortal>
       )}
