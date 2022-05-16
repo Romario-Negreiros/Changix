@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -12,9 +12,10 @@ interface Props {
     page: string
   }
   isModal?: boolean
+  closeModal?: ReactElement
 }
 
-const Success: React.FC<Props> = ({ title, message, redirect, isModal }) => {
+const Success: React.FC<Props> = ({ title, message, redirect, isModal, closeModal }) => {
   const [redirectTimer, setRedirectTimer] = React.useState(5)
   const { push } = useRouter()
 
@@ -28,7 +29,8 @@ const Success: React.FC<Props> = ({ title, message, redirect, isModal }) => {
   }, [redirectTimer, push, redirect])
 
   return (
-    <main className="container">
+    <main className={isModal ? 'modal_container' : 'container'}>
+      {isModal && closeModal}
       <div className={`${styles.wrapper} ${isModal && styles.wrapperInModal}`}>
         <h1>{title}</h1>
         <p>
