@@ -41,7 +41,7 @@ button {
   display: grid;
   place-items: center;
   height: calc(100vh - 60px);
-  padding: 3rem 2rem;
+  padding: 1rem 2rem;
 }
 
 .modal_container {
