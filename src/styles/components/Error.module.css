@@ -13,6 +13,11 @@
   gap: 3rem;
 }
 
+.sectionInModal {
+  padding: 2rem;
+  background-color: var(--bg-secondary);
+}
+
 .container h1 {
   text-align: center;
   font-size: 2.6rem;

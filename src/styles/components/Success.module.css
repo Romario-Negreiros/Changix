@@ -13,3 +13,8 @@
   font-weight: 300;
   color: var(--colors-secondary);
 }
+
+.wrapperInModal {
+  padding: 2rem;
+  background-color: var(--bg-secondary);
+}
