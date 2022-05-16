@@ -2,7 +2,7 @@ import React from 'react'
 
 import firebase from '@app/lib/firebase'
 
-import { AuthCredential, User } from 'firebase/auth'
+import { User } from 'firebase/auth'
 import type { AuthContext as Response } from '@app/types/auth'
 
 const useProvideAuth = (): Response => {
@@ -53,8 +53,9 @@ const useProvideAuth = (): Response => {
     await firebase.auth.updatePassword(user, newPwd)
   }
 
-  const reauthenticateWithCredential = async (user: User) => {
-    await firebase.auth.reauthenticateWithCredential(user, new AuthCredential())
+  const reauthenticateWithCredential = async (user: User, pwd: string) => {
+    const credential = firebase.auth.EmailAuthProvider.credential(user.email as string, pwd)
+    await firebase.auth.reauthenticateWithCredential(user, credential)
   }
 
   return {
