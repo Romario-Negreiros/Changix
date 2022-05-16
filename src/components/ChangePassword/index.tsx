@@ -25,6 +25,7 @@ interface Props
 interface FormFields {
   newPwd: string
   confirmNewPwd: string
+  currentPwd: string
 }
 
 const pwdValidationRules = {
@@ -56,12 +57,13 @@ const ChangePassword: React.FC<Props> = ({
 
   const onSubmit: SubmitHandler<FormFields> = async ({
     newPwd,
-    confirmNewPwd
+    confirmNewPwd,
+    currentPwd
   }) => {
     try {
       if (newPwd === confirmNewPwd) {
         setIsLoaded(false)
-        // await reauthenticateWithCredential(user)
+        await reauthenticateWithCredential(user, currentPwd)
         await updatePassword(user, newPwd)
         setSuccess(true)
       } else {
@@ -89,11 +91,16 @@ const ChangePassword: React.FC<Props> = ({
     )
   } else if (success) {
     return (
-      <Success
-        title="Password succesfully changed"
-        message="You can close the modal"
-        isModal
-      />
+      <main className="modal_container">
+        <div className="close_modal" onClick={setModalState}>
+          <FontAwesomeIcon icon={faClose} color="red" width={50} height={50} />
+        </div>
+        <Success
+          title="Password succesfully changed"
+          message="You can close the modal"
+          isModal
+        />
+      </main>
     )
   }
   return (
@@ -155,6 +162,27 @@ const ChangePassword: React.FC<Props> = ({
             />
           </div>
           <p className={formStyles.error}>{errors.confirmNewPwd?.message}</p>
+        </section>
+        <section className={formStyles.input_container}>
+          <label htmlFor="current_pwd">Current Password</label>
+          <div>
+            <FontAwesomeIcon
+              onClick={() =>
+                handlePwdVisibility('current_pwd', visiblePwds, setVisiblePwds)
+              }
+              className={formStyles.icon}
+              icon={visiblePwds.includes('current_pwd') ? faEyeSlash : faEye}
+            />
+            <input
+              type={visiblePwds.includes('current_pwd') ? 'text' : 'password'}
+              id="current_pwd"
+              {...register('currentPwd', {
+                required: 'Current password is required',
+                ...pwdValidationRules
+              })}
+            />
+          </div>
+          <p className={formStyles.error}>{errors.currentPwd?.message}</p>
         </section>
         <button type="submit">Change</button>
       </form>
