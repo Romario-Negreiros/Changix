@@ -101,7 +101,9 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
     }
   }
 
-  if (error) {
+  if (!isLoaded) {
+    return <Loader />
+  } else if (error) {
     return (
       <ErrorComponent
         title="Oooops"
@@ -109,8 +111,6 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
         btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
       />
     )
-  } else if (!isLoaded) {
-    return <Loader />
   }
   return (
     <main className="container">
