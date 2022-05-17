@@ -13,6 +13,20 @@ import {
   EmailAuthProvider
 } from 'firebase/auth'
 
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  getDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  limit
+} from 'firebase/firestore'
+
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -39,6 +53,20 @@ const firebase = {
     confirmPasswordReset,
     reauthenticateWithCredential,
     EmailAuthProvider
+  },
+
+  firestore: {
+    instance: getFirestore(app),
+    collection,
+    query,
+    where,
+    getDocs,
+    setDoc,
+    getDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+    limit
   }
 }
 
