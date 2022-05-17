@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -12,7 +12,7 @@ interface Props {
     page: string
   }
   isModal?: boolean
-  closeModal?: ReactElement
+  closeModal?: React.ReactElement
 }
 
 const Success: React.FC<Props> = ({ title, message, redirect, isModal, closeModal }) => {
