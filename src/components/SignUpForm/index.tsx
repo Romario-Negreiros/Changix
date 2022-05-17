@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { handlePwdVisibility, handleFileSelection, handleAuthError } from '@utils/handlers'
-import { useAuth } from '@utils/hooks'
+import { useAuth, useFirestore } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader } from '..'
 
@@ -41,6 +41,7 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
   const [error, setError] = React.useState('')
   const [isLoaded, setIsLoaded] = React.useState(true)
   const { createUserWithEmailAndPassword, sendEmailVerification } = useAuth()
+  const { setDoc } = useFirestore()
   const {
     register,
     handleSubmit,
@@ -75,6 +76,11 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
       if (data.confirmPwd === data.pwd) {
         setIsLoaded(false)
         const user = await createUserWithEmailAndPassword(data.email, data.pwd)
+        await setDoc(['users'], user.uid, {
+          name: data.name,
+          country: data.country,
+          phoneNumber: data.phoneNumber
+        })
         await sendEmailVerification(user)
       } else {
         throw new Error('Confirm password and password fields must be equal!')
