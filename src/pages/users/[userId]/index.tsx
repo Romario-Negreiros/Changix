@@ -1,48 +1,121 @@
 import React from 'react'
 
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { useAuth } from '@utils/hooks'
+import { handleFileSelection, handleCountrySelection } from '@utils/handlers'
+import { useAuth, useFirestore } from '@utils/hooks'
 
 import {
   ClientOnlyPortal,
   ChangePassword,
   DeleteAccount,
   Error,
+  Loader,
   Buttons
 } from '../../../components'
+
+import PhoneInput from 'react-phone-number-input/input'
 
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import formStyles from '@styles/components/Form.module.css'
+
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
 import type { GetServerSideProps, NextPage } from 'next'
 import { User as IUser } from 'firebase/auth'
+import { UserProfile } from '@app/types/firestore'
+import type { Country } from '@app/types/auth'
 
 type Modals = 'change_pwd' | 'delete_acc'
+
+interface FetchedCountry {
+  name: {
+    common: string
+  }
+  cca2: string
+}
 
 export const getServerSideProps: GetServerSideProps = async context => {
   const id = context.params?.userId
 
+  if (!id) {
+    return {
+      props: {
+        user: null,
+        serverSideError: 'Invalid id!'
+      }
+    }
+  }
+
+  const firestoreFunctions = useFirestore
+  const { getDoc } = firestoreFunctions()
+  const user = await getDoc(['users'], id as string)
+
+  if (!user.exists()) {
+    return {
+      props: {
+        user: null,
+        serverSideError: 'User not found!'
+      }
+    }
+  }
+
+  const response = await fetch('https://restcountries.com/v3.1/all')
+  const data = await response.json()
+
+  const countries = data.map((country: FetchedCountry) => {
+    return {
+      name: country.name.common,
+      alpha2Code: country.cca2
+    }
+  })
+
   return {
     props: {
       user: {
-        id
-      }
+        id,
+        ...user.data()
+      },
+      countries
     }
   }
 }
 
 interface Props {
-  user: {
-    id: string
-  } | null
+  user: UserProfile | null
+  countries?: Country[]
+  serverSideError?: string
 }
 
-const User: NextPage<Props> = ({ user }) => {
+interface FormFields extends Omit<UserProfile, 'picture' | 'id' | 'email'> {
+  picture: FileList
+}
+
+const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
   const [isEditing, setIsEditing] = React.useState(false)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const [modalOpened, setModalOpened] = React.useState<Modals | null>(null)
+  const [isLoaded, setIsLoaded] = React.useState(true)
+  const [error, setError] = React.useState(serverSideError)
+  const [imgPreview, setImgPreview] = React.useState('')
+  const [country, setCountry] = React.useState<Country | undefined>()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    control,
+    formState: { errors }
+  } = useForm<FormFields>({
+    defaultValues: {
+      name: user?.name,
+      country: user?.country,
+      phoneNumber: user?.phoneNumber
+    }
+  })
   const { back } = useRouter()
   const {
     user: currentUser,
@@ -50,6 +123,16 @@ const User: NextPage<Props> = ({ user }) => {
     reauthenticateWithCredential,
     deleteUser
   } = useAuth()
+  const { updateDoc } = useFirestore()
+
+  React.useEffect(() => {
+    if (user && countries) {
+      const userCountry = countries.find(
+        country => country.name.toLowerCase() === user?.country.toLowerCase()
+      )
+      setCountry(userCountry)
+    }
+  }, [countries, user])
 
   const setModalState = () => {
     if (isModalOpen) setModalOpened(null)
@@ -58,12 +141,33 @@ const User: NextPage<Props> = ({ user }) => {
 
   const setFormState = () => setIsEditing(!isEditing)
 
-  if (!user) {
+  const onSubmit: SubmitHandler<FormFields> = async data => {
+    try {
+      setIsLoaded(false)
+      await updateDoc(['users'], currentUser?.uid as string, {
+        name: data.name,
+        country: data.country,
+        phoneNumber: data.phoneNumber
+      })
+    } catch (err) {
+      // handleFirestoreError
+    } finally {
+      setIsEditing(false)
+      setIsLoaded(true)
+    }
+  }
+
+  if (!isLoaded) {
+    return <Loader />
+  } else if (error) {
     return (
       <Error
         title="Oooops"
-        error="User not found!"
-        btn={{ handleClick: () => back(), text: 'Go back' }}
+        error={error}
+        btn={{
+          handleClick: () => (serverSideError ? back() : setError('')),
+          text: serverSideError ? 'Go back' : 'Dismiss'
+        }}
       />
     )
   }
@@ -89,37 +193,105 @@ const User: NextPage<Props> = ({ user }) => {
           )}
         </ClientOnlyPortal>
       )}
-      <form className={formStyles.form}>
+      <form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
         <section className={formStyles.file_input_container}>
           <label style={{ cursor: isEditing ? 'pointer' : 'default' }}>
-            <Image
-              src="/icons/logo.svg"
-              width={50}
-              height={50}
-              alt="user.name"
-            />
+            {user?.picture && !imgPreview && (
+              <Image
+                src="/icons/logo.svg"
+                width={50}
+                height={50}
+                alt={user.name}
+              />
+            )}
+            {imgPreview && (
+              <Image
+                src={imgPreview}
+                width={100}
+                height={75}
+                alt="Image preview"
+              />
+            )}
+            {!user?.picture && !imgPreview && (
+              <FontAwesomeIcon
+                icon={faCamera}
+                color="#8661c1"
+                height={25}
+                width={25}
+              />
+            )}
             <input
               disabled={!isEditing}
               type="file"
               accept=".jpg,.jpeg,.png,.svg"
+              onChange={e => handleFileSelection(e, setImgPreview)}
             />
           </label>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="email">Email</label>
-          <input readOnly={!isEditing} id="email" />
+          <input
+            id="email"
+            readOnly
+            defaultValue={user?.email}
+          />
+          <p className={formStyles.error}></p>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="name">Name</label>
-          <input readOnly={!isEditing} id="name" />
+          <input
+            id="name"
+            readOnly={!isEditing}
+            {...register('name', {
+              required: 'Name is required'
+            })}
+          />
+          <p className={formStyles.error}>{errors.name?.message}</p>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="country">Country</label>
-          <input readOnly={!isEditing} id="country" />
+          <input
+            id="country"
+            list="countries"
+            readOnly={!isEditing}
+            {...register('country', {
+              required: 'Country is required'
+            })}
+            onBlur={event =>
+              handleCountrySelection(
+                event,
+                countries as Country[],
+                setCountry,
+                setValue
+              )
+            }
+          />
+          <datalist id="countries">
+            {countries?.map(country => (
+              <option key={country.name} value={country.name} />
+            ))}
+          </datalist>
+          <p className={formStyles.error}>{errors.country?.message}</p>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="phone_number">Phone number</label>
-          <input readOnly={!isEditing} id="phone_number" />
+          <Controller
+            name="phoneNumber"
+            control={control}
+            rules={{
+              required: 'Phone number is required'
+            }}
+            render={({ field: { onChange, value } }) => (
+              <PhoneInput
+                id="phone_input"
+                country={country?.alpha2Code}
+                onChange={onChange}
+                value={value}
+                readOnly={!isEditing}
+              />
+            )}
+          />
+          <p className={formStyles.error}>{errors.phoneNumber?.message}</p>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="announced_items">
@@ -142,7 +314,7 @@ const User: NextPage<Props> = ({ user }) => {
           <label htmlFor="exchanged_items">Exchanged items</label>
           <input readOnly={!isEditing} defaultValue={19} id="exchanged_items" />
         </section>
-        {currentUser?.uid !== user.id && (
+        {currentUser?.uid === user?.id && (
           <Buttons
             isEditing={isEditing}
             setFormState={setFormState}
