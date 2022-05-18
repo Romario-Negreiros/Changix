@@ -9,7 +9,7 @@ import {
   ClientOnlyPortal,
   ChangePassword,
   DeleteAccount,
-  Error,
+  Error as ErrorComponent,
   Loader,
   Buttons
 } from '../../../components'
@@ -150,7 +150,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
         phoneNumber: data.phoneNumber
       })
     } catch (err) {
-      // handleFirestoreError
+      if (err instanceof Error) setError(err.message)
     } finally {
       setIsEditing(false)
       setIsLoaded(true)
@@ -161,7 +161,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
     return <Loader />
   } else if (error) {
     return (
-      <Error
+      <ErrorComponent
         title="Oooops"
         error={error}
         btn={{
