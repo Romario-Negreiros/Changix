@@ -1,7 +1,12 @@
 import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
-import { handlePwdVisibility, handleFileSelection, handleAuthError } from '@utils/handlers'
+import {
+  handlePwdVisibility,
+  handleFileSelection,
+  handleCountrySelection,
+  handleAuthError
+} from '@utils/handlers'
 import { useAuth, useFirestore } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader } from '..'
@@ -77,6 +82,7 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
         setIsLoaded(false)
         const user = await createUserWithEmailAndPassword(data.email, data.pwd)
         await setDoc(['users'], user.uid, {
+          email: data.email,
           name: data.name,
           country: data.country,
           phoneNumber: data.phoneNumber
@@ -89,21 +95,6 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
       handleAuthError(err, 'Sign up', setError)
     } finally {
       setIsLoaded(true)
-    }
-  }
-
-  const handleCountrySelection = (event: React.FormEvent<HTMLInputElement>) => {
-    if (event.currentTarget) {
-      const { value } = event.currentTarget
-      const selectedCountry = countries.find(country =>
-        country.name.toLowerCase().includes(value.toLowerCase())
-      )
-      if (selectedCountry) {
-        if (selectedCountry.name !== value) {
-          setValue('country', selectedCountry.name)
-        }
-        setCountry(selectedCountry)
-      }
     }
   }
 
@@ -144,7 +135,7 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
               type="file"
               accept=".jpg,.jpeg,.png,.svg"
               {...register('picture')}
-              onChange={(e) => handleFileSelection(e, setImgPreview)}
+              onChange={e => handleFileSelection(e, setImgPreview)}
             />
           </label>
         </section>
@@ -222,7 +213,9 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
             {...register('country', {
               required: 'Country is required'
             })}
-            onBlur={handleCountrySelection}
+            onBlur={event =>
+              handleCountrySelection(event, countries, setCountry, setValue)
+            }
           />
           <datalist id="countries">
             {countries.map(country => (
