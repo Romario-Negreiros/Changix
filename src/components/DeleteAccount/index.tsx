@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { handleAuthError } from '@utils/handlers'
+import { useFirestore } from '@utils/hooks'
 
 import { CloseModal, Error, Loader, Success } from '../'
 
@@ -34,6 +35,7 @@ const DeleteAccount: React.FC<Props> = ({
   const [success, setSuccess] = React.useState(false)
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [isPwdVisible, setIsPwdVisible] = React.useState(false)
+  const { deleteDoc } = useFirestore()
   const {
     register,
     handleSubmit,
@@ -46,6 +48,7 @@ const DeleteAccount: React.FC<Props> = ({
     try {
       setIsLoaded(false)
       await reauthenticateWithCredential(user, pwd)
+      await deleteDoc(['users'], user.uid)
       await deleteUser(user)
       setSuccess(true)
     } catch (err) {
