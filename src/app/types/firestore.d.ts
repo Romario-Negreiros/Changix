@@ -9,4 +9,7 @@ export type WhereArgs = [
 ]
 
 export interface UserProfile
-  extends Omit<SignUpFormFields, 'email' | 'pwd' | 'confirmPwd'> {}
+  extends Omit<SignUpFormFields, 'picture' | 'pwd' | 'confirmPwd'> {
+    id: string
+    picture: string
+  }
