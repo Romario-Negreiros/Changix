@@ -68,7 +68,7 @@ const Header: React.FC = () => {
           {user && (
             <>
               <li>
-                <Link href="/users/:id">
+                <Link href={`/users/${user.uid}`}>
                   <a>Profile</a>
                 </Link>
               </li>
