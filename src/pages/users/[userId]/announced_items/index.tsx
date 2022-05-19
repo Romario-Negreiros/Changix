@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useRouter } from 'next/router'
-import { useFirestore } from '@utils/hooks'
+import { useFirestore, useAuth } from '@utils/hooks'
 
 import { Card, Error } from 'src/components'
 
@@ -15,7 +15,7 @@ const containerStyles = {
   alignItems: 'stretch',
   justifyContent: 'center',
   flexFlow: 'row wrap',
-  gap: '0rem',
+  gap: '2rem',
   padding: '1rem',
   marginTop: '2rem'
 }
@@ -70,6 +70,7 @@ const AnnouncedItems: NextPage<Props> = ({
   userId,
   serverSideError
 }) => {
+  const { user } = useAuth()
   const { back } = useRouter()
 
   if (serverSideError) {
@@ -90,7 +91,12 @@ const AnnouncedItems: NextPage<Props> = ({
           <Card
             key={item.id}
             item={item}
-            linkHref={`/users/${userId}/announced_items/${item.id}`}
+            linkHref={
+              userId === user?.uid
+                ? `/users/${userId}/announced_items/${item.id}`
+                : `/items/${item.id}`
+            }
+            linkTxt={userId === user?.uid ? 'Edit' : 'Visit'}
           />
         </>
       ))}
