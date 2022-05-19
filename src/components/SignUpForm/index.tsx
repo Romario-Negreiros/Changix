@@ -85,7 +85,9 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
           email: data.email,
           name: data.name,
           country: data.country,
-          phoneNumber: data.phoneNumber
+          phoneNumber: data.phoneNumber,
+          announcedItems: [],
+          exchangedItems: 0
         })
         await sendEmailVerification(user)
       } else {
