@@ -10,6 +10,7 @@ const containerStyles = {
   justifyContent: 'center',
   flexFlow: 'row wrap',
   gap: '2rem',
+  padding: '1rem',
   marginTop: '2rem'
 }
 
