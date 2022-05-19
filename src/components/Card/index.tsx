@@ -7,31 +7,17 @@ import Link from 'next/link'
 
 import styles from '@styles/components/Card.module.css'
 
+import { Item } from '@app/types/item'
+
 interface Props {
   linkHref: string
+  item: Item
 }
 
-const mockTxt = `
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Architecto
-        omnis quasi, repudiandae quas recusandae fuga aliquam eum consectetur
-        placeat. Qui, eos est. Repudiandae doloremque incidunt sint a excepturi.
-        Officiis tempora, fugiat eligendi sit laboriosam corporis pariatur
-        adipisci. Non eaque, corporis possimus quibusdam officia debitis,
-        doloribus dolore cupiditate mollitia voluptatibus quisquam corrupti
-        facere sint omnis inventore itaque blanditiis tenetur cum illo aut
-        molestiae suscipit placeat sunt nihil? Voluptate distinctio veritatis
-        commodi facilis. Nobis nesciunt odit fuga qui eos error in ad magni
-        dolor delectus! Perspiciatis a nulla similique repellat iure ea quam cum
-        nihil id consequuntur pariatur vero corporis, animi voluptatum nemo?
-        Error quidem rerum earum! Omnis enim, id accusamus, vitae, fugiat
-        inventore distinctio quaerat modi ipsam amet reprehenderit magni
-        laboriosam.
-`
-
-const Card: React.FC<Props> = ({ linkHref }) => {
+const Card: React.FC<Props> = ({ linkHref, item }) => {
   return (
     <li className={styles.result}>
-      <h2>item.name</h2>
+      <h2>{item.name}</h2>
       <section className={styles.item_image_container}>
         <Carousel showThumbs={false}>
           <div>
@@ -52,7 +38,7 @@ const Card: React.FC<Props> = ({ linkHref }) => {
           </div>
         </Carousel>
       </section>
-      <p>{mockTxt.substring(0, 150)}...</p>
+      <p className={styles.description}>{item.description.substring(0, 150)}{item.description.length < 150 ? '' : '...'}</p>
       <Link href={linkHref}>
         <a>Visit</a>
       </Link>
