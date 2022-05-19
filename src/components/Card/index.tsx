@@ -10,11 +10,12 @@ import styles from '@styles/components/Card.module.css'
 import { Item } from '@app/types/item'
 
 interface Props {
-  linkHref: string
   item: Item
+  linkHref: string
+  linkTxt: string
 }
 
-const Card: React.FC<Props> = ({ linkHref, item }) => {
+const Card: React.FC<Props> = ({ item, linkHref, linkTxt }) => {
   return (
     <li className={styles.result}>
       <h2>{item.name}</h2>
@@ -38,9 +39,12 @@ const Card: React.FC<Props> = ({ linkHref, item }) => {
           </div>
         </Carousel>
       </section>
-      <p className={styles.description}>{item.description.substring(0, 150)}{item.description.length < 150 ? '' : '...'}</p>
+      <p className={styles.description}>
+        {item.description.substring(0, 150)}
+        {item.description.length < 150 ? '' : '...'}
+      </p>
       <Link href={linkHref}>
-        <a>Visit</a>
+        <a>{linkTxt}</a>
       </Link>
     </li>
   )
