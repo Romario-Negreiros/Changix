@@ -23,7 +23,9 @@ interface Props {
     category?: any
     images?: any
   }
-  defaultValues?: FormFields
+  deleteAnnounce?: () => Promise<void>
+  markAsExchangedAndDelete?: () => Promise<void>
+  defaultImagesValues?: string[]
 }
 
 const selectOptions = ['Any', 'Sports', 'Musical Instruments']
@@ -33,7 +35,9 @@ const ItemForm: React.FC<Props> = ({
   register,
   handleSubmit,
   errors,
-  defaultValues
+  deleteAnnounce,
+  markAsExchangedAndDelete,
+  defaultImagesValues
 }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
@@ -97,6 +101,8 @@ const ItemForm: React.FC<Props> = ({
           Images
         </button>
         <button type="submit">Submit</button>
+        {deleteAnnounce && <button type="button" onClick={deleteAnnounce}>Delete announce</button>}
+        {markAsExchangedAndDelete && <button type="button" onClick={markAsExchangedAndDelete}>Mark as exchanged and delete</button>}
       </form>
     </main>
   )
