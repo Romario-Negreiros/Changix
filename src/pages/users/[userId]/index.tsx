@@ -25,6 +25,8 @@ import formStyles from '@styles/components/Form.module.css'
 
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
+import Sleeping from '@public/animations/sleeping.json'
+
 import type { GetServerSideProps, NextPage } from 'next'
 import { User as IUser } from 'firebase/auth'
 import { UserProfile } from '@app/types/firestore'
@@ -39,13 +41,22 @@ interface FetchedCountry {
   cca2: string
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const id = context.params?.userId
+interface Props {
+  user: UserProfile | null
+  countries?: Country[]
+  serverSideError?: string
+}
 
-  if (!id) {
+interface FormFields extends Omit<UserProfile, 'picture' | 'id' | 'email'> {
+  picture: FileList
+}
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const userId = context.params?.userId
+
+  if (!userId) {
     return {
       props: {
-        user: null,
         serverSideError: 'Invalid id!'
       }
     }
@@ -53,12 +64,11 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const firestoreFunctions = useFirestore
   const { getDoc } = firestoreFunctions()
-  const user = await getDoc(['users'], id as string)
+  const user = await getDoc(['users'], userId as string)
 
   if (!user.exists()) {
     return {
       props: {
-        user: null,
         serverSideError: 'User not found!'
       }
     }
@@ -77,22 +87,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
       user: {
-        id,
+        id: userId,
         ...user.data()
       },
       countries
     }
   }
-}
-
-interface Props {
-  user: UserProfile | null
-  countries?: Country[]
-  serverSideError?: string
-}
-
-interface FormFields extends Omit<UserProfile, 'picture' | 'id' | 'email'> {
-  picture: FileList
 }
 
 const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
@@ -164,6 +164,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
       <ErrorComponent
         title="Oooops"
         error={error}
+        animation={error === 'User not found!' ? Sleeping : undefined}
         btn={{
           handleClick: () => (serverSideError ? back() : setError('')),
           text: serverSideError ? 'Go back' : 'Dismiss'
@@ -295,7 +296,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="announced_items">
-            <Link href="/users/58/announced_items">
+            <Link href={`/users/${user?.id}/announced_items`}>
               <a
                 style={{
                   padding: 0,
@@ -308,11 +309,11 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
               </a>
             </Link>
           </label>
-          <input readOnly={!isEditing} defaultValue={4} id="announced_items" />
+          <input readOnly={!isEditing} defaultValue={user?.announcedItems.length} id="announced_items" />
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="exchanged_items">Exchanged items</label>
-          <input readOnly={!isEditing} defaultValue={19} id="exchanged_items" />
+          <input readOnly={!isEditing} defaultValue={user?.exchangedItems} id="exchanged_items" />
         </section>
         {currentUser?.uid === user?.id && (
           <Buttons
