@@ -29,7 +29,8 @@
   text-transform: capitalize;
 }
 
-.result p {
+.description {
+  width: 100%;
   font-size: 1.4rem;
   font-weight: 300;
   margin-top: 1rem;
