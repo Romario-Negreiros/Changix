@@ -94,7 +94,8 @@
 }
 
 .input_container input,
-.input_container textarea {
+.input_container textarea,
+.input_container select {
   font-size: 1.5rem;
   font-weight: 300;
   padding: 1.9rem 0.2rem 0.1rem;
@@ -103,16 +104,23 @@
   background-color: var(--bg-primary);
 }
 
-.input_container input[type='checkbox'] {
-  width: fit-content;
+.input_container select {
+  outline: 0;
+  border: 0 none;
+  box-shadow: none;
+  border-bottom: 0.1rem solid var(--colors-secondary);
   cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position-x: 100%;
+  background-position-y: 5px;
 }
 
-.input_container input[type='checkbox'] ~ label {
-  display: inline-block;
-  width: fit-content;
-  font-size: 1.6rem;
-  text-indent: 1rem;
+.input_container option {
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 .input_container textarea {
@@ -126,6 +134,10 @@
   box-shadow: none;
 
   resize: none;
+  border: 0.1rem solid var(--colors-secondary);
+}
+
+.input_container select:focus {
   border: 0.1rem solid var(--colors-secondary);
 }
 
