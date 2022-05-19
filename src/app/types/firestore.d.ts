@@ -12,4 +12,6 @@ export interface UserProfile
   extends Omit<SignUpFormFields, 'picture' | 'pwd' | 'confirmPwd'> {
     id: string
     picture: string
+    announcedItems: string[]
+    exchangedItems: number
   }
