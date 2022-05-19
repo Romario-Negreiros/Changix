@@ -13,13 +13,14 @@ import {
 
 import type { NextPage } from 'next'
 import type { FormFields } from '@app/types/item'
+import type { UserProfile } from '@app/types/firestore'
 
 const Announce: NextPage = () => {
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState(false)
   const { user } = useAuth()
-  const { setDoc } = useFirestore()
+  const { setDoc, updateDoc, getDoc } = useFirestore()
   const {
     register,
     handleSubmit,
@@ -29,10 +30,20 @@ const Announce: NextPage = () => {
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       setIsLoaded(false)
+      const userProfileDoc = await getDoc(['users'], user?.uid as string)
+      if (!userProfileDoc.exists()) {
+        throw new Error('User not found')
+      }
       const itemId = uuidv4()
       await setDoc(['announced'], itemId, {
         ownerId: user?.uid,
-        ...data
+        name: data.name,
+        category: data.category,
+        description: data.description
+      })
+      const userProfileData = userProfileDoc.data() as UserProfile
+      await updateDoc(['users'], user?.uid as string, {
+        announcedItems: [...userProfileData.announcedItems, itemId]
       })
       setSuccess(true)
     } catch (err) {
