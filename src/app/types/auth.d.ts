@@ -25,9 +25,6 @@ export interface ResetPasswordFormFields {
   confirmNewPwd: string
 }
 
-export interface UserProfile
-  extends Omit<SignUpFormFields, 'email' | 'pwd' | 'confirmPwd'> {}
-
 export interface AuthContext {
   user: User | null
   setUser: React.Dispatch<React.SetStateAction<User | null>>
