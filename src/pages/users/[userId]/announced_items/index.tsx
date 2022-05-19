@@ -87,18 +87,16 @@ const AnnouncedItems: NextPage<Props> = ({
   return (
     <main style={containerStyles}>
       {items.map(item => (
-        <>
-          <Card
-            key={item.id}
-            item={item}
-            linkHref={
-              userId === user?.uid
-                ? `/users/${userId}/announced_items/${item.id}`
-                : `/items/${item.id}`
-            }
-            linkTxt={userId === user?.uid ? 'Edit' : 'Visit'}
-          />
-        </>
+        <Card
+          key={item.id}
+          item={item}
+          linkHref={
+            userId === user?.uid
+              ? `/users/${userId}/announced_items/${item.id}`
+              : `/items/${item.id}`
+          }
+          linkTxt={userId === user?.uid ? 'Edit' : 'Visit'}
+        />
       ))}
     </main>
   )
