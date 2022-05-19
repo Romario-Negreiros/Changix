@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card } from '../components'
+// import { Card } from '../components'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -42,9 +42,9 @@ const Home: NextPage = () => {
           Using filter filter
         </h1>
         <ul>
-          {new Array(50).fill(1).map((value, index) => (
+          {/* {new Array(50).fill(1).map((value, index) => (
             <Card key={value * index} linkHref="/items/:category/:itemId" />
-          ))}
+          ))} */}
         </ul>
       </article>
     </main>
