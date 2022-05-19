@@ -29,7 +29,7 @@ const Home: NextPage = () => {
           <label htmlFor="filter">Filter by category</label>
           <select id="filter">
             {selectOptions.map((option, index) => (
-              <option key={index} value={option}>
+              <option key={index} value={option.toLowerCase()}>
                 {option}
               </option>
             ))}
