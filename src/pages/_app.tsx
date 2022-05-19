@@ -4,7 +4,7 @@ import { useProvideAuth } from '@utils/hooks'
 import { handleAuthError } from '@utils/handlers'
 import firebase from '@app/lib/firebase'
 
-import { Layout, Error } from '../components'
+import { Layout, Error, AuthChecker } from '../components'
 
 import '../styles/globals.css'
 import '../styles/variables.css'
@@ -35,17 +35,19 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
     <authContext.Provider value={auth}>
       <Layout>
-        {error
-          ? (
-          <Error
-            title="Oooops"
-            error={error}
-            btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
-          />
-            )
-          : (
-          <Component {...pageProps} />
-            )}
+        <AuthChecker user={auth.user}>
+          {error
+            ? (
+            <Error
+              title="Oooops"
+              error={error}
+              btn={{ handleClick: () => setError(''), text: 'Dismiss' }}
+            />
+              )
+            : (
+            <Component {...pageProps} />
+              )}
+        </AuthChecker>
       </Layout>
     </authContext.Provider>
   )
