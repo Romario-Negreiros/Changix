@@ -20,13 +20,15 @@
     "react-hook-form": "^7.30.0",
     "react-phone-number-input": "^3.1.52",
     "react-responsive-carousel": "^3.2.23",
-    "sharp": "^0.30.4"
+    "sharp": "^0.30.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
     "@types/node": "17.0.29",
     "@types/react": "18.0.8",
     "@types/react-dom": "18.0.0",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "eslint": "^8.14.0",
