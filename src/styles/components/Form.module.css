@@ -105,6 +105,7 @@
 }
 
 .input_container select {
+  font-size: 1.5rem;
   outline: 0;
   border: 0 none;
   box-shadow: none;
@@ -120,7 +121,6 @@
 
 .input_container option {
   font-size: 1.5rem;
-  font-weight: 300;
 }
 
 .input_container textarea {
@@ -178,6 +178,7 @@
   .input_container,
   .input_container input,
   .input_container textarea,
+  .input_container select,
   .file_input_container,
   .form button,
   .form a {
