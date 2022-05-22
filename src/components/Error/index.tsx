@@ -16,14 +16,33 @@ interface Props {
   animation?: any
   width?: string
   isModal?: boolean
+  notFullScreen?: boolean
 }
 
-const Error: React.FC<Props> = ({ title, error, btn, animation, width, isModal }) => {
+const Error: React.FC<Props> = ({
+  title,
+  error,
+  btn,
+  animation,
+  width,
+  isModal,
+  notFullScreen
+}) => {
+  if (notFullScreen) {
+    return (
+      <section className={styles.notFullScreenContainer}>
+        <h2>{title}</h2>
+        <p>{error}</p>
+      </section>
+    )
+  }
   return (
     <main className={`${styles.container} ${isModal && 'modal_container'}`}>
       <section className={isModal ? styles.sectionInModal : ''}>
         <h1>{title}</h1>
-        <div style={!animation ? { width: '55%' } : width ? { width } : undefined}>
+        <div
+          style={!animation ? { width: '55%' } : width ? { width } : undefined}
+        >
           <Lottie animationData={animation ?? errorAnimation} loop />
         </div>
         <p>{error}</p>
