@@ -18,13 +18,16 @@ const useFirestore = () => {
     return firebase.firestore.doc(instance, path, docId)
   }
 
-  const createQuery = (collection: CollectionReference<DocumentData>, whereArgs: WhereArgs) => {
+  const createQuery = (collection: CollectionReference<DocumentData>, whereArgs: WhereArgs, limit?: number) => {
+    if (limit) {
+      return firebase.firestore.query(collection, firebase.firestore.where(...whereArgs), firebase.firestore.limit(limit))
+    }
     return firebase.firestore.query(collection, firebase.firestore.where(...whereArgs))
   }
 
-  const getDocs = async (pathSegments: string[], whereArgs: WhereArgs) => {
+  const getDocs = async (pathSegments: string[], whereArgs: WhereArgs, limit?: number) => {
     const collection = getCollection(pathSegments)
-    const query = createQuery(collection, whereArgs)
+    const query = createQuery(collection, whereArgs, limit)
     const results = await firebase.firestore.getDocs(query)
     return results
   }
