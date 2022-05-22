@@ -28,7 +28,7 @@ interface Props {
   defaultImagesValues?: string[]
 }
 
-const selectOptions = ['Any', 'Sports', 'Musical Instruments']
+const selectOptions = ['Sports', 'Musical Instruments']
 
 const ItemForm: React.FC<Props> = ({
   onSubmit,
