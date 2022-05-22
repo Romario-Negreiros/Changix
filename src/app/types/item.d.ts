@@ -10,3 +10,8 @@ export interface Item extends Omit<FormFields, 'images'> {
   ownerId: string
   images: string[]
 }
+
+export enum CategoriesEnum {
+  sports = 'sports',
+  musicalInstruments = 'musicalInstruments'
+}
