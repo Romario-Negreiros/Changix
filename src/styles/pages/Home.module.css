@@ -6,6 +6,14 @@
   margin-top: 1rem;
 }
 
+.fullContainer {
+  margin-top: 10rem;
+}
+
+.scrollContainer {
+  margin-top: 2rem;
+}
+
 .container section {
   display: flex;
   justify-content: center;
@@ -106,11 +114,11 @@
   }
 
   .filter_container {
-    max-width: 220px;
+    max-width: 400px;
   }
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 830px) {  
   .results_container h1 {
     font-size: 2.6rem;
   }
