@@ -92,7 +92,7 @@
   opacity: 1;
 }
 
-.results_container ul {
+.results_list {
   display: flex;
   align-items: stretch;
   justify-content: center;
