@@ -23,8 +23,9 @@ const Success: React.FC<Props> = ({ title, message, redirect, isModal, closeModa
     if (redirect) {
       if (redirectTimer === 0) {
         push(redirect?.url)
+      } else {
+        setTimeout(() => setRedirectTimer(redirectTimer - 1), 1000)
       }
-      setTimeout(() => setRedirectTimer(redirectTimer - 1), 1000)
     }
   }, [redirectTimer, push, redirect])
 
