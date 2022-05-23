@@ -8,7 +8,7 @@ export interface FormFields {
 export interface Item extends Omit<FormFields, 'images'> {
   id: string
   ownerId: string
-  images: string[]
+  // images: string[]
 }
 
 export enum CategoriesEnum {
