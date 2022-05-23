@@ -16,10 +16,8 @@ const sectionStylesInModal = {
 }
 
 const notFullScreenSectionStyles = {
-  display: 'grid',
-  placeItems: 'center',
-  width: '100%',
-  height: '100%'
+  width: '25%',
+  margin: 'auto'
 }
 
 const Loader: React.FC<Props> = ({ isModal, notFullScreen }) => {
