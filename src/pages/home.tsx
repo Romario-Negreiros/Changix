@@ -85,7 +85,6 @@ const Home: NextPage<Props> = ({ initialItems }) => {
       } else if (value.filter) {
         const results = await filter(value.filter)
         setItems(results)
-        console.log(value.filter)
         return
       }
     } catch (err) {
