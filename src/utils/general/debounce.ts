@@ -1,4 +1,4 @@
-const debounce = (func: (...args: any[]) => any, timeout = 300) => {
+const debounce = (func: (...args: any[]) => any, timeout = 500) => {
   let timer: NodeJS.Timeout | undefined
 
   return (...args: any[]) => {
