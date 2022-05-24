@@ -10,13 +10,13 @@ interface Props {
 }
 
 const sectionStylesInModal = {
-  width: '25%',
+  width: '50%',
   padding: '1rem',
   backgroundColor: '#fff'
 }
 
 const notFullScreenSectionStyles = {
-  width: '25%',
+  width: '40%',
   margin: 'auto'
 }
 
@@ -30,7 +30,7 @@ const Loader: React.FC<Props> = ({ isModal, notFullScreen }) => {
   }
   return (
     <main className={isModal ? 'modal_container' : 'container'}>
-      <section style={isModal ? sectionStylesInModal : { width: '25%' }}>
+      <section style={isModal ? sectionStylesInModal : { width: '50%' }}>
         <Lottie animationData={LoadingAnimation} loop />
       </section>
     </main>
