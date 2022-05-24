@@ -12,6 +12,8 @@
 
 .scrollContainer {
   margin-top: 2rem;
+  height: 50px;
+  width: 100%;
 }
 
 .container section {
@@ -93,10 +95,8 @@
 }
 
 .results_list {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  flex-flow: row wrap;
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -119,7 +119,16 @@
 }
 
 @media screen and (min-width: 830px) {  
+  .results_list {
+    grid-template-columns: 1fr 1fr;
+  }
   .results_container h1 {
     font-size: 2.6rem;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+  .results_list {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
