@@ -8,16 +8,16 @@ import type { Item } from '@app/types/item'
 
 interface Props {
   error: string
-  isLoadingSearchQuery: boolean
+  isLoaded: boolean
   items: Item[]
 }
 
 const HomeQueryState: React.FC<Props> = ({
   error,
-  isLoadingSearchQuery,
+  isLoaded,
   items
 }) => {
-  if (isLoadingSearchQuery) {
+  if (!isLoaded) {
     return (
       <div className={styles.fullContainer}>
         <Loader notFullScreen />
