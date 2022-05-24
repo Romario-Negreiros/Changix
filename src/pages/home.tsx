@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { useForm } from 'react-hook-form'
-import { debounce } from '@utils/general'
+import { debounce, throttle } from '@utils/general'
 import { useFirestore, useSearch } from '@utils/hooks'
 
-import { HomeQueryState, Loader } from '../components'
+import { HomeQueryState } from '../components'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -50,16 +50,70 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home: NextPage<Props> = ({ initialItems }) => {
   const [error, setError] = React.useState('')
-  const [loadersState, setLoadersState] = React.useState({
-    isLoadingSearchQuery: false,
-    isLoadingScrollQuery: false
-  })
+  const [isLoaded, setIsLoaded] = React.useState(true)
   const [items, setItems] = React.useState<Item[]>(initialItems)
+  const [limitOfItems, setLimitOfItems] = React.useState(1)
   const { getDocs } = useFirestore()
   const { search, filter, searchAndFilter } = useSearch()
   const { register, watch, setValue } = useForm<Fields>()
   const watchSearch = watch('search')
   const watchFilter = watch('filter')
+
+  const handleQuery = async (
+    value: Partial<Fields>,
+    isScrollQuery?: boolean,
+    limitOfItems?: number
+  ) => {
+    try {
+      if (error) setError('')
+      if (!isScrollQuery) {
+        setIsLoaded(false)
+        setLimitOfItems(1)
+      }
+      if (value.search) {
+        if (value.filter) {
+          const results = await searchAndFilter(value.search, value.filter, limitOfItems)
+          setItems(results)
+          return
+        }
+        const results = await search(value.search, limitOfItems)
+        setItems(results)
+        return
+      } else if (value.filter) {
+        const results = await filter(value.filter, limitOfItems)
+        setItems(results)
+        return
+      }
+    } catch (err) {
+      if (err instanceof Error) setError(err.message)
+    } finally {
+      setIsLoaded(true)
+    }
+  }
+
+  const handleQueryWithDebounce = debounce(
+    (value: Partial<Fields>, isScrollQuery?: boolean, limitOfItems?: number) =>
+      handleQuery(value, isScrollQuery, limitOfItems)
+  )
+
+  const handleScroll = throttle(() => {
+    const documentHeight = document.body.scrollHeight
+    const currentScroll = window.scrollY + window.innerHeight
+    if (
+      currentScroll === documentHeight &&
+      (watchSearch || watchFilter)
+    ) {
+      setLimitOfItems(limitOfItems + 2)
+      handleQueryWithDebounce(
+        {
+          search: watchSearch,
+          filter: watchFilter
+        },
+        true,
+        limitOfItems + 2
+      )
+    }
+  })
 
   React.useEffect(() => {
     if (!items.length) {
@@ -67,45 +121,23 @@ const Home: NextPage<Props> = ({ initialItems }) => {
     }
   }, [items])
 
-  const handleQuery = async (value: Partial<Fields>) => {
-    try {
-      setLoadersState({
-        isLoadingScrollQuery: false,
-        isLoadingSearchQuery: true
-      })
-      if (value.search) {
-        if (value.filter) {
-          const results = await searchAndFilter(value.search, value.filter)
-          setItems(results)
-          return
-        }
-        const results = await search(value.search)
-        setItems(results)
-        return
-      } else if (value.filter) {
-        const results = await filter(value.filter)
-        setItems(results)
-        return
-      }
-    } catch (err) {
-      if (err instanceof Error) setError(err.message)
-    } finally {
-      setLoadersState({
-        isLoadingScrollQuery: false,
-        isLoadingSearchQuery: false
-      })
-    }
-  }
-
-  const handleQueryWithDebounce = debounce((value: Partial<Fields>) =>
-    handleQuery(value)
-  )
-
   React.useEffect(() => {
     const subscription = watch(async value => handleQueryWithDebounce(value))
+    document.addEventListener('scroll', handleScroll)
 
-    return () => subscription.unsubscribe()
-  }, [watch, getDocs, search, filter, searchAndFilter, handleQueryWithDebounce])
+    return () => {
+      subscription.unsubscribe()
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [
+    watch,
+    getDocs,
+    search,
+    filter,
+    searchAndFilter,
+    handleQueryWithDebounce,
+    handleScroll
+  ])
 
   return (
     <main className={styles.container}>
@@ -143,16 +175,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
           Showing results for: {watchSearch} <br />
           Using filter: {watchFilter}
         </h1>
-        <HomeQueryState
-          error={error}
-          isLoadingSearchQuery={loadersState.isLoadingSearchQuery}
-          items={items}
-        />
-        {loadersState.isLoadingScrollQuery && (
-          <div className={styles.scrollContainer}>
-            <Loader notFullScreen />
-          </div>
-        )}
+        <HomeQueryState error={error} isLoaded={isLoaded} items={items} />
       </article>
     </main>
   )
