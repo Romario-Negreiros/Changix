@@ -5,16 +5,14 @@ import { useFirestore, useAuth } from '@utils/hooks'
 
 import { Card, Error } from 'src/components'
 
+import homeStyles from '@styles/pages/Home.module.css'
+
 import Sleeping from '@public/animations/sleeping.json'
 
 import type { GetServerSideProps, NextPage } from 'next'
 import type { Item } from '@app/types/item'
 
 const containerStyles = {
-  display: 'flex',
-  alignItems: 'stretch',
-  justifyContent: 'center',
-  flexFlow: 'row wrap',
   gap: '2rem',
   padding: '1rem',
   marginTop: '2rem'
@@ -85,7 +83,7 @@ const AnnouncedItems: NextPage<Props> = ({
     )
   }
   return (
-    <main style={containerStyles}>
+    <main style={containerStyles} className={homeStyles.results_list}>
       {items.map(item => (
         <Card
           key={item.id}
