@@ -1,4 +1,4 @@
-const throttle = (func: (...args: any[]) => any, wait = 0) => {
+const throttle = (func: (...args: any[]) => any, wait = 500) => {
   let lastTime = 0
 
   return (...args: any[]) => {
