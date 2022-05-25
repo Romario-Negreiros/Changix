@@ -52,7 +52,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
   const [error, setError] = React.useState('')
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [items, setItems] = React.useState<Item[]>(initialItems)
-  const [limitOfItems, setLimitOfItems] = React.useState(1)
+  const [limitOfItems, setLimitOfItems] = React.useState(15)
   const [hasFoundAllResults, setHasFoundAllResults] = React.useState(false)
   const { getDocs } = useFirestore()
   const { search, filter, searchAndFilter } = useSearch()
@@ -132,14 +132,14 @@ const Home: NextPage<Props> = ({ initialItems }) => {
         (watchSearch || watchFilter) &&
         !hasFoundAllResults
       ) {
-        setLimitOfItems(limitOfItems + 2)
+        setLimitOfItems(limitOfItems + 15)
         handleQueryWithDebounce(
           {
             search: watchSearch,
             filter: watchFilter
           },
           true,
-          limitOfItems + 2
+          limitOfItems + 15
         )
       }
     },
