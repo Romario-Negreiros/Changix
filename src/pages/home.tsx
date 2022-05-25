@@ -53,6 +53,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [items, setItems] = React.useState<Item[]>(initialItems)
   const [limitOfItems, setLimitOfItems] = React.useState(1)
+  const [hasFoundAllResults, setHasFoundAllResults] = React.useState(false)
   const { getDocs } = useFirestore()
   const { search, filter, searchAndFilter } = useSearch()
   const { register, watch, setValue } = useForm<Fields>()
@@ -69,18 +70,44 @@ const Home: NextPage<Props> = ({ initialItems }) => {
       if (!isScrollQuery) {
         setIsLoaded(false)
         setLimitOfItems(1)
+        if (hasFoundAllResults) setHasFoundAllResults(false)
       }
       if (value.search) {
         if (value.filter) {
-          const results = await searchAndFilter(value.search, value.filter, limitOfItems)
+          const results = await searchAndFilter(
+            value.search,
+            value.filter,
+            limitOfItems
+          )
+          if (
+            results.every(result => items.some(item => item.id === result.id)) &&
+            results.length === items.length
+          ) {
+            setHasFoundAllResults(true)
+            return
+          }
           setItems(results)
           return
         }
         const results = await search(value.search, limitOfItems)
+        if (
+          results.every(result => items.some(item => item.id === result.id)) &&
+          results.length === items.length
+        ) {
+          setHasFoundAllResults(true)
+          return
+        }
         setItems(results)
         return
       } else if (value.filter) {
         const results = await filter(value.filter, limitOfItems)
+        if (
+          results.every(result => items.some(item => item.id === result.id)) &&
+          results.length === items.length
+        ) {
+          setHasFoundAllResults(true)
+          return
+        }
         setItems(results)
         return
       }
@@ -96,24 +123,28 @@ const Home: NextPage<Props> = ({ initialItems }) => {
       handleQuery(value, isScrollQuery, limitOfItems)
   )
 
-  const handleScroll = throttle(() => {
-    const documentHeight = document.body.scrollHeight
-    const currentScroll = window.scrollY + window.innerHeight
-    if (
-      currentScroll === documentHeight &&
-      (watchSearch || watchFilter)
-    ) {
-      setLimitOfItems(limitOfItems + 2)
-      handleQueryWithDebounce(
-        {
-          search: watchSearch,
-          filter: watchFilter
-        },
-        true,
-        limitOfItems + 2
-      )
-    }
-  })
+  const handleScroll = throttle(
+    () => {
+      const documentHeight = document.body.scrollHeight
+      const currentScroll = window.scrollY + window.innerHeight
+      if (
+        currentScroll === documentHeight &&
+        (watchSearch || watchFilter) &&
+        !hasFoundAllResults
+      ) {
+        setLimitOfItems(limitOfItems + 2)
+        handleQueryWithDebounce(
+          {
+            search: watchSearch,
+            filter: watchFilter
+          },
+          true,
+          limitOfItems + 2
+        )
+      }
+    },
+    100
+  )
 
   React.useEffect(() => {
     if (!items.length) {
