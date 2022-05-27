@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -26,6 +27,14 @@ import {
   doc,
   limit
 } from 'firebase/firestore'
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject
+} from 'firebase/storage'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -67,6 +76,14 @@ const firebase = {
     deleteDoc,
     doc,
     limit
+  },
+
+  storage: {
+    instance: getStorage(app),
+    ref,
+    uploadBytes,
+    getDownloadURL,
+    deleteObject
   }
 }
 
