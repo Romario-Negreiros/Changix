@@ -40,7 +40,7 @@ giving a user-friendly interface, making things as simple as possible.
 
 - ### Pages
   - [x] Landing
-  - [ ] Home
+  - [x] Home
   - [x] Sign up
   - [x] Sign in
   - [x] Forgot password
@@ -51,10 +51,7 @@ giving a user-friendly interface, making things as simple as possible.
 - ### Services
   - [x] Authentication
   - [ ] Media storage
-  - [ ] Content storage (about users and announced items)
-
-- ### API Routes
-  - [ ] :bird: Soon..
+  - [x] Content storage (about users and announced items)
 
 ## Packages
 
