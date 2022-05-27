@@ -63,8 +63,8 @@ const Home: NextPage<Props> = ({ initialItems }) => {
 
   const handleQuery = async (
     value: Partial<Fields>,
-    isScrollQuery?: boolean,
-    limitOfItems?: number
+    limitOfItems: number,
+    isScrollQuery?: boolean
   ) => {
     try {
       if (error) setError('')
@@ -81,7 +81,9 @@ const Home: NextPage<Props> = ({ initialItems }) => {
             limitOfItems
           )
           if (
-            results.every(result => items.some(item => item.id === result.id)) &&
+            results.every(result =>
+              items.some(item => item.id === result.id)
+            ) &&
             results.length === items.length
           ) {
             setHasFoundAllResults(true)
@@ -120,8 +122,8 @@ const Home: NextPage<Props> = ({ initialItems }) => {
   }
 
   const handleQueryWithDebounce = debounce(
-    (value: Partial<Fields>, isScrollQuery?: boolean, limitOfItems?: number) =>
-      handleQuery(value, isScrollQuery, limitOfItems)
+    (value: Partial<Fields>, limitOfItems: number, isScrollQuery?: boolean) =>
+      handleQuery(value, limitOfItems, isScrollQuery)
   )
 
   const handleScroll = throttle(
@@ -139,12 +141,13 @@ const Home: NextPage<Props> = ({ initialItems }) => {
             search: watchSearch,
             filter: watchFilter
           },
-          true,
-          limitOfItems + 15
+          limitOfItems + 15,
+          true
         )
       }
     },
-    100
+    100,
+    true
   )
 
   React.useEffect(() => {
@@ -154,7 +157,9 @@ const Home: NextPage<Props> = ({ initialItems }) => {
   }, [items])
 
   React.useEffect(() => {
-    const subscription = watch(async value => handleQueryWithDebounce(value))
+    const subscription = watch(async value =>
+      handleQueryWithDebounce(value, limitOfItems)
+    )
     document.addEventListener('scroll', handleScroll)
 
     return () => {
@@ -168,7 +173,8 @@ const Home: NextPage<Props> = ({ initialItems }) => {
     filter,
     searchAndFilter,
     handleQueryWithDebounce,
-    handleScroll
+    handleScroll,
+    limitOfItems
   ])
 
   return (
