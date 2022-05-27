@@ -2,7 +2,7 @@ import { joinErrMsgAndAction } from '@utils/general'
 
 import { AuthErrorCodes } from 'firebase/auth'
 
-const handleAuthError = (error: unknown, action: string, setError: (error: string) => void) => {
+const handleErrors = (error: unknown, action: string, setError: (error: string) => void) => {
   const defaultUserErrorMessage = 'Looks like something went wrong, if the error persists, try again after a while!'
 
   if (error instanceof Error) {
@@ -44,4 +44,4 @@ const handleAuthError = (error: unknown, action: string, setError: (error: strin
   }
 }
 
-export default handleAuthError
+export default handleErrors
