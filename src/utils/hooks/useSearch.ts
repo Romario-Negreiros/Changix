@@ -5,8 +5,8 @@ import type { Item, CategoriesEnum } from '@app/types/item'
 const useSearch = () => {
   const { getDocs } = useFirestore()
 
-  const search = async (searchValue: string, limitOfItems = 15) => {
-    const results = await getDocs(['announced'], ['ownerId', '!=', ''], 100)
+  const search = async (searchValue: string, limitOfItems: number) => {
+    const results = await getDocs(['announced'], ['ownerId', '!=', ''], limitOfItems * 2)
     const filteredResults: Item[] = []
     results.forEach(doc => {
       const item = doc.data() as Omit<Item, 'id'>
@@ -22,7 +22,7 @@ const useSearch = () => {
     return filteredResults
   }
 
-  const filter = async (filterValue: CategoriesEnum, limitOfItems = 15) => {
+  const filter = async (filterValue: CategoriesEnum, limitOfItems: number) => {
     const results = await getDocs(
       ['announced'],
       ['category', '==', filterValue],
@@ -44,7 +44,7 @@ const useSearch = () => {
   const searchAndFilter = async (
     searchValue: string,
     filterValue: CategoriesEnum,
-    limitOfItems = 15
+    limitOfItems: number
   ) => {
     const results = await getDocs(
       ['announced'],
