@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { handleAuthError } from '@utils/handlers'
+import { handleErrors } from '@utils/handlers'
 import { useAuth } from '@utils/hooks'
 import { useRouter } from 'next/router'
 
@@ -54,7 +54,7 @@ const SignIn: NextPage = () => {
       await signInWithEmailAndPassword(email, pwd)
       push('/home')
     } catch (err) {
-      handleAuthError(err, 'Sign in', setError)
+      handleErrors(err, 'Sign in', setError)
       setIsLoaded(true)
     }
   }

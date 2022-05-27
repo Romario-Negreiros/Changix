@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAuth } from '@utils/hooks'
-import { handleAuthError } from '@utils/handlers'
+import { handleErrors } from '@utils/handlers'
 
 import { Error as ErrorComponent, Loader, Success } from '../components'
 
@@ -31,7 +31,7 @@ const ForgotPassword: NextPage = () => {
       await sendPasswordResetEmail(email)
       setSuccess(true)
     } catch (err) {
-      handleAuthError(err, 'Send email to reset password', setError)
+      handleErrors(err, 'Send email to reset password', setError)
     } finally {
       setIsLoaded(true)
     }

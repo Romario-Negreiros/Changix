@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { handleAuthError, handlePwdVisibility } from '@utils/handlers'
+import { handleErrors, handlePwdVisibility } from '@utils/handlers'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { Error as ErrorComponent, Loader, Success, CloseModal } from '../'
@@ -72,7 +72,7 @@ const ChangePassword: React.FC<Props> = ({
         )
       }
     } catch (err) {
-      handleAuthError(err, 'Update password', setError)
+      handleErrors(err, 'Update password', setError)
     } finally {
       setIsLoaded(true)
     }

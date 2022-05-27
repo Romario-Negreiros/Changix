@@ -3,6 +3,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { debounce, throttle } from '@utils/general'
 import { useFirestore, useSearch } from '@utils/hooks'
+import { handleErrors } from '@utils/handlers'
 
 import { HomeQueryState } from '../components'
 
@@ -112,7 +113,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
         return
       }
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Load Announces', setError)
     } finally {
       setIsLoaded(true)
     }
@@ -128,7 +129,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
       const documentHeight = document.body.scrollHeight
       const currentScroll = window.scrollY + window.innerHeight
       if (
-        currentScroll === documentHeight &&
+        currentScroll + 30 >= documentHeight &&
         (watchSearch || watchFilter) &&
         !hasFoundAllResults
       ) {

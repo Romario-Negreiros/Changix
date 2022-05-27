@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useProvideAuth } from '@utils/hooks'
-import { handleAuthError } from '@utils/handlers'
+import { handleErrors } from '@utils/handlers'
 import firebase from '@app/lib/firebase'
 
 import { Layout, Error, AuthChecker } from '../components'
@@ -25,7 +25,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
         auth.setUser(user)
       },
       error => {
-        handleAuthError(error as unknown, 'Auth state listener', setError)
+        handleErrors(error as unknown, 'Auth state listener', setError)
       }
     )
 

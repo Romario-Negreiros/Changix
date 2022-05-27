@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useFirestore, useAuth } from '@utils/hooks'
+import { handleErrors } from '@utils/handlers'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -83,7 +84,7 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
       })
       back()
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Update Annouce Information', setError)
       setIsLoaded(true)
     }
   }
@@ -116,7 +117,7 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
       await updateUserProfile()
       back()
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Delete Announce', setError)
       setIsLoaded(true)
     }
   }
@@ -128,7 +129,7 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
       await updateUserProfile(true)
       back()
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Mark Announce As Exchanged And Delete', setError)
       setIsLoaded(true)
     }
   }

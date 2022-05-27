@@ -5,7 +5,7 @@ import {
   handlePwdVisibility,
   handleFileSelection,
   handleCountrySelection,
-  handleAuthError
+  handleErrors
 } from '@utils/handlers'
 import { useAuth, useFirestore } from '@utils/hooks'
 
@@ -94,7 +94,7 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
         throw new Error('Confirm password and password fields must be equal!')
       }
     } catch (err) {
-      handleAuthError(err, 'Sign up', setError)
+      handleErrors(err, 'Sign up', setError)
     } finally {
       setIsLoaded(true)
     }

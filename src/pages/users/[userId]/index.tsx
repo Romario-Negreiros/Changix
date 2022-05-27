@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { handleFileSelection, handleCountrySelection } from '@utils/handlers'
+import { handleFileSelection, handleCountrySelection, handleErrors } from '@utils/handlers'
 import { useAuth, useFirestore } from '@utils/hooks'
 
 import {
@@ -150,7 +150,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
         phoneNumber: data.phoneNumber
       })
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Update User Information', setError)
     } finally {
       setIsEditing(false)
       setIsLoaded(true)

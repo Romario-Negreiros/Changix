@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { handleAuthError } from '@utils/handlers'
+import { handleErrors } from '@utils/handlers'
 import { useFirestore } from '@utils/hooks'
 
 import { CloseModal, Error, Loader, Success } from '../'
@@ -52,7 +52,7 @@ const DeleteAccount: React.FC<Props> = ({
       await deleteUser(user)
       setSuccess(true)
     } catch (err) {
-      handleAuthError(err, 'Delete user', setError)
+      handleErrors(err, 'Delete user', setError)
     } finally {
       setIsLoaded(true)
     }

@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAuth, useFirestore } from '@utils/hooks'
+import { handleErrors } from '@utils/handlers'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -47,7 +48,7 @@ const Announce: NextPage = () => {
       })
       setSuccess(true)
     } catch (err) {
-      if (err instanceof Error) setError(err.message)
+      handleErrors(err, 'Create Announce', setError)
     } finally {
       setIsLoaded(true)
     }
