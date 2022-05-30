@@ -11,26 +11,32 @@ interface Props {
 }
 
 const forbiddenPaths = [
-  '/users/[userId]',
-  '/users/[userId]/announced_items',
-  '/users/[userId]/announced_items/[itemId]',
-  '/items/[itemId]',
   '/announce'
 ]
 
 const AuthChecker: React.FC<Props> = ({ children, user }) => {
   const { pathname, push } = useRouter()
 
-  if (!forbiddenPaths.includes(pathname) || user) {
+  if (!forbiddenPaths.includes(pathname)) {
     return <>{children}</>
+  } else if (!user) {
+    return (
+      <Error
+        title="Oooops"
+        error="You need to be logged in to access this page!"
+        btn={{ handleClick: () => push('/sign_in'), text: 'Sign In Now' }}
+      />
+    )
   }
-  return (
-    <Error
-      title="Oooops"
-      error="You need to be logged in to access this page!"
-      btn={{ handleClick: () => push('/sign_in'), text: 'Sign In Now' }}
-    />
-  )
+  // } else if (!user.emailVerified) {
+  //   return (
+  //     <Error
+  //       title="Oooops"
+  //       error="You need to verify your email address to access this page!"
+  //     />
+  //   )
+  // }
+  return <>{children}</>
 }
 
 export default AuthChecker
