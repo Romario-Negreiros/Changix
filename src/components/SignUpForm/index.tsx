@@ -7,7 +7,7 @@ import {
   handleCountrySelection,
   handleErrors
 } from '@utils/handlers'
-import { useAuth, useFirestore } from '@utils/hooks'
+import { useAuth, useFirestore, useStorage } from '@utils/hooks'
 
 import { Error as ErrorComponent, Loader } from '..'
 
@@ -23,9 +23,14 @@ import { faCamera, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { SignUpFormFields, Country } from '@app/types/auth'
 import type { VisiblePwds } from '@app/types/global'
+import { User } from 'firebase/auth'
 
 interface Props {
   countries: Country[]
+  error: string
+  setError: (error: string) => void
+  isLoaded: boolean
+  setIsLoaded: (isLoaded: boolean) => void
 }
 
 const pwdValidationRules = {
@@ -39,14 +44,19 @@ const pwdValidationRules = {
   }
 }
 
-const SignUpForm: React.FC<Props> = ({ countries }) => {
+const SignUpForm: React.FC<Props> = ({
+  countries,
+  error,
+  setError,
+  isLoaded,
+  setIsLoaded
+}) => {
   const [visiblePwds, setVisiblePwds] = React.useState<VisiblePwds[]>([])
   const [imgPreview, setImgPreview] = React.useState('')
   const [country, setCountry] = React.useState<Country | undefined>()
-  const [error, setError] = React.useState('')
-  const [isLoaded, setIsLoaded] = React.useState(true)
-  const { createUserWithEmailAndPassword, sendEmailVerification } = useAuth()
+  const { createUserWithEmailAndPassword, sendEmailVerification, deleteUser } = useAuth()
   const { setDoc } = useFirestore()
+  const { uploadImages } = useStorage()
   const {
     register,
     handleSubmit,
@@ -77,15 +87,25 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
   }, [setValue])
 
   const onSubmit: SubmitHandler<SignUpFormFields> = async data => {
+    let user: User | null = null
     try {
       if (data.confirmPwd === data.pwd) {
         setIsLoaded(false)
-        const user = await createUserWithEmailAndPassword(data.email, data.pwd)
+        user = await createUserWithEmailAndPassword(data.email, data.pwd)
+        let pictureUrl = ''
+        if (data.picture) {
+          const [url] = await uploadImages(
+            [data.picture[0]],
+            ['users', user.uid]
+          )
+          pictureUrl = url
+        }
         await setDoc(['users'], user.uid, {
           email: data.email,
           name: data.name,
           country: data.country,
           phoneNumber: data.phoneNumber,
+          picture: pictureUrl,
           announcedItems: [],
           exchangedItems: 0
         })
@@ -95,6 +115,7 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
       }
     } catch (err) {
       handleErrors(err, 'Sign up', setError)
+      if (user) deleteUser(user)
     } finally {
       setIsLoaded(true)
     }
@@ -135,9 +156,10 @@ const SignUpForm: React.FC<Props> = ({ countries }) => {
                 )}
             <input
               type="file"
-              accept=".jpg,.jpeg,.png,.svg"
-              {...register('picture')}
-              onChange={e => handleFileSelection(e, setImgPreview)}
+              accept="image/*"
+              {...register('picture', {
+                onChange: e => handleFileSelection(e, setImgPreview)
+              })}
             />
           </label>
         </section>
