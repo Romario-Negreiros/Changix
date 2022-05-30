@@ -13,10 +13,12 @@ import formStyles from '@styles/components/Form.module.css'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 import type { SharedProps } from '@app/types/modals'
+import type { UserProfile } from '@app/types/firestore'
 import { User } from 'firebase/auth'
 
 interface Props extends SharedProps {
   user: User
+  userProfile: UserProfile
   deleteUser: (user: User) => Promise<void>
   reauthenticateWithCredential: (user: User, pwd: string) => Promise<void>
 }
@@ -28,6 +30,7 @@ interface FormField {
 const DeleteAccount: React.FC<Props> = ({
   setModalState,
   user,
+  userProfile,
   deleteUser,
   reauthenticateWithCredential
 }) => {
@@ -48,6 +51,9 @@ const DeleteAccount: React.FC<Props> = ({
     try {
       setIsLoaded(false)
       await reauthenticateWithCredential(user, pwd)
+      for (const itemId of userProfile.announcedItems) {
+        await deleteDoc(['announced'], itemId)
+      }
       await deleteDoc(['users'], user.uid)
       await deleteUser(user)
       setSuccess(true)
