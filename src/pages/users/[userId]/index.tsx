@@ -193,6 +193,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
             <DeleteAccount
               setModalState={setModalState}
               user={currentUser as IUser}
+              userProfile={user as UserProfile}
               deleteUser={deleteUser}
               reauthenticateWithCredential={reauthenticateWithCredential}
             />
