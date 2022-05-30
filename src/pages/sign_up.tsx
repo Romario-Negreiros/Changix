@@ -38,6 +38,8 @@ interface Props {
 }
 
 const SignUp: NextPage<Props> = ({ countries }) => {
+  const [error, setError] = React.useState('')
+  const [isLoaded, setIsLoaded] = React.useState(true)
   const { user } = useAuth()
   const { push } = useRouter()
 
@@ -49,12 +51,18 @@ const SignUp: NextPage<Props> = ({ countries }) => {
 
   return (
     <>
-      {user && !user.emailVerified
+      {user && !user.emailVerified && !error && isLoaded
         ? (
         <VerifyEmailMessage />
           )
         : (
-        <SignUpForm countries={countries} />
+        <SignUpForm
+          countries={countries}
+          error={error}
+          setError={setError}
+          isLoaded={isLoaded}
+          setIsLoaded={setIsLoaded}
+        />
           )}
     </>
   )
