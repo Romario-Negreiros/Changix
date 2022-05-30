@@ -7,7 +7,7 @@ import {
   handleCountrySelection,
   handleErrors
 } from '@utils/handlers'
-import { useAuth, useFirestore } from '@utils/hooks'
+import { useAuth, useFirestore, useStorage } from '@utils/hooks'
 
 import {
   ClientOnlyPortal,
@@ -128,6 +128,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
     deleteUser
   } = useAuth()
   const { updateDoc } = useFirestore()
+  const { uploadImages } = useStorage()
 
   React.useEffect(() => {
     if (user && countries) {
@@ -148,9 +149,18 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       setIsLoaded(false)
+      let pictureUrl = user?.picture
+      if (data.picture) {
+        const [url] = await uploadImages(
+          [data.picture[0]],
+          ['users', user?.id as string]
+        )
+        pictureUrl = url
+      }
       await updateDoc(['users'], currentUser?.uid as string, {
         name: data.name,
         country: data.country,
+        picture: pictureUrl,
         phoneNumber: data.phoneNumber
       })
     } catch (err) {
@@ -231,7 +241,9 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
               disabled={!isEditing}
               type="file"
               accept="image/*"
-              onChange={e => handleFileSelection(e, setImgPreview)}
+              {...register('picture', {
+                onChange: e => handleFileSelection(e, setImgPreview)
+              })}
             />
           </label>
         </section>
