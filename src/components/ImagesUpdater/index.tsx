@@ -46,7 +46,7 @@ const ImagesUpdater: React.FC<Props> = ({ setModalState }) => {
                   alt="porra"
                 />
                   )}
-              <input type="file" accept=".jpg,.jpeg,.png,.svg" />
+              <input type="file" accept="image/*" />
             </label>
             <div className={styles.image_options_container}>
               <button style={{ backgroundColor: 'red' }}>Delete</button>
