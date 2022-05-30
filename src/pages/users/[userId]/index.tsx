@@ -2,7 +2,11 @@ import React from 'react'
 
 import { useForm, SubmitHandler, Controller } from 'react-hook-form'
 import { useRouter } from 'next/router'
-import { handleFileSelection, handleCountrySelection, handleErrors } from '@utils/handlers'
+import {
+  handleFileSelection,
+  handleCountrySelection,
+  handleErrors
+} from '@utils/handlers'
 import { useAuth, useFirestore } from '@utils/hooks'
 
 import {
@@ -165,6 +169,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
         title="Oooops"
         error={error}
         animation={error === 'User not found!' ? Sleeping : undefined}
+        width="50%"
         btn={{
           handleClick: () => (serverSideError ? back() : setError('')),
           text: serverSideError ? 'Go back' : 'Dismiss'
@@ -199,9 +204,9 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
           <label style={{ cursor: isEditing ? 'pointer' : 'default' }}>
             {user?.picture && !imgPreview && (
               <Image
-                src="/icons/logo.svg"
-                width={50}
-                height={50}
+                src={user.picture}
+                width={100}
+                height={75}
                 alt={user.name}
               />
             )}
@@ -224,18 +229,14 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
             <input
               disabled={!isEditing}
               type="file"
-              accept=".jpg,.jpeg,.png,.svg"
+              accept="image/*"
               onChange={e => handleFileSelection(e, setImgPreview)}
             />
           </label>
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            readOnly
-            defaultValue={user?.email}
-          />
+          <input id="email" readOnly defaultValue={user?.email} />
           <p className={formStyles.error}></p>
         </section>
         <section className={formStyles.input_container}>
@@ -309,11 +310,19 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
               </a>
             </Link>
           </label>
-          <input readOnly={!isEditing} defaultValue={user?.announcedItems.length} id="announced_items" />
+          <input
+            readOnly={!isEditing}
+            defaultValue={user?.announcedItems.length}
+            id="announced_items"
+          />
         </section>
         <section className={formStyles.input_container}>
           <label htmlFor="exchanged_items">Exchanged items</label>
-          <input readOnly={!isEditing} defaultValue={user?.exchangedItems} id="exchanged_items" />
+          <input
+            readOnly={!isEditing}
+            defaultValue={user?.exchangedItems}
+            id="exchanged_items"
+          />
         </section>
         {currentUser?.uid === user?.id && (
           <Buttons
