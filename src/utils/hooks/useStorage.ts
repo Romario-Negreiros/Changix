@@ -10,7 +10,7 @@ const useStorage = () => {
     return firebase.storage.ref(instance, path)
   }
 
-  const uploadImages = async (images: Blob[], pathSegments: string[]) => {
+  const uploadImages = async (images: File[], pathSegments: string[]) => {
     const downloadUrls = []
     for (const img of images) {
       const ref = getReference([...pathSegments, String(images.indexOf(img))])
