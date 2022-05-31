@@ -1,13 +1,23 @@
 const handleFileSelection = (
   event: React.FormEvent<HTMLInputElement>,
-  setImgPreview: (imgPreview: string) => void
+  setImgPreview?: (imgPreview: string) => void,
+  index?: number,
+  setImagesPreviews?: (callback: (oldImagesPreviews: any) => void) => void
 ) => {
   if (event.currentTarget) {
     const input = event.currentTarget
     const reader = new FileReader()
 
     reader.addEventListener('load', () => {
-      setImgPreview(reader.result as string)
+      if (setImgPreview) setImgPreview(reader.result as string)
+      if (setImagesPreviews && index !== undefined) {
+        setImagesPreviews(oldImagesPreviews => {
+          return {
+            ...oldImagesPreviews,
+            [`image${index}`]: reader.result as string
+          }
+        })
+      }
     })
 
     if (input.files) {
