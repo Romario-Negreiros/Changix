@@ -79,6 +79,15 @@
   color: var(--colors-primary);
 }
 
+.no_images {
+  width: 100%;
+}
+
+.no_images p {
+  text-align: center;
+  font-size: 1.8rem;
+}
+
 @media screen and (min-width: 780px) {
   .texts_container {
     width: 300px;
