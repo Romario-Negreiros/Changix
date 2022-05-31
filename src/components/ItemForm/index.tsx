@@ -4,7 +4,8 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
   FieldError,
-  SubmitHandler
+  SubmitHandler,
+  UseFormResetField
 } from 'react-hook-form'
 
 import { ClientOnlyPortal, ImagesUpdater } from '..'
@@ -16,6 +17,7 @@ import type { FormFields } from '@app/types/item'
 interface Props {
   onSubmit: SubmitHandler<FormFields>
   register: UseFormRegister<FormFields>
+  resetField: UseFormResetField<FormFields>
   handleSubmit: UseFormHandleSubmit<FormFields>
   errors: {
     name?: FieldError | undefined
@@ -25,7 +27,7 @@ interface Props {
   }
   deleteAnnounce?: () => Promise<void>
   markAsExchangedAndDelete?: () => Promise<void>
-  defaultImagesValues?: string[]
+  defaultImagesValues: string[]
 }
 
 const selectOptions = ['Sports', 'Musical Instruments']
@@ -33,6 +35,7 @@ const selectOptions = ['Sports', 'Musical Instruments']
 const ItemForm: React.FC<Props> = ({
   onSubmit,
   register,
+  resetField,
   handleSubmit,
   errors,
   deleteAnnounce,
@@ -40,6 +43,7 @@ const ItemForm: React.FC<Props> = ({
   defaultImagesValues
 }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
+  const [imagesPreviews, setImagesPreviews] = React.useState<any>({})
 
   const setModalState = () => setIsModalOpen(!isModalOpen)
 
@@ -47,7 +51,14 @@ const ItemForm: React.FC<Props> = ({
     <main className="container">
       {isModalOpen && (
         <ClientOnlyPortal selector="#modal">
-          <ImagesUpdater setModalState={setModalState} />
+          <ImagesUpdater
+            setModalState={setModalState}
+            register={register}
+            resetField={resetField}
+            imagesPreviews={imagesPreviews}
+            setImagesPreviews={setImagesPreviews}
+            defaultImagesValues={defaultImagesValues}
+          />
         </ClientOnlyPortal>
       )}
       <form className={formStyles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -101,8 +112,16 @@ const ItemForm: React.FC<Props> = ({
           Images
         </button>
         <button type="submit">Submit</button>
-        {deleteAnnounce && <button type="button" onClick={deleteAnnounce}>Delete announce</button>}
-        {markAsExchangedAndDelete && <button type="button" onClick={markAsExchangedAndDelete}>Mark as exchanged and delete</button>}
+        {deleteAnnounce && (
+          <button type="button" onClick={deleteAnnounce}>
+            Delete announce
+          </button>
+        )}
+        {markAsExchangedAndDelete && (
+          <button type="button" onClick={markAsExchangedAndDelete}>
+            Mark as exchanged and delete
+          </button>
+        )}
       </form>
     </main>
   )
