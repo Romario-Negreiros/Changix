@@ -3,11 +3,10 @@ import React from 'react'
 import { useFirestore } from '@utils/hooks'
 import { useRouter } from 'next/router'
 
-import { Error } from '../../../components'
+import { Error, CarouselImages } from '../../../components'
 
 import { Carousel } from 'react-responsive-carousel'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from '@styles/pages/Item.module.css'
@@ -94,22 +93,8 @@ const Item: NextPage<Props> = ({ item, owner, serverSideError }) => {
       <article>
         <section className={styles.images_container}>
           <Carousel showThumbs={false}>
-            <div>
-              <Image
-                src="/images/landing_page.png"
-                width="400px"
-                height="300px"
-                alt="i hate this component"
-              />
-            </div>
-            <div>
-              <Image
-                src="/images/453.jpg"
-                width="400px"
-                height="300px"
-                alt="i hate this component"
-              />
-            </div>
+            <CarouselImages images={item.images} />
+            <></>
           </Carousel>
         </section>
         <section className={styles.texts_container}>
