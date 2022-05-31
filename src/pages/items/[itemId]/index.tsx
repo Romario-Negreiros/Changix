@@ -93,18 +93,28 @@ const Item: NextPage<Props> = ({ item, owner, serverSideError }) => {
       </section>
       <article>
         <section className={styles.images_container}>
-          <Carousel showThumbs={false}>
-            {item.images.map((img, index) => (
-              <div key={img}>
-                <Image
-                  src={img}
-                  width={400}
-                  height={300}
-                  alt={`img#${index}`}
-                />
-              </div>
-            ))}
-          </Carousel>
+          {item.images.length
+            ? (
+            <Carousel showThumbs={false}>
+              {item.images.map((img, index) => (
+                <div key={img}>
+                  <Image
+                    src={img}
+                    width={400}
+                    height={300}
+                    alt={`img#${index}`}
+                  />
+                </div>
+              ))}
+            </Carousel>
+              )
+            : (
+                <div className={styles.no_images}>
+                  <p>
+                    No images...
+                  </p>
+                </div>
+              )}
         </section>
         <section className={styles.texts_container}>
           <div>
