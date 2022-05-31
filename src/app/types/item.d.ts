@@ -2,7 +2,12 @@ export interface FormFields {
   name: string
   description: string
   category: string
-  images: Filelist
+  image0: FileList
+  image1: FileList
+  image2: FileList
+  image3: FileList
+  image4: FileList
+  image5: FileList
 }
 
 export interface Item extends Omit<FormFields, 'images'> {
