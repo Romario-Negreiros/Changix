@@ -93,7 +93,7 @@ const SignUpForm: React.FC<Props> = ({
         setIsLoaded(false)
         user = await createUserWithEmailAndPassword(data.email, data.pwd)
         let pictureUrl = ''
-        if (data.picture) {
+        if (data.picture.length) {
           const [url] = await uploadImages(
             [data.picture[0]],
             ['users', user.uid]
