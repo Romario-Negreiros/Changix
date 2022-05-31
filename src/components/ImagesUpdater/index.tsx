@@ -49,7 +49,7 @@ const ImagesUpdater: React.FC<Props> = ({
     }
   }
 
-  const clearOne = (index: number) => {
+  const clearOneField = (index: number) => {
     setImagesPreviews(oldImagesPreviews => {
       return {
         ...oldImagesPreviews,
@@ -59,7 +59,7 @@ const ImagesUpdater: React.FC<Props> = ({
     resetField(getInputRegisterName(index))
   }
 
-  const clearAll = () => {
+  const clearAllFields = () => {
     setImagesPreviews(() => {
       return {}
     })
@@ -118,11 +118,11 @@ const ImagesUpdater: React.FC<Props> = ({
               />
             </label>
             <div className={styles.image_options_container}>
-              <button onClick={() => clearOne(index)}type="button" style={{ backgroundColor: 'red' }}>Delete</button>
+              <button onClick={() => clearOneField(index)}type="button" style={{ backgroundColor: 'red' }}>Delete</button>
             </div>
           </section>
         ))}
-        <button onClick={clearAll} type="button" style={{ backgroundColor: 'orange' }}>
+        <button onClick={clearAllFields} type="button" style={{ backgroundColor: 'orange' }}>
           Discard changes
         </button>
       </section>
