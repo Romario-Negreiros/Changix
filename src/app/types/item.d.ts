@@ -10,7 +10,7 @@ export interface FormFields {
   image5: FileList
 }
 
-export interface Item extends Omit<FormFields, 'images'> {
+export interface Item extends Pick<FormFields, 'name' | 'description' | 'category'> {
   id: string
   ownerId: string
   images: string[]
