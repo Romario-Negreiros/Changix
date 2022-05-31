@@ -20,24 +20,26 @@ const Card: React.FC<Props> = ({ item, linkHref, linkTxt }) => {
     <li className={styles.result}>
       <h2>{item.name}</h2>
       <section className={styles.item_image_container}>
-        <Carousel showThumbs={false}>
-          <div>
-            <Image
-              src="/images/landing_page.png"
-              width="400px"
-              height="300px"
-              alt="i hate this component"
-            />
-          </div>
-          <div>
-            <Image
-              src="/images/453.jpg"
-              width="400px"
-              height="300px"
-              alt="i hate this component"
-            />
-          </div>
-        </Carousel>
+        {item.images.length
+          ? (
+          <Carousel showThumbs={false}>
+            {item.images.map((img, index) => (
+              <div key={img}>
+                <Image
+                  src={img}
+                  width={400}
+                  height={300}
+                  alt={`img#${index}`}
+                />
+              </div>
+            ))}
+          </Carousel>
+            )
+          : (
+              <div className={styles.no_images}>
+                <p>No images...</p>
+              </div>
+            )}
       </section>
       <p className={styles.description}>
         {item.description.substring(0, 150)}
