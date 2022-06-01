@@ -1,9 +1,8 @@
 import React from 'react'
 
 import { useForm, SubmitHandler } from 'react-hook-form'
-import { useAuth, useFirestore, useStorage } from '@utils/hooks'
+import { useAuth, useFirestore } from '@utils/hooks'
 import { handleErrors } from '@utils/handlers'
-import { getAllImagesInAnArray } from '@utils/general'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
@@ -23,11 +22,9 @@ const Announce: NextPage = () => {
   const [success, setSuccess] = React.useState(false)
   const { user } = useAuth()
   const { setDoc, updateDoc, getDoc } = useFirestore()
-  const { uploadImages } = useStorage()
   const {
     register,
     handleSubmit,
-    resetField,
     formState: { errors }
   } = useForm<FormFields>()
 
@@ -39,15 +36,9 @@ const Announce: NextPage = () => {
         throw new Error('User not found')
       }
       const itemId = uuidv4()
-      let urls: string[] = []
-      const images = getAllImagesInAnArray(data)
-      if (images.length) {
-        urls = await uploadImages([...images], ['items', itemId])
-      }
       await setDoc(['announced'], itemId, {
         ownerId: user?.uid,
         name: data.name,
-        images: urls,
         category: data.category,
         description: data.description
       })
@@ -88,10 +79,8 @@ const Announce: NextPage = () => {
     <ItemForm
       onSubmit={onSubmit}
       register={register}
-      resetField={resetField}
       handleSubmit={handleSubmit}
       errors={errors}
-      defaultImagesValues={[]}
     />
   )
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { useFirestore, useAuth, useStorage } from '@utils/hooks'
+import { useFirestore, useAuth } from '@utils/hooks'
 import { handleErrors } from '@utils/handlers'
-import { getAllImagesInAnArray } from '@utils/general'
 import { useRouter } from 'next/router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
@@ -58,11 +57,9 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
   const [error, setError] = React.useState('')
   const { user } = useAuth()
   const { updateDoc, getDoc, deleteDoc } = useFirestore()
-  const { uploadImages, deleteImages } = useStorage()
   const { back } = useRouter()
   const {
     register,
-    resetField,
     handleSubmit,
     formState: { errors }
   } = useForm<FormFields>({
@@ -80,14 +77,8 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
       if (!userProfileDoc.exists()) {
         throw new Error('User not found')
       }
-      let urls: string[] = []
-      const images = getAllImagesInAnArray(data)
-      if (images.length) {
-        urls = await uploadImages([...images], ['items', item.id])
-      }
       await updateDoc(['announced'], item.id, {
         name: data.name,
-        images: urls,
         category: data.category,
         description: data.description
       })
@@ -122,7 +113,6 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
   const deleteAnnounce = async () => {
     try {
       setIsLoaded(false)
-      await deleteImages(item.images, ['items', item.id])
       await deleteDoc(['announced'], item.id)
       await updateUserProfile()
       back()
@@ -135,7 +125,6 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
   const markAsItemExchangedAndDelete = async () => {
     try {
       setIsLoaded(false)
-      await deleteImages(item.images, ['items', item.id])
       await deleteDoc(['announced'], item.id)
       await updateUserProfile(true)
       back()
@@ -168,13 +157,11 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
     <main className="container">
       <ItemForm
         register={register}
-        resetField={resetField}
         handleSubmit={handleSubmit}
         errors={errors}
         onSubmit={onSubmit}
         deleteAnnounce={deleteAnnounce}
         markAsExchangedAndDelete={markAsItemExchangedAndDelete}
-        defaultImagesValues={item.images}
       />
     </main>
   )

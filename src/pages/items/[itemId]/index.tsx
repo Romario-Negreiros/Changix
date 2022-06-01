@@ -7,8 +7,8 @@ import { Error } from '../../../components'
 
 import { Carousel } from 'react-responsive-carousel'
 
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import styles from '@styles/pages/Item.module.css'
 
@@ -93,28 +93,24 @@ const Item: NextPage<Props> = ({ item, owner, serverSideError }) => {
       </section>
       <article>
         <section className={styles.images_container}>
-          {item.images.length
-            ? (
-            <Carousel showThumbs={false}>
-              {item.images.map((img, index) => (
-                <div key={img}>
-                  <Image
-                    src={img}
-                    width={400}
-                    height={300}
-                    alt={`img#${index}`}
-                  />
-                </div>
-              ))}
-            </Carousel>
-              )
-            : (
-                <div className={styles.no_images}>
-                  <p>
-                    No images...
-                  </p>
-                </div>
-              )}
+          <Carousel showThumbs={false}>
+            <div>
+              <Image
+                src="/images/landing_page.png"
+                width="400px"
+                height="300px"
+                alt="i hate this component"
+              />
+            </div>
+            <div>
+              <Image
+                src="/images/453.jpg"
+                width="400px"
+                height="300px"
+                alt="i hate this component"
+              />
+            </div>
+          </Carousel>
         </section>
         <section className={styles.texts_container}>
           <div>

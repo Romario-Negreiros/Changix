@@ -51,8 +51,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
     return {
       id: doc.id,
       name: data.name,
-      images: data.images,
-      category: data.category,
       description: data.description
     }
   })

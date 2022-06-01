@@ -2,15 +2,10 @@ export interface FormFields {
   name: string
   description: string
   category: string
-  image0: FileList
-  image1: FileList
-  image2: FileList
-  image3: FileList
-  image4: FileList
-  image5: FileList
+  images: Filelist
 }
 
-export interface Item extends Pick<FormFields, 'name' | 'description' | 'category'> {
+export interface Item extends Omit<FormFields, 'images'> {
   id: string
   ownerId: string
   images: string[]

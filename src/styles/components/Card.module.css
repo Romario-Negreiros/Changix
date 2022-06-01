@@ -36,11 +36,6 @@
   margin-top: 1rem;
 }
 
-.item_image_container, .no_images {
+.item_image_container {
   width: 100%;
-}
-
-.no_images p {
-  text-align: center;
-  font-size: 1.8rem;
 }

@@ -150,7 +150,7 @@ const User: NextPage<Props> = ({ user, countries, serverSideError }) => {
     try {
       setIsLoaded(false)
       let pictureUrl = user?.picture
-      if (data.picture.length) {
+      if (data.picture) {
         const [url] = await uploadImages(
           [data.picture[0]],
           ['users', user?.id as string]
