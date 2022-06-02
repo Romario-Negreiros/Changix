@@ -27,7 +27,8 @@ interface Props {
   }
   deleteAnnounce?: () => Promise<void>
   markAsExchangedAndDelete?: () => Promise<void>
-  defaultImagesValues: string[]
+  imagesPreviews: any
+  setImagesPreviews: (imagesPreviews: any) => void
 }
 
 const selectOptions = ['Sports', 'Musical Instruments']
@@ -40,10 +41,10 @@ const ItemForm: React.FC<Props> = ({
   errors,
   deleteAnnounce,
   markAsExchangedAndDelete,
-  defaultImagesValues
+  imagesPreviews,
+  setImagesPreviews
 }) => {
   const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const [imagesPreviews, setImagesPreviews] = React.useState<any>({})
 
   const setModalState = () => setIsModalOpen(!isModalOpen)
 
@@ -57,7 +58,6 @@ const ItemForm: React.FC<Props> = ({
             resetField={resetField}
             imagesPreviews={imagesPreviews}
             setImagesPreviews={setImagesPreviews}
-            defaultImagesValues={defaultImagesValues}
           />
         </ClientOnlyPortal>
       )}
