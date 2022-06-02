@@ -97,7 +97,7 @@ const SignUpForm: React.FC<Props> = ({
           const [url] = await uploadImages(
             [data.picture[0]],
             ['users', user.uid]
-          )
+          ) as string[]
           pictureUrl = url
         }
         await setDoc(['users'], user.uid, {
