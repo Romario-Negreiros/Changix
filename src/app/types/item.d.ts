@@ -18,5 +18,7 @@ export interface Item extends Pick<FormFields, 'name' | 'description' | 'categor
 
 export enum CategoriesEnum {
   sports = 'sports',
-  musicalInstruments = 'musicalInstruments'
+  musicalInstruments = 'musicalInstruments',
+  games = 'games',
+  toys = 'toys'
 }

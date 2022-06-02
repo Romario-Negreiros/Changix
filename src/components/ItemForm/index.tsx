@@ -31,7 +31,7 @@ interface Props {
   setImagesPreviews: (imagesPreviews: any) => void
 }
 
-const selectOptions = ['Sports', 'Musical Instruments']
+const selectOptions = ['Sports', 'Musical Instruments', 'Games', 'Toys']
 
 const ItemForm: React.FC<Props> = ({
   onSubmit,

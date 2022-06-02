@@ -25,7 +25,7 @@ interface Fields {
   filter: CategoriesEnum
 }
 
-const selectOptions = ['', 'Sports', 'Musical Instruments']
+const selectOptions = ['', 'Sports', 'Musical Instruments', 'Games', 'Toys']
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const firestoreFunctions = useFirestore
