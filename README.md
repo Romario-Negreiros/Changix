@@ -34,6 +34,12 @@ giving a user-friendly interface, making things as simple as possible.
 - ### Landing page
 ![LandingPage](public/images/landing_page.png)
 
+- ### Sign up page
+![SignUpPage](public/images/signup_page.png)
+
+- ### Sign in page
+![SignInPage](public/images/signin_page.png)
+
 ## Progress
 
 [(Back to top)](#table-of-contents)
