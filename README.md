@@ -44,24 +44,27 @@ giving a user-friendly interface, making things as simple as possible.
   - [x] Sign up
   - [x] Sign in
   - [x] Forgot password
-  - [ ] Profile
-  - [ ] Item
-  - [ ] Announce Item
+  - [x] Profile
+  - [x] Item
+  - [x] Announce Item
 
 - ### Services
   - [x] Authentication
-  - [ ] Media storage
+  - [x] Media storage
   - [x] Content storage (about users and announced items)
 
 ## Packages
 
 [(Back to top)](#table-of-contents)
 
+- [Firebase](https://www.npmjs.com/package/firebase)
 - [Lottie React](https://github.com/Gamote/lottie-react)
 - [Font Awesome Icons](https://fontawesome.com/docs/web/use-with/react/)
 - [Sharp](https://sharp.pixelplumbing.com)
 - [React Responsive Carousel](https://www.npmjs.com/package/react-responsive-carousel)
 - [React Hook Form](https://react-hook-form.com)
+- [React Phone Number Input](https://www.npmjs.com/package/uuid)
+- [uuid](https://www.npmjs.com/package/uuid)
 
 ## Contributing
 
