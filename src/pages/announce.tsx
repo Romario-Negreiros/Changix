@@ -28,7 +28,7 @@ const Announce: NextPage = () => {
   const {
     register,
     handleSubmit,
-    setValue,
+    resetField,
     formState: { errors }
   } = useForm<FormFields>()
 
@@ -89,7 +89,7 @@ const Announce: NextPage = () => {
     <ItemForm
       onSubmit={onSubmit}
       register={register}
-      setValue={setValue}
+      resetField={resetField}
       handleSubmit={handleSubmit}
       errors={errors}
       imagesPreviews={imagesPreviews}
