@@ -10,13 +10,21 @@ const useStorage = () => {
     return firebase.storage.ref(instance, path)
   }
 
-  const uploadImages = async (images: File[], pathSegments: string[]) => {
+  const uploadImages = async (
+    images: (File | undefined)[],
+    pathSegments: string[],
+    markUndefineds?: boolean
+  ) => {
     const downloadUrls = []
     for (const img of images) {
-      const ref = getReference([...pathSegments, String(images.indexOf(img))])
-      await firebase.storage.uploadBytes(ref, img)
-      const downloadUrl = await firebase.storage.getDownloadURL(ref)
-      downloadUrls.push(downloadUrl)
+      if (img) {
+        const ref = getReference([...pathSegments, String(images.indexOf(img))])
+        await firebase.storage.uploadBytes(ref, img)
+        const downloadUrl = await firebase.storage.getDownloadURL(ref)
+        downloadUrls.push(downloadUrl)
+      } else {
+        if (markUndefineds) downloadUrls.push(undefined)
+      }
     }
     return downloadUrls
   }
