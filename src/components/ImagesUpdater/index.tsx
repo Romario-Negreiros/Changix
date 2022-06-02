@@ -21,7 +21,6 @@ interface Props extends SharedProps {
   resetField: UseFormResetField<FormFields>
   imagesPreviews: any
   setImagesPreviews: (callback: (oldImagesPreviews: any) => void) => void
-  defaultImagesValues: string[]
 }
 
 const ImagesUpdater: React.FC<Props> = ({
@@ -29,8 +28,7 @@ const ImagesUpdater: React.FC<Props> = ({
   register,
   resetField,
   imagesPreviews,
-  setImagesPreviews,
-  defaultImagesValues
+  setImagesPreviews
 }) => {
   const getInputRegisterName = (index: number) => {
     switch (index) {
@@ -82,15 +80,6 @@ const ImagesUpdater: React.FC<Props> = ({
             className={formStyles.file_input_container}
           >
             <label className={formStyles.item_image_label}>
-              {defaultImagesValues[index] &&
-                !imagesPreviews[`image${index}`] && (
-                  <Image
-                    src={defaultImagesValues[index]}
-                    width={300}
-                    height={200}
-                    alt="item"
-                  />
-              )}
               {imagesPreviews[`image${index}`] && (
                 <Image
                   src={imagesPreviews[`image${index}`]}
@@ -99,8 +88,7 @@ const ImagesUpdater: React.FC<Props> = ({
                   alt={`img preview ${index}`}
                 />
               )}
-              {!defaultImagesValues[index] &&
-                !imagesPreviews[`image${index}`] && (
+              {!imagesPreviews[`image${index}`] && (
                   <FontAwesomeIcon
                     icon={faCamera}
                     color="#8661c1"
