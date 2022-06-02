@@ -27,15 +27,14 @@ const AuthChecker: React.FC<Props> = ({ children, user }) => {
         btn={{ handleClick: () => push('/sign_in'), text: 'Sign In Now' }}
       />
     )
+  } else if (!user.emailVerified) {
+    return (
+      <Error
+        title="Oooops"
+        error="You need to verify your email address to access this page!"
+      />
+    )
   }
-  // } else if (!user.emailVerified) {
-  //   return (
-  //     <Error
-  //       title="Oooops"
-  //       error="You need to verify your email address to access this page!"
-  //     />
-  //   )
-  // }
   return <>{children}</>
 }
 
