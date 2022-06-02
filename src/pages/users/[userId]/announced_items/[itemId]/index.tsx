@@ -56,6 +56,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
 const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [error, setError] = React.useState('')
+  const [imagesPreviews, setImagesPreviews] = React.useState<any>({})
+  const [hasRun, setHasRun] = React.useState(false)
   const { user } = useAuth()
   const { updateDoc, getDoc, deleteDoc } = useFirestore()
   const { uploadImages, deleteImages } = useStorage()
@@ -73,6 +75,22 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
     }
   })
 
+  React.useEffect(() => {
+    if (item.images && !hasRun) {
+      item.images.forEach((img, index) => {
+        if (!imagesPreviews[`image${index}`]) {
+          setImagesPreviews((oldImagesPreviews: any) => {
+            return {
+              ...oldImagesPreviews,
+              [`image${index}`]: img
+            }
+          })
+        }
+      })
+      setHasRun(true)
+    }
+  }, [item.images, imagesPreviews, hasRun])
+
   const onSubmit: SubmitHandler<FormFields> = async data => {
     try {
       setIsLoaded(false)
@@ -80,14 +98,26 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
       if (!userProfileDoc.exists()) {
         throw new Error('User not found')
       }
-      let urls: string[] = []
-      const images = getAllImagesInAnArray(data)
+      let urls: (string | undefined)[] = []
+      const images = getAllImagesInAnArray(data, true)
       if (images.length) {
-        urls = await uploadImages([...images], ['items', item.id])
+        urls = await uploadImages([...images], ['items', item.id], true)
       }
+      const filteredUrls: string[] = []
+      urls.forEach((url, index) => {
+        if (
+          item.images[index] === imagesPreviews[`image${index}`] &&
+          item.images[index] !== undefined &&
+          !url
+        ) {
+          filteredUrls.push(item.images[index])
+        } else if (url) {
+          filteredUrls.push(url)
+        }
+      })
       await updateDoc(['announced'], item.id, {
         name: data.name,
-        images: urls,
+        images: filteredUrls,
         category: data.category,
         description: data.description
       })
@@ -174,7 +204,8 @@ const ManageItem: NextPage<Props> = ({ item, serverSideError }) => {
         onSubmit={onSubmit}
         deleteAnnounce={deleteAnnounce}
         markAsExchangedAndDelete={markAsItemExchangedAndDelete}
-        defaultImagesValues={item.images}
+        imagesPreviews={imagesPreviews}
+        setImagesPreviews={setImagesPreviews}
       />
     </main>
   )
