@@ -21,13 +21,14 @@ const Announce: NextPage = () => {
   const [isLoaded, setIsLoaded] = React.useState(true)
   const [error, setError] = React.useState('')
   const [success, setSuccess] = React.useState(false)
+  const [imagesPreviews, setImagesPreviews] = React.useState<any>({})
   const { user } = useAuth()
   const { setDoc, updateDoc, getDoc } = useFirestore()
   const { uploadImages } = useStorage()
   const {
     register,
     handleSubmit,
-    resetField,
+    setValue,
     formState: { errors }
   } = useForm<FormFields>()
 
@@ -40,9 +41,9 @@ const Announce: NextPage = () => {
       }
       const itemId = uuidv4()
       let urls: string[] = []
-      const images = getAllImagesInAnArray(data)
+      const images = getAllImagesInAnArray(data) as File[]
       if (images.length) {
-        urls = await uploadImages([...images], ['items', itemId])
+        urls = await uploadImages([...images], ['items', itemId]) as string[]
       }
       await setDoc(['announced'], itemId, {
         ownerId: user?.uid,
@@ -88,10 +89,11 @@ const Announce: NextPage = () => {
     <ItemForm
       onSubmit={onSubmit}
       register={register}
-      resetField={resetField}
+      setValue={setValue}
       handleSubmit={handleSubmit}
       errors={errors}
-      defaultImagesValues={[]}
+      imagesPreviews={imagesPreviews}
+      setImagesPreviews={setImagesPreviews}
     />
   )
 }
