@@ -13,6 +13,12 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const { user, signOut } = useAuth()
 
+  const handleMenuCloseWhenClickOnItem = () => {
+    if (isMenuOpen) {
+      handleMobileMenu(setIsMenuOpen)
+    }
+  }
+
   return (
     <header className={styles.container}>
       <section className={styles.logo}>
@@ -41,24 +47,24 @@ const Header: React.FC = () => {
             isMenuOpen && styles.navigation_items_active
           }`}
         >
-          <li>
+          <li onClick={handleMenuCloseWhenClickOnItem}>
             <Link href="/home">
               <a>Home</a>
             </Link>
           </li>
-          <li>
+          <li onClick={handleMenuCloseWhenClickOnItem}>
             <Link href="/announce">
               <a>Announce</a>
             </Link>
           </li>
           {!user && (
             <>
-              <li>
+              <li onClick={handleMenuCloseWhenClickOnItem}>
                 <Link href="/sign_in">
                   <a>Sign in</a>
                 </Link>
               </li>
-              <li>
+              <li onClick={handleMenuCloseWhenClickOnItem}>
                 <Link href="/sign_up">
                   <a>Sign up</a>
                 </Link>
@@ -67,12 +73,15 @@ const Header: React.FC = () => {
           )}
           {user && (
             <>
-              <li>
+              <li onClick={handleMenuCloseWhenClickOnItem}>
                 <Link href={`/users/${user.uid}`}>
                   <a>Profile</a>
                 </Link>
               </li>
-              <li onClick={signOut}>
+              <li onClick={() => {
+                handleMenuCloseWhenClickOnItem()
+                signOut()
+              }}>
                 <Link href="/sign_in">
                   <a>Sign out</a>
                 </Link>
