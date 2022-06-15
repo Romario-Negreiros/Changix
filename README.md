@@ -80,7 +80,7 @@ giving a user-friendly interface, making things as simple as possible.
     >> Fork this repository
 
     >> Clone the repository to your local system
-    git clone https://github.com/athityakumar/colorls
+    git clone https://github.com/Romario-Negreiros/Changix.git
 
     >> Create a new branch containing your feature
     git checkout -b feature
