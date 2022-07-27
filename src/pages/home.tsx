@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const firestoreFunctions = useFirestore
   const { getDocs } = firestoreFunctions()
 
-  const results = await getDocs(['announced'], ['ownerId', '!=', ''], 25)
+  const results = await getDocs(['announced'], ['ownerId', '!=', ''], 15)
   const initialItems: Item[] = []
   results.forEach(result => {
     if (result.exists()) {
@@ -70,7 +70,7 @@ const Home: NextPage<Props> = ({ initialItems }) => {
       if (error) setError('')
       if (!isScrollQuery) {
         setIsLoaded(false)
-        setLimitOfItems(1)
+        setLimitOfItems(15)
         if (hasFoundAllResults) setHasFoundAllResults(false)
       }
       if (value.search) {
